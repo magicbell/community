@@ -10,7 +10,7 @@
   "paths": {
     "/notifications": {
       "post": {
-        "operationId": "create-notification",
+        "operationId": "notifications-create",
         "tags": ["Notification Send API", "real-time"],
         "summary": "Create notifications",
         "description": "Send a notification to one or multiple users. You can identify users by their email address or by an external_id.\n\nYou don't have to import your users into MagicBell. If a user does not exist we'll create it automatically.\n\nYou can send user attributes like first_name, custom_attributes, and more when creating a notification.\n\nThe new notification will be shown in the notification inbox of each recipient in real-time. It will also be delivered to each recipient through all channels your have enabled for your MagicBell project.",
@@ -114,7 +114,7 @@
         "tags": ["User Notifications APIs"],
         "summary": "Fetch notifications",
         "description": "Fetch a user's notifications. Notifications are sorted in descendent order by the sent_at timestamp.",
-        "operationId": "get-notifications",
+        "operationId": "notifications-list",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
           {
@@ -253,7 +253,7 @@
       "get": {
         "tags": ["User Notifications APIs"],
         "summary": "Fetch a notification",
-        "operationId": "get-notification",
+        "operationId": "notifications-retrieve",
         "description": "Fetch a user's notification by its ID.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -323,7 +323,7 @@
         "tags": ["User Notifications APIs", "real-time"],
         "summary": "Delete a notification",
         "description": "Delete a user's notification by its ID. The notification is deleted immediately and removed from the user's notification inbox in real-time.",
-        "operationId": "delete-notification",
+        "operationId": "notifications-delete",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
           {
@@ -356,7 +356,7 @@
     },
     "/notifications/{notification_id}/read": {
       "post": {
-        "operationId": "mark-user-notification-as-read",
+        "operationId": "notifications-mark-as-read",
         "tags": ["User Notification Actions APIs", "real-time"],
         "summary": "Mark a notification as read",
         "description": "Mark a user notification as read. The notification will be automatically marked as seen, too.\n\nThe new state will be reflected in the user's notification inbox in real-time.",
@@ -394,7 +394,7 @@
     },
     "/notifications/{notification_id}/unread": {
       "post": {
-        "operationId": "mark-user-notification-as-unread",
+        "operationId": "notifications-mark-as-unread",
         "tags": ["User Notification Actions APIs", "real-time"],
         "summary": "Mark a notification as unread",
         "description": "Mark a user notification as unread. The new state will be reflected in the user's notification inbox in real-time.",
@@ -432,7 +432,7 @@
     },
     "/notifications/{notification_id}/archive": {
       "post": {
-        "operationId": "archive-notification",
+        "operationId": "notifications-archive",
         "tags": ["User Notification Actions APIs", "real-time"],
         "summary": "Archive a notification",
         "description": "Mark a user notification as archived.",
@@ -468,7 +468,7 @@
         }
       },
       "delete": {
-        "operationId": "unarchive-notification",
+        "operationId": "notifications-unarchive",
         "tags": ["User Notification Actions APIs", "real-time"],
         "summary": "Unarchive a notification",
         "description": "Mark a user notification as unarchived.",
@@ -506,7 +506,7 @@
     },
     "/notifications/read": {
       "post": {
-        "operationId": "mark-a-users-notification-as-read",
+        "operationId": "notifications-mark-all-read",
         "tags": ["User Notification Actions APIs", "real-time"],
         "summary": "Mark all notifications as read",
         "description": "Mark all notifications of a user as read. When you call this endpoint, the notification inboxes of this user will be updated in real-time.",
@@ -534,7 +534,7 @@
     },
     "/notifications/seen": {
       "post": {
-        "operationId": "mark-a-users-notification-as-seen",
+        "operationId": "notifications-mark-all-seen",
         "tags": ["User Notification Actions APIs", "real-time"],
         "summary": "Mark all notifications as seen",
         "description": "Mark all notifications of a user as seen. When you call this endpoint, the notification inboxes of this user will be updated in real-time.",
@@ -562,7 +562,7 @@
     },
     "/users": {
       "post": {
-        "operationId": "create-user",
+        "operationId": "users-create",
         "tags": ["Users APIs"],
         "summary": "Create a user",
         "description": "Create a user. Please note that you must provide the user's email or the external id so MagicBell can uniquely identify the user.\n\nThe external id, if provided, must be unique to the user.",
@@ -633,7 +633,7 @@
     },
     "/users/{user_id}": {
       "put": {
-        "operationId": "update-user",
+        "operationId": "users-update",
         "tags": ["Users APIs"],
         "summary": "Update a user",
         "description": "Update a user's data. If you identify users by their email addresses, you need to update the MagicBell data, so this user can still access their notifications.",
@@ -712,7 +712,7 @@
         }
       },
       "delete": {
-        "operationId": "delete-user",
+        "operationId": "users-delete",
         "tags": ["Users APIs"],
         "summary": "Delete a user",
         "description": "Immediately deletes a user.",
@@ -748,7 +748,7 @@
     },
     "/users/email:{user_email}": {
       "put": {
-        "operationId": "update-user-by-email",
+        "operationId": "users-update-by-email",
         "tags": ["Users APIs"],
         "summary": "Update a user by email",
         "description": "Update a user's data. If you identify users by their email addresses, you need to update the MagicBell data, so this user can still access their notifications.",
@@ -837,7 +837,7 @@
         }
       },
       "delete": {
-        "operationId": "delete-user-by-email",
+        "operationId": "users-delete-by-email",
         "tags": ["Users APIs"],
         "summary": "Delete a user by email",
         "description": "Immediately deletes a user.",
@@ -872,7 +872,7 @@
     },
     "/users/external_id:{external_id}": {
       "put": {
-        "operationId": "update-user-by-external-id",
+        "operationId": "users-update-by-external-id",
         "tags": ["Users APIs"],
         "summary": "Update a user by external ID",
         "description": "Update a user's data. If you identify users by their email addresses, you need to update the MagicBell data, so this user can still access their notifications.",
@@ -961,7 +961,7 @@
         }
       },
       "delete": {
-        "operationId": "delete-user-by-external-id",
+        "operationId": "users-delete-by-external-id",
         "tags": ["Users APIs"],
         "summary": "Delete a user by external ID",
         "description": "Immediately deletes a user.",
@@ -1009,7 +1009,7 @@
         "tags": ["User notification preference APIs"],
         "summary": "Fetch user notification preferences",
         "description": "Fetch a user's notification preferences. If a user does not disable a channel explicitly, we would send notifications through that channel as long as your project is enabled.",
-        "operationId": "get-preferences",
+        "operationId": "notification-preferences-retrieve",
         "responses": {
           "200": {
             "description": "OK",
@@ -1085,7 +1085,7 @@
         "tags": ["User notification preference APIs"],
         "summary": "Update user notification preferences",
         "description": "Update a user's notification preferences. These preferences will be applied only to channels you enabled for your project.",
-        "operationId": "put-preferences",
+        "operationId": "notification-preferences-update",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1168,7 +1168,7 @@
       "post": {
         "tags": ["Subscription to push notifications APIs"],
         "summary": "Register a device",
-        "operationId": "create-push-subscription",
+        "operationId": "push-subscriptions-create",
         "description": "Register a device token for push notifications.\n\nPlease keep in mind that mobile push notifications will be delivered to this device only if the channel is configured and enabled.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -1248,7 +1248,7 @@
         "tags": ["Subscription to push notifications APIs"],
         "summary": "Unregister a device",
         "description": "Remove the subscription of a device to mobile push notifications. The device will be discarded immediately.",
-        "operationId": "delete-push-subscription",
+        "operationId": "push-subscriptions-delete",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
           {
@@ -1287,7 +1287,7 @@
     },
     "/subscriptions": {
       "get": {
-        "operationId": "list-topic-subscription",
+        "operationId": "subscriptions-list",
         "tags": ["Subscription API"],
         "summary": "List subscriptions",
         "description": "List a user's subscriptions status for all topics and categories.",
@@ -1367,7 +1367,7 @@
         }
       },
       "post": {
-        "operationId": "create-topic-subscription",
+        "operationId": "subscriptions-create",
         "tags": ["Subscription API"],
         "summary": "Create a topic subscription",
         "description": "Set a user's subscription status to subscribed for a particular topic (and optional categories). If the user previously unsubscribed, the user will be resubscribed.",
@@ -1454,7 +1454,7 @@
     },
     "/subscriptions/{topic}/unsubscribe": {
       "post": {
-        "operationId": "unsubscribe-topic-subscription",
+        "operationId": "subscriptions-unsubscribe",
         "tags": ["Subscription API"],
         "summary": "Unsubscribe from a topic",
         "description": "Unusbscribe a user from a particular topic (and optional categories).",
@@ -1551,7 +1551,7 @@
     },
     "/subscriptions/{topic}": {
       "get": {
-        "operationId": "show-topic-subscription",
+        "operationId": "subscriptions-retrieve",
         "tags": ["Subscription API"],
         "summary": "Show a topic subscription",
         "description": "Show a user's subscription status for a particular topic and categories.",
@@ -1616,7 +1616,7 @@
         }
       },
       "delete": {
-        "operationId": "delete-topic-subscription",
+        "operationId": "subscriptions-delete",
         "tags": ["Subscription API"],
         "summary": "Delete topic subscription(s)",
         "parameters": [
