@@ -6,7 +6,8 @@ This repository contains [OpenAPI specifications][openapi] for the MagicBell RES
 
 Files can be found in the [/spec](/spec) directory:
 
-- `openapi.json,yaml:` OpenAPI 3.0 spec matching the public MagicBell API.
+- `openapi.json:` OpenAPI 3.0 spec matching the public MagicBell API.
+- `postman.json` Postman 2.1.0 spec matching the public MagicBell API.
 
 ## Vendor Extensions
 
@@ -27,6 +28,10 @@ The specification ships with a few vendor-specific fields to help represent info
   }
 }
 ```
+
+## Postman
+
+You'll find out postman collection at [/spec/postman.json](/spec/postman.json). To use it, import it in postman by clicking `import` in postman, and then dragging our json file onto that dialog.
 
 ## Development
 

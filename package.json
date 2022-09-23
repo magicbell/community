@@ -8,7 +8,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "validate": "tsx scripts/validate.ts",
+    "validate": "tsx scripts/validate-openapi.ts",
+    "postman:generate": "tsx scripts/generate-postman.ts",
     "prepare": "husky install",
     "lint": "eslint --fix ."
   },
@@ -34,6 +35,7 @@
     "json5": "^2.2.1",
     "jsonpath": "^1.1.1",
     "lint-staged": "^13.0.3",
+    "openapi-to-postmanv2": "^4.2.0",
     "openapi-types": "^12.0.2",
     "prettier": "^2.7.1",
     "recast": "^0.21.2",
