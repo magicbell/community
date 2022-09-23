@@ -2,6 +2,8 @@
 import 'zx/globals';
 
 import swagger from '@apidevtools/swagger-parser';
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 import jsonpath from 'jsonpath';
 import { OpenAPIV3 } from 'openapi-types';
 
@@ -12,6 +14,9 @@ if (showHelp) {
   console.log('Usage: yarn validate [--spec <spec-file>]');
   process.exit(0);
 }
+
+const ajv = new Ajv();
+addFormats(ajv);
 
 const spec = await fs.readJSON(path.resolve(specFile));
 
@@ -54,8 +59,29 @@ function assertOperationIdsMatchConvention() {
   }
 }
 
+function assertExamplesMatchSchema() {
+  for (const [_path, pathObj] of Object.entries(api.paths)) {
+    for (const [_method, operation] of Object.entries<OpenAPIV3.OperationObject>(pathObj)) {
+      if (!operation.requestBody || !('content' in operation.requestBody)) continue;
+
+      const content = operation.requestBody.content?.['application/json'];
+      if (!content.example) continue;
+
+      const valid = ajv.validate(content.schema, content.example);
+      if (!valid) {
+        errors.push(
+          `Example for ${operation.operationId} does not match schema, ${ajv.errors
+            ?.map((e) => `field '${e.keyword}' ${e.message} (path ${e.instancePath})`)
+            .join(', ')}`,
+        );
+      }
+    }
+  }
+}
+
 assertUniqueOperationIds();
 assertOperationIdsMatchConvention();
+assertExamplesMatchSchema();
 
 for (const error of errors) {
   console.log(chalk.redBright(error));

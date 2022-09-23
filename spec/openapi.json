@@ -1795,8 +1795,8 @@
             "description": "The slug of the channel."
           },
           "enabled": {
-            "type": "string",
-            "description": "The slug of the channel."
+            "type": "boolean",
+            "description": "The current state of the channel."
           }
         }
       },
@@ -1866,8 +1866,7 @@
           },
           "custom_attributes": {
             "type": "object",
-            "description": "Any customer attributes that you'd like to associate with the user. You may want to use these attributes later when writing email templates, for example.",
-            "maxLength": 6000
+            "description": "Any customer attributes that you'd like to associate with the user. You may want to use these attributes later when writing email templates, for example."
           },
           "phone_numbers": {
             "type": "array",
@@ -1917,7 +1916,7 @@
           },
           "action_url": {
             "type": "string",
-            "format": "url",
+            "format": "uri",
             "description": "A URL to redirect the user to when they click the notification in their notification inbox.",
             "nullable": true,
             "maxLength": 2048
@@ -1933,8 +1932,7 @@
             "type": "object",
             "description": "Set of key-value pairs that you can attach to a notification, 6KB at maximum. It accepts objects for the value of a key.\n\nYou can use it to share data between channels or to render a custom UI.",
             "nullable": true,
-            "additionalProperties": true,
-            "maxLength": 6000
+            "additionalProperties": true
           },
           "category": {
             "type": "string",
@@ -2215,7 +2213,7 @@
           },
           "action_url": {
             "type": "string",
-            "format": "url",
+            "format": "uri",
             "description": "A URL to redirect the user to when they click the notification in their notification inbox."
           },
           "custom_attributes": {
