@@ -253,7 +253,7 @@
       "get": {
         "tags": ["User Notifications APIs"],
         "summary": "Fetch a notification",
-        "operationId": "notifications-retrieve",
+        "operationId": "notifications-get",
         "description": "Fetch a user's notification by its ID.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -1009,7 +1009,7 @@
         "tags": ["User notification preference APIs"],
         "summary": "Fetch user notification preferences",
         "description": "Fetch a user's notification preferences. If a user does not disable a channel explicitly, we would send notifications through that channel as long as your project is enabled.",
-        "operationId": "notification-preferences-retrieve",
+        "operationId": "notification-preferences-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -1551,7 +1551,7 @@
     },
     "/subscriptions/{topic}": {
       "get": {
-        "operationId": "subscriptions-retrieve",
+        "operationId": "subscriptions-get",
         "tags": ["Subscription API"],
         "summary": "Show a topic subscription",
         "description": "Show a user's subscription status for a particular topic and categories.",
