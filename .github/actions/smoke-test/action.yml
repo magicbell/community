@@ -1,0 +1,5 @@
+name: 'Smoke Test'
+description: 'Run a bunch of automated tests against the API'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

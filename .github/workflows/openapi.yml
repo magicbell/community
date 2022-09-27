@@ -4,10 +4,17 @@ on: [push]
 jobs:
   validate:
     runs-on: ubuntu-latest
-
+    environment: staging
     steps:
       - uses: actions/checkout@v3
       - name: setup node
         uses: ./.github/actions/setup-node
       - name: validate openapi spec
         run: yarn validate
+      - name: smoke test
+        uses: ./.github/actions/smoke-test
+        env:
+          SERVER_URL: '${{ secrets.MAGICBELL_SERVER_URL }}'
+          USER_EMAIL: '${{ secrets.MAGICBELL_USER_EMAIL }}'
+          API_KEY: '${{ secrets.MAGICBELL_API_KEY }}'
+          API_SECRET: '${{ secrets.MAGICBELL_API_SECRET }}'
