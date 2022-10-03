@@ -72705,7 +72705,7 @@ __nccwpck_require__.d(build_namespaceObject, {
   "ProcessOutput": () => (ProcessOutput),
   "ProcessPromise": () => (ProcessPromise),
   "YAML": () => (yaml_dist),
-  "argv": () => (argv),
+  "argv": () => (goods_argv),
   "cd": () => (cd),
   "chalk": () => (source),
   "echo": () => (echo),
@@ -76564,10 +76564,10 @@ var yaml_dist = __nccwpck_require__(32999);
 
 
 
-let argv = node_modules_minimist(process.argv.slice(2));
+let goods_argv = node_modules_minimist(process.argv.slice(2));
 function updateArgv(params) {
-    argv = minimist(process.argv.slice(params.sliceAt));
-    global.argv = argv;
+    goods_argv = minimist(process.argv.slice(params.sliceAt));
+    global.argv = goods_argv;
 }
 const globby = Object.assign(function globby(patterns, options) {
     return globby_globby(patterns, options);
@@ -78188,7 +78188,7 @@ const smoke_test_ajv = new (ajv_default())({ allErrors: true, strict: false });
 dist_default()(smoke_test_ajv);
 const URL_PARAM_VALUES = {
     notification_id: [],
-    topic: ['acme-inc.orders.1234'],
+    topic: Array.from({ length: 10 }).map(() => 'acme-inc.orders.1234'),
     device_token: ['x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV'],
 };
 function getOperations(document) {
@@ -78271,7 +78271,10 @@ function getUrl(path) {
         const source = URL_PARAM_VALUES[param];
         if (!source)
             throw new Error(`No reserved values for param ${param}`);
-        return [param, source.shift()];
+        const value = source.shift();
+        if (!value)
+            throw new Error(`No more values for param ${param}`);
+        return [param, value];
     }));
     return path.replace(/{([\s\S]+?)}/g, ($0, $1) => encodeURIComponent(params[$1] || ''));
 }
@@ -78279,6 +78282,8 @@ function createTests(operations) {
     const suites = new Listr([], { exitOnError: false });
     for (const operation of operations) {
         const { method, path, operationId } = operation;
+        if (argv.op && argv.op !== operationId)
+            continue;
         const list = new Listr([], {
             exitOnError: false,
         });
@@ -78331,11 +78336,18 @@ function createTests(operations) {
 async function smoke_test_main() {
     const spec = (await swagger_parser_lib_default().dereference('spec/openapi.json'));
     const operations = getOperations(spec);
+    const newNotificationIds = await Promise.all(Array.from({ length: 5 }).map(() => request(operations.find((x) => x.operationId === 'notifications-create'), 'authenticated').then((x) => x.data)));
+    if (newNotificationIds.length === 0) {
+        throw new Error('Failed to create new notifications during test setup');
+    }
     URL_PARAM_VALUES.notification_id = await request(operations.find((x) => x.operationId === 'notifications-list'), 'authenticated').then((x) => x.data.notifications.map((x) => x.id));
     if (URL_PARAM_VALUES.notification_id.length === 0) {
-        throw new Error('ran out of notifications to act upon');
+        throw new Error("Ran out of notifications to act upon. Some have been created, but aren't ready yet. Please rerun this test in a sec");
     }
-    createTests(operations)
+    // We need a combination of new notifications and existing ones, as the existing ones might not be enough - as some
+    // tests are destructive, and new notifications take a while to be created.
+    URL_PARAM_VALUES.notification_id = Array.from(new Set([...URL_PARAM_VALUES.notification_id, ...newNotificationIds]));
+    await createTests(operations)
         .run()
         .catch(() => {
         process.exit(0);

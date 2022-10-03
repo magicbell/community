@@ -18,7 +18,7 @@ addFormats(ajv);
 
 const URL_PARAM_VALUES = {
   notification_id: [],
-  topic: ['acme-inc.orders.1234'],
+  topic: Array.from({ length: 10 }).map(() => 'acme-inc.orders.1234'),
   device_token: ['x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV'],
 };
 
@@ -124,7 +124,9 @@ function getUrl(path: string) {
     urlParams.map((param) => {
       const source = URL_PARAM_VALUES[param];
       if (!source) throw new Error(`No reserved values for param ${param}`);
-      return [param, source.shift()];
+      const value = source.shift();
+      if (!value) throw new Error(`No more values for param ${param}`);
+      return [param, value];
     }),
   );
 
@@ -136,6 +138,7 @@ function createTests(operations) {
 
   for (const operation of operations) {
     const { method, path, operationId } = operation;
+    if (argv.op && argv.op !== operationId) continue;
 
     const list = new Listr([], {
       exitOnError: false,
@@ -204,16 +207,35 @@ async function main() {
   const spec = (await swagger.dereference('spec/openapi.json')) as OpenAPIV3.Document;
   const operations = getOperations(spec);
 
+  const newNotificationIds = await Promise.all(
+    Array.from({ length: 5 }).map(() =>
+      request(
+        operations.find((x) => x.operationId === 'notifications-create'),
+        'authenticated',
+      ).then((x) => x.data),
+    ),
+  );
+
+  if (newNotificationIds.length === 0) {
+    throw new Error('Failed to create new notifications during test setup');
+  }
+
   URL_PARAM_VALUES.notification_id = await request(
     operations.find((x) => x.operationId === 'notifications-list'),
     'authenticated',
   ).then((x) => x.data.notifications.map((x) => x.id));
 
   if (URL_PARAM_VALUES.notification_id.length === 0) {
-    throw new Error('ran out of notifications to act upon');
+    throw new Error(
+      "Ran out of notifications to act upon. Some have been created, but aren't ready yet. Please rerun this test in a sec",
+    );
   }
 
-  createTests(operations)
+  // We need a combination of new notifications and existing ones, as the existing ones might not be enough - as some
+  // tests are destructive, and new notifications take a while to be created.
+  URL_PARAM_VALUES.notification_id = Array.from(new Set([...URL_PARAM_VALUES.notification_id, ...newNotificationIds]));
+
+  await createTests(operations)
     .run()
     .catch(() => {
       process.exit(0);
