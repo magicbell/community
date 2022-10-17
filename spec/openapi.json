@@ -1669,6 +1669,151 @@
           }
         }
       }
+    },
+    "/imports": {
+      "post": {
+        "operationId": "imports-create",
+        "tags": ["Imports API"],
+        "summary": "Create a user import",
+        "description": "Send a request to start the import of a list of users. The import allows the creation of slack connections as well.",
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WrappedUsersImport" },
+              "example": {
+                "import": {
+                  "users": [
+                    {
+                      "external_id": "ugiabqertz",
+                      "email": "johndoe@example.com",
+                      "first_name": "John",
+                      "last_name": "Doe",
+                      "custom_attributes": {
+                        "age": 32,
+                        "country": "Spain"
+                      },
+                      "channels": {
+                        "slack": {
+                          "providers": [
+                            {
+                              "oauth": {
+                                "channel_id": "U039446XF3Y",
+                                "app": {
+                                  "app_id": "your_slack_app_id",
+                                  "team_id": "workspace_id_from_slack"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "notification": {
+                      "$ref": "#/components/schemas/CreatedUsersImport"
+                    }
+                  }
+                },
+                "example": {
+                  "import": {
+                    "id": "67e839ab-98a8-48cf-9bcb-12d2b906c9c3",
+                    "status": "processing",
+                    "summary": {},
+                    "errors": []
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "description": "List of validation errors"
+                    }
+                  }
+                },
+                "example": {
+                  "errors": [
+                    {
+                      "message": "Param 'import.users' must be filled"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/imports/{import_id}": {
+      "get": {
+        "operationId": "imports-get",
+        "tags": ["Imports API"],
+        "summary": "Get a user import",
+        "description": "Send a request to query the status & errors of the import.",
+        "parameters": [
+          { "$ref": "#/components/parameters/import_id" },
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrappedImport"
+                },
+                "example": {
+                  "import": {
+                    "id": "67e839ab-98a8-48cf-9bcb-12d2b906c9c3",
+                    "status": "processing",
+                    "summary": {},
+                    "errors": []
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The import is not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "message": "An import with the the given id doesn't exist"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1711,6 +1856,13 @@
         "schema": { "type": "string" },
         "required": true,
         "description": "The Bearer JWT token of your MagicBell user."
+      },
+      "import_id": {
+        "in": "path",
+        "name": "import_id",
+        "schema": { "type": "string" },
+        "required": true,
+        "description": "ID of the import.\nThe ID of the import is returned when the import is created."
       },
       "notification_id": {
         "in": "path",
@@ -2310,6 +2462,71 @@
           }
         },
         "required": ["device_token", "platform"]
+      },
+      "WrappedImport": {
+        "type": "object",
+        "properties": {
+          "import": {
+            "$ref": "#/components/schemas/CreatedUsersImport"
+          }
+        }
+      },
+      "WrappedUsersImport": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        }
+      },
+      "CreatedUsersImport": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the import. This is used to query the status of the import."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["processing"]
+          },
+          "summary": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "The total number of records processed."
+              },
+              "failures": {
+                "type": "integer",
+                "description": "The total number of failed records."
+              }
+            }
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "description": "The identifying email of the user. If the user's external_id is used as identifier, the email key will not be present"
+                },
+                "external_id": {
+                  "type": "string",
+                  "description": "The identifying external_id of the user. If the user's email is used as identifier, the external_id key will not be present"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "The error message indicating why importing the user failed"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
