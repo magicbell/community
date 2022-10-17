@@ -13,7 +13,7 @@
         "operationId": "notifications-create",
         "tags": ["Notification Send API", "real-time"],
         "summary": "Create notifications",
-        "description": "Send a notification to one or multiple users. You can identify users by their email address or by an external_id.\n\nYou don't have to import your users into MagicBell. If a user does not exist we'll create it automatically.\n\nYou can send user attributes like first_name, custom_attributes, and more when creating a notification.\n\nThe new notification will be shown in the notification inbox of each recipient in real-time. It will also be delivered to each recipient through all channels your have enabled for your MagicBell project.",
+        "description": "Send a notification to one or multiple users. You can identify users by their email address or by an external_id.\n\nYou don't have to import your users into MagicBell. If a user does not exist we'll create it automatically.\n\nYou can send user attributes like first_name, custom_attributes, and more when creating a notification.\n\nThe new notification will be shown in the notification inbox of each recipient in real-time. It will also be delivered to each recipient through all channels you have enabled for your MagicBell project.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
           { "$ref": "#/components/parameters/x_magicbell_api_secret_header" }
