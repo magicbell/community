@@ -1767,6 +1767,53 @@
           }
         }
       }
+    },
+    "/imports/{import_id}": {
+      "get": {
+        "operationId": "imports-get",
+        "tags": ["Imports API"],
+        "summary": "Get a user import",
+        "description": "Send a request to query the status & errors of the import.",
+        "parameters": [
+          { "$ref": "#/components/parameters/import_id" },
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrappedImport"
+                },
+                "example": {
+                  "import": {
+                    "id": "67e839ab-98a8-48cf-9bcb-12d2b906c9c3",
+                    "status": "processing",
+                    "summary": {},
+                    "errors": []
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The import is not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "message": "An import with the the given id doesn't exist"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1809,6 +1856,13 @@
         "schema": { "type": "string" },
         "required": true,
         "description": "The Bearer JWT token of your MagicBell user."
+      },
+      "import_id": {
+        "in": "path",
+        "name": "import_id",
+        "schema": { "type": "string" },
+        "required": true,
+        "description": "ID of the import.\nThe ID of the import is returned when the import is created."
       },
       "notification_id": {
         "in": "path",
@@ -2408,6 +2462,14 @@
           }
         },
         "required": ["device_token", "platform"]
+      },
+      "WrappedImport": {
+        "type": "object",
+        "properties": {
+          "import": {
+            "$ref": "#/components/schemas/CreatedUsersImport"
+          }
+        }
       },
       "WrappedUsersImport": {
         "type": "object",
