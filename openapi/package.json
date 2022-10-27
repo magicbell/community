@@ -12,7 +12,6 @@
     "postman:generate": "tsx scripts/generate-postman.ts",
     "smoke-test": "tsx scripts/smoke-test.ts",
     "build:smoke-test": "ncc build scripts/smoke-test.ts -o .github/actions/smoke-test/dist",
-    "prepare": "husky install",
     "lint": "eslint --fix ."
   },
   "lint-staged": {
