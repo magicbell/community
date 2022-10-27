@@ -204,7 +204,7 @@ function createTests(operations) {
 }
 
 async function main() {
-  const spec = (await swagger.dereference('spec/openapi.json')) as OpenAPIV3.Document;
+  const spec = (await swagger.dereference('openapi/spec/openapi.json')) as OpenAPIV3.Document;
   const operations = getOperations(spec);
 
   const newNotificationIds = await Promise.all(
