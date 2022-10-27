@@ -1,6 +1,10 @@
 name: openapi
 on: [push]
 
+defaults:
+  run:
+    working-directory: openapi
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -14,7 +18,7 @@ jobs:
       - name: smoke test
         uses: ./.github/actions/smoke-test
         env:
-          SERVER_URL: '${{ secrets.MAGICBELL_SERVER_URL }}'
-          USER_EMAIL: '${{ secrets.MAGICBELL_USER_EMAIL }}'
-          API_KEY: '${{ secrets.MAGICBELL_API_KEY }}'
-          API_SECRET: '${{ secrets.MAGICBELL_API_SECRET }}'
+          SERVER_URL: "${{ secrets.MAGICBELL_SERVER_URL }}"
+          USER_EMAIL: "${{ secrets.MAGICBELL_USER_EMAIL }}"
+          API_KEY: "${{ secrets.MAGICBELL_API_KEY }}"
+          API_SECRET: "${{ secrets.MAGICBELL_API_SECRET }}"
