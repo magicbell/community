@@ -2,7 +2,7 @@
   "name": "openapi",
   "version": "1.0.0",
   "description": "An OpenAPI specification for the MagicBell API",
-  "repository": "git@github.com:magicbell-io/openapi.git",
+  "repository": "git@github.com:magicbell-io/public.git",
   "author": "Stephan Meijer <stephan.meijer@gmail.com>",
   "license": "MIT",
   "private": true,

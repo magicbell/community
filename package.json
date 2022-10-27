@@ -1,0 +1,29 @@
+{
+  "name": "public",
+  "version": "1.0.0",
+  "description": "A monorepo for MagicBell's public assets and discourse",
+  "repository": "git@github.com:magicbell-io/public.git",
+  "author": "Stephan Meijer <stephan.meijer@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "tsx scripts/validate-openapi.ts",
+    "postman:generate": "tsx scripts/generate-postman.ts",
+    "smoke-test": "tsx scripts/smoke-test.ts",
+    "build:smoke-test": "ncc build scripts/smoke-test.ts -o .github/actions/smoke-test/dist",
+    "prepare": "husky install",
+    "lint": "eslint --fix ."
+  },
+  "lint-staged": {
+    "*.{md,json,yml,yaml}": [
+      "prettier -w"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "husky": "^8.0.1"
+  }
+}
