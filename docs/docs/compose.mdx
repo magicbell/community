@@ -1,0 +1,46 @@
+---
+title: Compose Notification UI
+subtitle: How to send a notification from the MagicBell dashboard
+---
+
+Sometimes you may not want to send notifications programmatically. Perhaps
+there's a product update to make all users aware of, or a promotion to send to a
+group of users. You can even test notifications by sending one-offs to yourself.
+
+The Compose feature is the way to send notifications using our application's
+interface instead of the API.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/ComposeButton.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+## Recipients
+
+Enter the email addresses or external IDs of the desired recipients, select from [segments](/docs/segments), or pick `everyone` to notify your entire userbase. Make sure your users are synced with MagicBell by using our [create users API](/docs/rest-api/reference#create-user) to add a user each time one is added to your system.
+
+## Notification title
+
+The title will be the subject of emails, and the first, bolded line for in-app
+notifications.
+
+## Content
+
+Content is the body of your notification - the message you want to pass onto
+users. Content will be the body of an email and below the notification title for
+in-app notifications.
+
+The content input supports HTML. You can insert header, image, and other HTML
+tags. You can generate HTML for rich notifications [on this page](https://html-online.com/editor/).
+
+## Category
+
+Optionally, pick a category for this notification. [Categories](/docs/categories) control the delivery channels that the notification will be delivered on.
+
+The content input supports HTML. You can insert header, image, and other HTML
+tags.
+
+## Action URL
+
+Clicking the notification directs the user to the action URL.

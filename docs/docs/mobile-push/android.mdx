@@ -1,0 +1,28 @@
+---
+title: Android Notifications
+subtitle: Setup Android mobile push notifications on MagicBell
+---
+
+## Deliver mobile push notifications with Firebase Cloud Messaging
+
+To configure mobile push notifications using Firebase Cloud Messaging for your MagicBell project, follow these steps:
+
+1. Login to your [Firebase account](https://console.firebase.google.com), select your project, and click the ⚙ icon to open **Project settings**. If you don't have a project yet, create one.
+2. Click the **Cloud Messaging** tab, then copy the _Server key Token_ under **Cloud Messaging API (Legacy)** — you may have to first enable this API.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/fcm_server_key.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+3. In MagicBell, go to the **Channels** page in your Dashboard, then click the ⚙ icon next to **Mobile Push** to access Mobile Push Channel Settings.
+4. Under **FCM**, enable the provider and complete the required fields (server key token (API key) from step 2 above and your app bundle ID), then click **Save**.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/mobile-push_fcm.gif"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+<Note>FCM can also be used to configure mobile push notifications for iOS apps.</Note>

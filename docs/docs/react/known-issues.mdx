@@ -1,0 +1,32 @@
+---
+title: Known Issues
+subtitle: If we have a known issue, we'll document it here until a permanent fix is available.
+---
+
+## Server Side Rendering
+
+Frameworks like Next.js and Remix, render your react components on the server before shipping them to the client. Our
+React SDK does not offer support for server-side rendering at this moment. The work around is to prevent rendering on
+the server, and only render MagicBell on the client.
+
+```jsx
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+export default function Index() {
+  return (
+    <nav>
+      {typeof window !== 'undefined' ? (
+        <MagicBell apiKey="..." userEmail="...">
+          {(props) => <FloatingNotificationInbox {...props} />}
+        </MagicBell>
+      ) : null}
+    </nav>
+  );
+}
+```
+
+## Support
+
+Please check our [GitHub Issue Tracker](https://github.com/magicbell-io/magicbell-react/issues) or
+[Slack Community](https://join.slack.com/t/magicbell-community/shared_invite/zt-trh6yi84-~jtPqNikvC1m3My_p0WUqw) if you're experiencing
+issues that are not listed on this page.

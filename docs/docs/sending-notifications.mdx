@@ -1,0 +1,222 @@
+---
+title: Sending Notifications
+subtitle: Learn how to send notifications using our API
+---
+
+MagicBell allows you to send a notification to one user or many - up to 1000 users in a single request - using the [create notification API endpoint](/docs/rest-api/reference#operation/create-notification). The way you send notifications to a user depends on how you [identify users](/docs/choosing-an-identifier) in your app. MagicBell accepts emails and external IDs (strings) as unique identifiers for users.
+
+We encourage you to run examples in your terminal as you read this guide. You can install curl by running:
+
+```shell hideHeader
+brew install curl
+```
+
+You can explore all available API endpoints [here](/docs/rest-api/reference).
+
+<Note>
+  Be sure to replace <pre style={{ display: 'inline' }}>MAGICBELL_API_KEY</pre> and{' '}
+  <pre style={{ display: 'inline' }}>MAGICBELL_API_SECRET</pre> with your actual API key
+  and API secret before running the following examples.
+</Note>
+
+## Identify users by their email address
+
+If you identify a user by their email address, you need to set the email addresses you want to notify in the payload you send to our API.
+
+For example, to send a notification to Mary and Richard, whose emails are mary@example.com and richard@example.com, respectively, you can do this:
+
+<Tabs>
+
+```curl title=cURL hideHeader noTopBorderRadius
+curl https://api.magicbell.com/notifications \
+  --request POST \
+  --header 'X-MAGICBELL-API-KEY: MAGICBELL_API_KEY' \
+  --header 'X-MAGICBELL-API-SECRET: MAGICBELL_API_SECRET' \
+  --data '{
+    "notification": {
+        "title": "Task assigned to you: Upgrade to Startup plan",
+        "content": "Hello, can you upgrade us to the Startup plan. Thank you.",
+        "category": "billing",
+        "action_url": "https://magicbell.com/pricing",
+        "recipients": [
+          { "email": "mary@example.com" },
+          { "email": "richard@example.com" }
+        ]
+    }
+  }'
+```
+
+```ruby title=RUBY hideHeader noTopBorderRadius
+require 'httparty'
+
+headers = {
+  "X-MAGICBELL-API-KEY": "MAGICBELL_API_KEY",
+  "X-MAGICBELL-API-SECRET": "MAGICBELL_API_SECRET",
+}
+
+body = {
+  notification: {
+    title: "Task assigned to you: Upgrade to Startup plan",
+    content: "Hello, can you upgrade us to the Startup plan. Thank you.",
+    category: "billing",
+    action_url: "https://magicbell.com/pricing",
+    recipients: [
+      { email: "mary@example.com" },
+      { email: "richard@example.com" }
+    ]
+  }
+}
+
+response = HTTParty.post("https://api.magicbell.com", { body: body.to_json, headers: headers })
+```
+
+```python title=PYTHON hideHeader noTopBorderRadius
+import requests
+
+headers = {
+    'X-MAGICBELL-API-SECRET': 'MAGICBELL_API_KEY',
+    'X-MAGICBELL-API-KEY': 'MAGICBELL_API_SECRET',
+}
+
+data = {
+    "notification": {
+        "title": "Task assigned to you: Upgrade to Startup plan",
+        "content": "Hello, can you upgrade us to the Startup plan. Thank you.",
+        "category": "billing",
+        "action_url": "https://magicbell.com/pricing",
+        "recipients": [
+            { "email": "mary@example.com"},
+            { "email": "richard@example.com"}
+        ]
+    }
+}
+
+response = requests.post('https://api.magicbell.com/notifications', headers=headers, json=data)
+```
+
+```javascript title=JAVASCRIPT hideHeader noTopBorderRadius
+import axios from 'axios';
+
+const headers = {
+  'X-MAGICBELL-API-SECRET': 'MAGICBELL_API_KEY',
+  'X-MAGICBELL-API-KEY': 'MAGICBELL_API_SECRET',
+};
+
+const data = {
+  notification: {
+    title: 'Task assigned to you: Upgrade to Startup plan',
+    content: 'Hello, can you upgrade us to the Startup plan. Thank you.',
+    category: 'billing',
+    action_url: 'https://magicbell.com/pricing',
+    recipients: [{ email: 'mary@example.com' }, { email: 'richard@example.com' }],
+  },
+};
+
+axios.post('https://api.magicbell.com/notifications', data, { headers });
+```
+
+</Tabs>
+
+Notice that each recipient has the `email` key set.
+
+## Identify users by an ID
+
+But what if you don't identify users by email in your app? MagicBell allows you to use the same ID you have in your app to send MagicBell notifications.
+
+For example, to send a notification to Mary and Richard, whose IDs are "u001" and "u002", respectively, you can do this:
+
+<Tabs>
+
+```curl title=cURL hideHeader noTopBorderRadius
+curl https://api.magicbell.com/notifications \
+  --request POST \
+  --header 'X-MAGICBELL-API-KEY: MAGICBELL_API_KEY' \
+  --header 'X-MAGICBELL-API-SECRET: MAGICBELL_API_SECRET' \
+  --data '{
+    "notification": {
+        "title": "Task assigned to you: Upgrade to Startup plan",
+        "content": "Hello, can you upgrade us to the Startup plan. Thank you.",
+        "category": "new_message",
+        "action_url": "https://magicbell.com/pricing",
+        "recipients": [
+          { "external_id": "u001" },
+          { "external_id": "u002" },
+       ]
+    }
+  }'
+```
+
+```ruby title=RUBY hideHeader noTopBorderRadius
+require 'httparty'
+
+headers = {
+  "X-MAGICBELL-API-KEY": "MAGICBELL_API_KEY",
+  "X-MAGICBELL-API-SECRET": "MAGICBELL_API_SECRET",
+}
+
+body = {
+  notification: {
+    title: "Task assigned to you: Upgrade to Startup plan",
+    content: "Hello, can you upgrade us to the Startup plan. Thank you.",
+    category: "billing",
+    action_url: "https://magicbell.com/pricing",
+    recipients: [
+      { external_id: "u001" },
+      { external_id: "u002" }
+    ]
+  }
+}
+
+response = HTTParty.post("https://api.magicbell.com", { body: body.to_json, headers: headers })
+```
+
+```python title=PYTHON hideHeader noTopBorderRadius
+import requests
+
+headers = {
+    'X-MAGICBELL-API-SECRET': 'MAGICBELL_API_KEY',
+    'X-MAGICBELL-API-KEY': 'MAGICBELL_API_SECRET',
+}
+
+data = {
+    "notification": {
+        "title": "Task assigned to you: Upgrade to Startup plan",
+        "content": "Hello, can you upgrade us to the Startup plan. Thank you.",
+        "category": "billing",
+        "action_url": "https://magicbell.com/pricing",
+        "recipients": [
+            { "external_id": "u001"},
+            { "external_id": "u002"}
+        ]
+    }
+}
+
+response = requests.post('https://api.magicbell.com/notifications', headers=headers, json=data)
+```
+
+```javascript title=JAVASCRIPT hideHeader noTopBorderRadius
+import axios from 'axios';
+
+const headers = {
+  'X-MAGICBELL-API-SECRET': 'MAGICBELL_API_KEY',
+  'X-MAGICBELL-API-KEY': 'MAGICBELL_API_SECRET',
+};
+
+const data = {
+  notification: {
+    title: 'Task assigned to you: Upgrade to Startup plan',
+    content: 'Hello, can you upgrade us to the Startup plan. Thank you.',
+    category: 'billing',
+    action_url: 'https://magicbell.com/pricing',
+    recipients: [{ external_id: 'u001' }, { external_id: 'u002' }],
+  },
+};
+
+axios.post('https://api.magicbell.com/notifications', data, { headers });
+```
+
+</Tabs>
+
+Notice that each recipient has the `external_id` key set.
+
+<Note>If you use an integer to identify users, remember to cast it to a string.</Note>

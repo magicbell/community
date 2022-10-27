@@ -1,0 +1,81 @@
+---
+title: Rest API Overview
+subtitle: Learn how to use the MagicBell REST API
+---
+
+This section describes the resources that make up the official MagicBell REST
+API. Use it to send notifications to your users and retrieve notifications
+previously sent to a user, change their state, delete them, etc.
+
+All API access is over HTTPS, and accessed from https://api.magicbell.com. It
+utilizes standard HTTP response codes and returns JSON responses.
+
+The MagicBell REST API is described in an OpenAPI 3.0 document. Visit
+[MagicBell's Postman workspace](https://www.postman.com/magicbell-api/workspace/magicbell)
+to download it.
+
+## Client errors
+
+The MagicBell REST API utilizes [HTTP response codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
+to indicate the success or failure of an API request. A `2xx` response code
+indicates success, and a `4xx` response code means that the API request is
+incorrect (like when a required parameter is missing or a resource, like a user,
+could not be found). A `5xx` response code indicates an error in MagicBell's
+servers. These are rare, and we always act quickly to solve them.
+
+When the API responds with a `4xx` response code, the response body includes an
+array that contains all the errors that have happened. For example:
+
+```json
+{
+  "errors": [
+    {
+      "code": "api_secret_not_provided",
+      "message": "API Secret not provided"
+    }
+  ]
+}
+```
+
+As shown above, some errors also have a `code` that briefly describes the error
+that has happened. These are the possible error codes:
+
+- `api_key_not_provided`
+- `incorrect_api_key`
+- `api_secret_not_provided`
+- `api_secret_is_incorrect`
+- `forbidden`
+- `neither_user_hmac_nor_api_secret_provided`
+- `user_email_not_provided`
+
+You can handle these errors and take necessary action, like displaying an
+appropriate error message to the users or reporting the event to your error
+tracker. For example:
+
+```js title=Node
+const axios = require('axios');
+
+const headers = {
+  'X-MAGICBELL-API-SECRET': 'MAGICBELL_API_SECRET',
+  'X-MAGICBELL-API-KEY': 'MAGICBELL_API_KEY',
+};
+
+const data = {
+  notification: {
+    title: "We're processing your order",
+  },
+};
+
+axios.post('https://api.magicbell.com/notifications', data, headers).catch((error) => {
+  const { response } = error;
+  ErrorTracker.notify(response.data, response.status);
+});
+```
+
+## Timestamps
+
+All timestamps returned by the REST API are in seconds since the Unix epoch.
+
+## Rate limiting
+
+The REST API imposes a limit of 200 requests per second by project. If the limit is exceeded, you will get an HTTP 429 Too Many Requests response.

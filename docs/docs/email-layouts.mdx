@@ -1,0 +1,25 @@
+---
+title: Email Layouts
+---
+
+<Note className="text-darkPurple bg-lightPurple bg-opacity-5 border-none text-lg">
+This feature is in beta. We'd love your feedback — please <a href="mailto:hello@magicbell.com">get in touch</a> and let us know how it can be improved.
+
+If you're curious what our team is working on, see our <a href="https://roadmap.magicbell.community/">roadmap</a> and follow us on <a href="https://twitter.com/magicbell_io">Twitter</a>!
+</Note>
+
+Email Layouts are a great way to decouple the rendering of a notification from the data that powers it. Email Layouts are global and apply to all notifications sent through the email channel.
+
+## How to compose email layouts
+
+Please visit the Channels tab in the dashboard, then select Email Layout. Here, copy/paste the HTML of your current email template. Use the merge tag `{{ template.content }}` as a placeholder for the content. The content will default to `{{ notification.content }}` for uncategorized notifications and categories without configured templates.
+
+This layout will wrap around all notifications sent to the email channel.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/email-layout.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+At this time, one email layout can be configured per project.

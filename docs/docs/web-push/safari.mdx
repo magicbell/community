@@ -1,0 +1,28 @@
+---
+title: Safari Notifications
+subtitle: Setup Safari web push notifications on MagicBell
+---
+
+To deliver push notifications from your web app you need to register a new web push identifier and create a key for it in the Apple Push Notification service (APNs). MagicBell will use P12 tokens to authenticate requests made to the APNs.
+
+1. Login to your [Apple developer account](https://developer.apple.com/account) and click on **Certificates, IDs & Profiles**.
+1. Open the Identifiers page and click on the plus icon to register a new identifier. Select **Website push IDs** and press **Continue**.
+1. Fill in the form, press **Continue** and then **Register**.
+1. Open Certificates and click the plus icon. Choose **Website Push ID Certificate**, and press **Continue**.
+1. In the next screen select a Website Push ID for this certificate. Now you have to upload a certificate — follow the instructions on that page if you don't know how to generate one.
+1. Now, download the generated certificate and open it in the Keychain app. Right click on it and select the export option from the context menu. Export the certificate in p12 format.
+
+## Deliver web push notifications in Safari
+
+To configure Safari web push notifications for your MagicBell project, follow these steps:
+
+1. From the **Channels** page in your Dashboard, click the ⚙ icon next to **Web Push** to access Web Push Channel Settings.
+1. Under **Safari APNs**, enable the provider and complete the required fields, then click **Save**.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/web-push_safari-apns.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+MagicBell requires the p12 cert and p12 pass. Website Name (Website Push ID) and URL format string are optional.

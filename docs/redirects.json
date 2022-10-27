@@ -1,0 +1,62 @@
+[
+  {
+    "source": "/api-reference",
+    "destination": "/rest-api/reference",
+    "permanent": true
+  },
+  {
+    "source": "/idempotent-requests",
+    "destination": "/rest-api/idempotent-requests",
+    "permanent": true
+  },
+  {
+    "source": "/browser-js",
+    "destination": "/react/identifying-users",
+    "permanent": true
+  },
+  {
+    "source": "/reference",
+    "destination": "/rest-api/reference",
+    "permanent": true
+  },
+  {
+    "source": "/core-concepts",
+    "destination": "/glossary",
+    "permanent": true
+  },
+  {
+    "source": "/enabling-email-delivery",
+    "destination": "/email",
+    "permanent": true
+  },
+  {
+    "source": "/announcements",
+    "destination": "/compose",
+    "permanent": true
+  },
+  {
+    "source": "/getting-started-with-magicbell",
+    "destination": "/adding-magicbell-to-your-product",
+    "permanent": true
+  },
+  {
+    "source": "/segmented-send",
+    "destination": "/segments",
+    "permanent": true
+  },
+  {
+    "source": "/smart-notifications",
+    "destination": "/smart-delivery",
+    "permanent": true
+  },
+  {
+    "source": "/email/3rd-party-email-providers",
+    "destination": "/email",
+    "permanent": true
+  },
+  {
+    "source": "/turn-on-hmac-authentication",
+    "destination": "/hmac-authentication",
+    "permanent": true
+  }
+]

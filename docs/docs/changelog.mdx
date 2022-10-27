@@ -1,0 +1,617 @@
+---
+title: Changelog
+subtitle: The latest releases and improvements to MagicBell
+---
+
+<Note>
+  Follow us on <a href="https://twitter.com/magicbell_io">Twitter</a> to get product
+  updates and tweets from the team.
+</Note>
+
+## Aug 5, 2022
+
+### Inbox Theming
+
+We've extended the theme-ability of the Inbox, and released an improved [default theme](https://playground.magicbell.com/react-theme-light). The default theme is light, friendly, and modern.
+
+In addition, we've shipped two additional themes:
+
+- [flat](https://playground.magicbell.com/react-theme-flat)
+- [classic](https://playground.magicbell.com/react-theme-classic)
+
+Another small but useful change: we capitalize header title instead of tranforming it to all caps!
+
+![](/docs/uploads/themes.png)
+
+### Inbox Layout & Behavior
+
+There are also some other changes:
+
+- Menus now open on click instead of hover, so no more flip-flops as you browse your notifications.
+- An icon button for "Mark all Read"
+- The preferences icon (gear icon) is now in the Inbox header.
+
+Please use the MagicBell Playground for a fast comparison between [v9](https://playground.magicbell.com/react-version-9) and the new [v10 (classic theme)](https://playground.magicbell.com/react-theme-classic)
+
+### Updated React SDK
+
+These changes are powered by the updates to our React SDK, and they are available starting v10.0.0.
+
+In particular, the theme config has several additions and improvements. Please read the [changelog of magicbell-react](https://github.com/magicbell-io/magicbell-react/releases/tag/v10.0.0) for a full list of changes.
+
+## July 11, 2022
+
+### Topic Subscriptions
+
+There are times when you'd like to send notifications to users that would like to receive them, rather than to everybody. Users can now [subscribe](/docs/topics#subscriptions) to and unsubscribe from specific topics.
+
+### Other Updates
+
+- We've revamped the workspace invitation experience. Now, when signing up, new users will be prompted to join their colleague's existing workspaces in addition to being able to create their own.
+- The [create notification API endpoint](/docs/rest-api/reference#create-notification) now accepts `nil`/`null` values for optional parameters such as `content`, `topic`, and `action_url`.
+
+## June 27, 2022
+
+### Hello, SSO
+
+[Enterprise](https://www.magicbell.com/pricing) customers can now sign into their MagicBell workspaces using SSO, starting with support for Okta. Want an SSO provider that we don't currently support? [Let us know](https://roadmap.magicbell.community/b/feature-requests/) and we'll consider adding it.
+
+### Other Updates
+
+- You can now send user attributes in the recipient hash when [creating notifications](/docs/rest-api/reference#create-notification), removing the need to make separate API calls to create or update your users.
+- We've added support for Amazon SES as an email channel provider. Check out our [configuration guide](/docs/email/amazon-ses) to get started.
+
+## June 13, 2022
+
+### Configure Channel Integrations in the Dashboard
+
+MagicBell supports powerful integrations with third-party providers to deliver notifications to your users through the platforms of your choice. You can now enable and configure providers for Email, Web and Mobile Push, and SMS channels directly from your Dashboard without reaching out to our support team. Check out our configuration guides for step-by-step instructions:
+
+- [Mailgun](/docs/email/mailgun)
+- [Ping Email Provider](/docs/email/ping)
+- [Postmark](/docs/email/postmark)
+- [SendGrid](/docs/email/sendgrid)
+- [Web Push](/docs/web-push)
+- [iOS Mobile Push](/docs/mobile-push/ios)
+- [Android Mobile Push](/docs/mobile-push/android)
+- [Twilio](/docs/sms/twilio)
+
+### Projects API
+
+Our new [Projects API](/docs/rest-api/reference#create-project) enables you to manage your MagicBell projects programmatically. The API consumes your MagicBell user's JWT token for authentication and your workspace ID — get in touch with us, and we'll provide them for you.
+
+This feature is available to [Enterprise](https://www.magicbell.com/pricing) customers.
+
+### Other Updates
+
+- The number of monthly active users (MAU) for the last 30 days is now shown on the workspace billing page, allowing you to keep track of your usage.
+- Version `9.1.1` of our React package fixes an issue with infinite scroll in the Notification Inbox.
+- Fixed various issues in our React packages related to synchronization issues when using multiple stores.
+- Our React packages now provide better events about the state change of the real-time connection.
+- Matches in the [create notifications API](/docs/rest-api/reference#create-notification) now support spaces and case-insensitive search.
+
+## May 23, 2022
+
+### Segments
+
+Expanding on the ability to [define segments of users](/docs/segments#how-to-create-segments-using-the-api) when creating a notification using the API, we've added the ability to create [pre-defined segments](/docs/segments) — dynamic groups of users — for use when composing notifications in the Dashboard.
+
+<div
+  class="wistia_responsive_padding"
+  style={{ padding: '56.25% 0 0 0', position: 'relative' }}
+>
+  <div
+    class="wistia_responsive_wrapper"
+    style={{ height: '100%', left: '0', position: 'absolute', top: '0', width: '100%' }}
+  >
+    <iframe
+      src="https://fast.wistia.net/embed/iframe/vrxh2ikcm5?videoFoam=true"
+      title="Introducing Segments Video"
+      allow="autoplay; fullscreen"
+      allowtransparency="true"
+      frameborder="0"
+      scrolling="no"
+      class="wistia_embed"
+      name="wistia_embed"
+      msallowfullscreen
+      width="100%"
+      height="100%"
+    ></iframe>
+  </div>
+</div>
+<script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
+
+### Other Updates
+
+- Users can now revoke workspace membership invitations from the Dashboard.
+
+## May 9, 2022
+
+### Templates
+
+Templates are a powerful way to decouple the rendering of a notification from the data that powers it. Read more about [getting started with Templates](/docs/templates).
+
+### Analytics
+
+Push workspaces, projects, users, members, and notifications directly from MagicBell to your data warehouse for analysis, removing the need to go through the cumbersome steps of setting up ETL! We currently support PostgreSQL, Snowflake, Redshift, BigQuery, and Databricks.
+
+This feature is available to [Enterprise](https://www.magicbell.com/pricing) customers.
+
+## April 25, 2022
+
+### Projects and Workspaces
+
+- Workspaces! It's now possible to switch between projects and workspaces through the refined project menu in the sidebar. Clicking "create project" creates a project in the currently active workspace.
+
+### Other Updates
+
+- Added support for `mutable-content`, `interruption-level`, `relevance-score` &
+  `target-content-id` to the available iOS notification overrides.
+- Fixed edge case where enabling push notifications did not work when a project had `HMAC authentication` enabled.
+- Fixed an issue where enabling web push notifications would respond with `Forbidden`.
+- BCC email notifications are now deprecated.
+- Fixed an issue where the Category page wouldn't display an error when creating duplicate slugs.
+- Notification content is now limited to 4MB in size.
+
+## Mar 14, 2022
+
+### SMS Integration via Twilio
+
+Another release, another channel \o/ -
+[SMS](/docs/sms/twilio)! Before using the SMS integration in
+MagicBell, you'll need to sign up for a [Twilio account](https://www.twilio.com/). Once you've done so, you'll need to reach out to our support to set up the configuration in MagicBell before sending notifications via SMS as well.
+
+After that, the only thing that remains after that is to ensure you [add phone numbers to your MagicBell users](/docs/rest-api/reference#update-user).
+
+## Feb 25, 2022
+
+### Slack Integration
+
+We are excited to announce the latest channel - [Slack](/docs/slack)! You can [build a Slack app](/docs/slack/custom-apps) to distribute it to your customers.
+However, to kick the tires, we have built a couple of [MagicBell Slack apps](/docs/slack/magicbell-apps) that you can add to your own Slack workspace in just under a minute.
+The Slack integration can notify users via DM, and channels too!
+
+<div
+  class="wistia_responsive_padding"
+  style={{ padding: '56.25% 0 0 0', position: 'relative' }}
+>
+  <div
+    class="wistia_responsive_wrapper"
+    style={{ height: '100%', left: '0', position: 'absolute', top: '0', width: '100%' }}
+  >
+    <iframe
+      src="https://fast.wistia.net/embed/iframe/1lai5bllrt?videoFoam=true"
+      title="Slack Integration Tutorial"
+      allow="autoplay; fullscreen"
+      allowtransparency="true"
+      frameborder="0"
+      scrolling="no"
+      class="wistia_embed"
+      name="wistia_embed"
+      msallowfullscreen
+      width="100%"
+      height="100%"
+    ></iframe>
+  </div>
+</div>
+<script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
+
+### Users Page
+
+You can see a list of all your users on the users page. In the coming weeks, we'll start showing you details for users too - their push subscriptions, notification preferences, and other attributes.
+
+### Notifications Page
+
+You can see a list of all the notifications you have sent out (programatically or using Compose) on this page. Once again, the detailed view is coming up in the next couple of weeks.
+
+## Jan 21, 2022
+
+### Configure channels for smart delivery
+
+You can now setup smart delivery by visiting the Channels tab.
+We let you order channels, configure a delay, and setup delivery conditions - always deliver or deliver only if not seen.
+Please hit `Save` to persist the changes or `Discard` if you want to reset the screen.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/configure-channels.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+### Detailed analytics for notifications
+
+You can now see data on notifications seen, read, archived, or deleted alongside the number of notifications sent.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/detailed-analytics.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+## December 13, 2021
+
+### New Category input in Compose
+
+Now you can add a category to notifications when using Compose [in the dashboard](https://app.magicbell.com/). This added input also allows you to use [smart delivery](/docs/smart-delivery) for specific categories using [Compose](/docs/compose).
+
+**Compose content not sent is now saved (in the browser)**
+You can now navigate between pages, and not lose content being worked on.
+
+### MagicBell-React SDK update
+
+`magicbell-react` [now accepts a component](https://github.com/magicbell-io/magicbell-react) to use as custom notification badge.
+
+`magicbell-react` [now accepts a component](https://github.com/magicbell-io/magicbell-react) to use as custom notification preferences panel.
+
+## November 29, 2021
+
+### New Log page - now you can view and debug sent notifications!
+
+Visit the Log page in the [MagicBell dashboard](https://app.magicbell.com) to view past notifications. We've included detailed data to help debug any potential issues. We'd love to hear any feedback!
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/Log.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+### SOC2 Type I Certification
+
+[See our tweet](https://twitter.com/i/web/status/1457768044827193345) to learn more about our SOC2 Type I certification.
+
+## November 16, 2021
+
+### You can now send Announcements in the Compose UI!
+
+We are excited to announce this significant upgrade! All users will receive a notification by selecting 'Everyone' in the Recipients dropdown in Compose.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/AnnouncementCompose.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+_A quick reminder: make sure to sync your users with MagicBell. A notification will only be sent to users we have seen before - either you have notified them, or they have logged in and used MagicBell in your app. To sync users, you can use our create users API to add a user each time one is added to your system._
+
+### New GraphQL endpoint to create notifications
+
+We expanded the GraphQL endpoint so you can now [create notifications](/docs/graphql-api/overview).
+
+## November 2, 2021
+
+### Redesigned documentation
+
+We updated the design [of our documentation](/docs) to match our new site!
+
+### Expanded GraphQL endpoint
+
+The newly released [GraphQL endpoint](/docs/graphql-api/reference) can now fetch users.
+
+### Our first podcast
+
+Our team obviously thinks a lot about notifications. We also chat quite a bit interally about tech in general though. Our team has a special affinity for the reading classic fiction, the latest nonfiction, and the importance of writing. We decided to make some conversations widely available to everyone. Let us know what you think of [episode 1](https://open.spotify.com/show/57folJd7V78QZMIIqv762R)!
+
+## October 25, 2021
+
+### We launched a redesign of our homepage!
+
+[This work has been months in the making](https://magicbell.com/), so we are very excited about this launch. We'd love to hear your thoughts!
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/LinkedInWebsiteAnnouncement.jpg"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+### Ping email provider
+
+When you want complete control over email rendering and content, [Ping is a great option](/docs/email/ping). A few customers have already adopted this feature and have been very happy with the result.
+
+<div
+  class="wistia_responsive_padding"
+  style={{ padding: '56.25% 0 0 0', position: 'relative' }}
+>
+  <div
+    class="wistia_responsive_wrapper"
+    style={{ height: '100%', left: '0', position: 'absolute', top: '0', width: '100%' }}
+  >
+    <iframe
+      src="https://fast.wistia.net/embed/iframe/2heq4b04s8?videoFoam=true"
+      title="Ping Email Provider Tutorial"
+      allow="autoplay; fullscreen"
+      allowtransparency="true"
+      frameborder="0"
+      scrolling="no"
+      class="wistia_embed"
+      name="wistia_embed"
+      msallowfullscreen
+      width="100%"
+      height="100%"
+    ></iframe>
+  </div>
+</div>
+<script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
+
+## October 11, 2021
+
+### Introducing....Topics!
+
+[Topics](/docs/topics) are a way to label notifications in addition to categories. The API now
+accepts 'topic' as an attribute. Let's use GitHub as an example. An example
+category is 'comment'. Users comment on various kinds of activity - one example
+being pull requests. The topic in this example is 'pull request'. Topics are
+flexible and powerful. You can use them for different kinds of orders, posts,
+documents, interests, etc. An example is below.
+
+```json hideHeader
+{
+  "notification": {
+    "title": "Your Account Needs Some Attention",
+    "recipients": [
+      {
+        "email": "josue@magicbell.io",
+        "external_id": "00001"
+      }
+    ],
+    "topic": "thread:0002"
+  }
+}
+```
+
+### New GraphQL endpoint
+
+You can now use GraphQL to fetch notifications. It is available at
+`https://api.magicbell.com/graphql`. If you use a client like
+[Insomnia](https://insomnia.rest/) or Postman you will be able to see the schema
+documentation. An example is below.
+
+```json hideHeader
+{
+  notifications(first: 15, read: false, categories: ["uncategorized"]) {
+    totalCount
+	unreadCount
+	unseenCount
+	pageInfo {
+	  hasNextPage
+	  hasPreviousPage
+	}
+	edges {
+      node {
+        id
+		title
+        content
+        actionUrl
+        customAttributes
+        readAt
+	  }
+	}
+  }
+}
+```
+
+### Improved performance
+
+A handful of tweaks and bugs were made to increase performance.
+
+## September 27, 2021
+
+### Segmentation
+
+You can now send notifications to all users or a segment of them. Set custom attributes on your users to take full advantage of this feature. [Learn more](/docs/segments#how-to-create-segments-using-the-api).
+
+### Smart delivery
+
+It’s good practice not to send notifications to all channels at once. Now - you don’t have to!
+
+Smart delivery allows you to configure which channels the notification is sent
+to and when based on categories. You can also configure delays, and send only if
+the notification wasn’t seen on another channel.
+
+<div
+  class="wistia_responsive_padding"
+  style={{ padding: '56.25% 0 0 0', position: 'relative' }}
+>
+  <div
+    class="wistia_responsive_wrapper"
+    style={{ height: '100%', left: '0', position: 'absolute', top: '0', width: '100%' }}
+  >
+    <iframe
+      src="https://fast.wistia.net/embed/iframe/duz1yc5s6y?videoFoam=true"
+      title="Smart Delivery Tutorial"
+      allow="autoplay; fullscreen"
+      allowtransparency="true"
+      frameborder="0"
+      scrolling="no"
+      class="wistia_embed"
+      name="wistia_embed"
+      msallowfullscreen
+      width="100%"
+      height="100%"
+    ></iframe>
+  </div>
+</div>
+<script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
+
+### MagicBell notifications now on MagicBell!
+
+You may have noticed a MagicBell notification icon on the sidebar now. Our team
+will be sending relevant notifications going forward.
+
+## September 6, 2021
+
+### React headless v2
+
+This new version introduces an immutable API, we stand on the shoulders of two
+giants: Immer and Zustand. We made the repository public under a new license.
+Read the
+[full changelog](https://github.com/magicbell-io/react-headless/releases) for
+further information.
+
+### SendGrid and Mailgun templates
+
+You can now send email notifications using your own SendGrid and Mailgun
+templates. [Learn more](/docs/email/sendgrid).
+
+```json hideHeader
+{
+  "notification": {
+    "title": "Your order with Example 923270",
+    "overrides": {
+      "providers": {
+        "sendgrid": {
+          "template_id": "[sengrid_template_id]"
+        }
+      }
+    }
+  }
+}
+```
+
+## August 23, 2021
+
+### Enhanced integration with delivery providers
+
+MagicBell can now relay extra attributes to your providers when calling their
+API. All you need to do is to send us a provider-specific override when using
+the create notification API. This is helpful when you want to leverage extra
+functionality offered by your providers.
+
+```json hideHeader
+{
+  "notification": {
+    "title": "Your order with Example 923270",
+    "overrides": {
+      "providers": {
+        "ios": {
+          "badge": 2
+        }
+      }
+    }
+  }
+}
+```
+
+## August 16, 2021
+
+### Sidebar redesign
+
+Our team is thrilled to introduce the [updated sidebar](https://app.magicbell.com/projects)!
+
+### React SDK v8
+
+We got rid of MobX, fixed an assortment of bugs, and changed to a proprietary
+license.
+
+## July 2021
+
+### **Filter notifications by category**
+
+We've added support for filtering notifications by category. You might find it
+useful to add tabs to your notification inbox. Please check the [fetch notifications API](/docs/rest-api/reference#get-notifications)
+endpoint documentation for details. Support is coming soon for the React SDK.
+
+### **#2 on Hacker News**
+
+Mila - MagicBell’s designer - wrote a [great blog post](https://www.magicbell.com/blog/artist-to-ui-designer-career-transition) on
+her journey from being an artist to a UI designer. The post skyrocketed all the
+way to #2 on Hacker News, generating 110+ comments.
+
+### **Edit and delete projects**
+
+After a project is created, it can be edited and / or deleted.
+
+### **Idempotent requests**
+
+Our API now supports [idempotency](/docs/idempotent-requests)
+for safely retrying requests without accidentally performing the same operation
+twice. This is useful when an API call is disrupted in transit and you do not
+receive a response.
+
+### **New Slack community**
+
+We created [a Slack workspace](https://join.slack.com/t/magicbell-community/shared_invite/zt-trh6yi84-~jtPqNikvC1m3My_p0WUqw)
+for the MagicBell community. We hope it’s a helpful resource to answer questions,
+give product updates, and more!
+
+## June 2021
+
+### **Compose button**
+
+We rolled out a compose button in our dashboard that lets you send notifications
+to your users. You can add multiple email addresses or external IDs.
+
+### **Postmark integration**
+
+We've added support for delivering email notifications via Postmark. If you'd
+like it setup, please contact us. We'll roll out integrations to our dashboard
+in the coming months, but we are happy to set them up for you in the meantime.
+We also support Mailgun and SendGrid.
+
+### **Multiple mobile-push apps per project**
+
+We've added support for multiple push apps per project. This is useful if you
+use different app bundles for test/canary/production. Please see the [updated documentation](/docs/api-reference#operation/create-push-subscription) or
+write us if you have any questions.
+
+## May 2021
+
+### **Improved developer documentation site**
+
+Our [new documentation site](/docs) went live last week. It's
+more readable, features better navigation, and allows us to add live examples
+(coming soon!). We'd love to hear your feedback on the structure, and the
+content.
+
+### **Goodbye Mobx. Welcome smaller React package!**
+
+This month we also worked to remove MobX from our react packages. You can try
+out the beta version of the [@magicbell/magicbell-react package](https://www.npmjs.com/package/@magicbell/magicbell-react/v/8.0.0-beta.8).
+The bundle size is 10% smaller, and customers who use MobX can use MagicBell
+without any possible conflicts. Furthermore, this release is fully backward
+compatible as the API of our components hasn’t changed one bit!
+
+We'll be updating our embeddable, and shipping this improvement to the stable
+branch soon.
+
+### **Push subscriptions API**
+
+We have documented the [push subscription API](/docs/rest-api/reference#tag/Subscription-to-push-notifications-APIs) that
+you can use for both web & mobile push subscriptions. If you'd like to offer
+mobile push notifications, please contact us, and we'll help you get started.
+
+## April 2021
+
+### **User deletion API**
+
+We added an [API endpoint](/docs/rest-api/reference#delete_users-user-id) for cases when a user deletes their account and you want to remove them from MagicBell for GDPR compliance.
+
+### **Web push notifications for Safari**
+
+We launched web-push last month but it took us a little longer to get to web-push for Safari. Apple has their own (harder) way of doing everything so it took us a while to get this out the door. We'll write up a blog about this soon.
+
+**New status page and Twitter**
+
+We launched a [better status page](https://status.magicbell.com/) (that lets you subscribe for email updates) as well as a dedicated [Twitter account](https://twitter.com/MagicBellStatus) for status updates. We'd still love for you to follow our regular [Twitter account](https://twitter.com/MagicBell_io) too, of-course! :)
+
+**iOS push beta**
+
+iOS push is now in beta and we'd love for you to try it out. Please reply to
+this email if you are interested. Android beta coming up next!
+
+## March 2021
+
+### **Notification preferences beta**
+
+The [6.27.0-beta.1 version of the React package](https://www.npmjs.com/package/@magicbell/magicbell-react/v/6.27.0-beta.1) offers a notification preferences UI. We'd love for you to try it and give us some feedback. If you add categories to your [POST /create-notification API](/docs/rest-api/reference#create-notification) calls, we'll render the preferences matrix for your users - automagically. You can see it in action on our [Chrome extension for Hacker news](https://chrome.google.com/webstore/detail/hacker-news-notifications/bbkfblhdgiddlkfkipjdhhfoephonoba?hl=en&authuser=0) (which is pretty awesome, by the way).
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/notification_preferences_beta.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+This is how the UI looks when we use categories *direct_comment, reply,* and *new_message,* and enable the web push channel for our project.
+
+### **React headless SDK**
+
+A lot of you asked for better React Native support. We just released a [React headless library](https://www.npmjs.com/package/@magicbell/react-headless) that contains a set of React headless components and hooks to build a notification inbox in React or React Native. Our official React package has more bells and whistles, but this new library is an excellent option for the more adventurous (or creative) ones! Here is an [example in React Native](https://codesandbox.io/s/ancient-frost-roln4). A full blown React Native library will soon follow.

@@ -1,0 +1,186 @@
+/* Fonts */
+@font-face {
+  font-family: 'HarmoniaSans';
+  font-weight: 400;
+  src: url('../fonts/HarmoniaSansRegular.woff2') format('woff2'),
+    url('../fonts/HarmoniaSansRegular.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HarmoniaSans';
+  font-weight: 600;
+  src: url('../fonts/HarmoniaSansSemiBold.woff2') format('woff2'),
+    url('../fonts/HarmoniaSansSemiBold.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ITCSouvenir';
+  font-weight: 600;
+  src: url('../fonts/ITCSouvenirDemi.woff2') format('woff2'),
+    url('../fonts/ITCSouvenirDemi.woff') format('woff');
+  font-display: swap;
+}
+
+/* Tailwind */
+@tailwind base;
+@layer base {
+  body,
+  html {
+    font-size: 16px;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    @apply text-4xl mb-14 font-bold;
+    @apply text-darkPurple;
+
+    font-family: ITCSouvenir, Times, 'Times New Roman', serif;
+  }
+
+  h2 {
+    @apply text-2xl mt-14 mb-4 font-bold;
+  }
+
+  h3 {
+    @apply text-xl font-bold;
+  }
+
+  .mdx-content h2 {
+    @apply border-b border-gray-200 pb-3;
+  }
+
+  .mdx-content h3 {
+    @apply mt-10 mb-4;
+  }
+
+  p {
+    @apply mb-3;
+  }
+
+  a {
+    @apply text-pink;
+  }
+
+  a:hover {
+    @apply text-lightPurple;
+    text-decoration: none !important;
+  }
+
+  main ul {
+    @apply list-disc;
+    @apply list-inside;
+    @apply space-y-2;
+    @apply mt-6;
+    @apply mb-4;
+    @apply ml-4;
+  }
+
+  main ul > li > p:first-child {
+    @apply inline-block;
+  }
+
+  main ol {
+    @apply list-decimal;
+    @apply list-inside;
+    @apply space-y-2;
+    @apply mb-4;
+    @apply ml-4;
+  }
+
+  main ol > li > p:first-child {
+    @apply inline-block;
+  }
+
+  pre,
+  code {
+    font-size: 1rem;
+    font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+  }
+
+  table {
+    @apply min-w-full divide-y divide-gray-200 table-fixed;
+  }
+
+  table thead th {
+    @apply px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider;
+  }
+
+  table tbody tr:nth-child(even) {
+    @apply bg-gray-50;
+  }
+
+  table tbody td {
+    @apply p-4 text-sm;
+  }
+}
+
+@tailwind components;
+@tailwind utilities;
+@tailwind screens;
+
+@layer utilities {
+  .masonry {
+    column-count: 1;
+    column-gap: 1rem;
+  }
+
+  .break-inside {
+    break-inside: avoid;
+  }
+
+  @screen md {
+    .masonry {
+      column-count: 2;
+    }
+  }
+}
+
+/* Header */
+header {
+  font-size: 20px;
+}
+
+a.mobile-signup-button {
+  background-color: #230f65 !important;
+  color: white !important;
+  @apply rounded-md py-3 px-6 font-bold;
+}
+
+/* Footer */
+footer a {
+  @apply text-darkPurple;
+}
+
+footer a:hover {
+  @apply text-pink;
+}
+
+/* Search (algolia) */
+/* This class was set manually at https://www.algolia.com/apps/HV8SJIDSDY/explorer/configuration/docs/highlighting */
+em.highlight {
+  @apply bg-blue-100 text-gray-900 px-1 rounded-sm;
+  font-style: inherit;
+}
+
+img.full-mobile {
+  margin: 2rem 0;
+}
+
+h2,
+h3 {
+  scroll-margin-top: 6.5rem;
+}
+
+h2 a,
+h3 a {
+  color: inherit;
+}
+
+h2 a:hover,
+h3 a:hover {
+  @apply text-lightPurple;
+}

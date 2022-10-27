@@ -1,0 +1,64 @@
+---
+title: MagicBell & Slack's Block Kit
+subtitle: How to fully utiilize Slack's Block Kit to send beautiful notifications
+---
+
+This page provides an example of hose to make use of Slack's Block Kit. We use the [Stacking multiple blocks example](https://api.slack.com/block-kit/building#stack_of_blocks) as part of our code example. To make use of Slack's Block Kit you need to specify the blocks as part of the provider overrides in the notification body. Here is an example body to be sent to the `/notifications` endpoint:
+
+```JSON
+{
+  "notification": {
+    "recipients": [
+      {
+        "email": "joe@example.com"
+      }
+    ],
+    "title": "New PTO Request",
+    "content": "Fred has requested PTO from Aug 10 - Aug 13",
+    "overrides": {
+      "providers": {
+        "slack": {
+          "blocks": [
+            {
+              "type": "header",
+              "text": {
+                "type": "plain_text",
+                "text": "New request"
+              }
+            },
+            {
+              "type": "section",
+              "fields": [
+                {
+                  "type": "mrkdwn",
+                  "text": "*Type:*\nPaid Time Off"
+                },
+                {
+                  "type": "mrkdwn",
+                  "text": "*Created by:*\n<example.com|Fred Enriquez>"
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "fields": [
+                {
+                  "type": "mrkdwn",
+                  "text": "*When:*\nAug 10 - Aug 13"
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "text": {
+                "type": "mrkdwn",
+                "text": "<https://example.com|View request>"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```

@@ -1,0 +1,220 @@
+---
+title: Adding MagicBell to Your Product
+subtitle: Learn how to add the MagicBell UI libraries to your product
+---
+
+Let's move on to the fun part and add MagicBell to your product. The notification inbox is very flexible and offers dozens of customizations.
+It will look something like this:
+
+<NotificationInboxPreview
+  code={`<MagicBell
+  apiKey="MAGICBELL_API_KEY"
+  userEmail="dan@example.com"
+  defaultIsOpen
+>
+  {(props) => (
+    <FloatingNotificationInbox
+      height={350}
+      placement="bottom-start"
+      closeOnClickOutside={false}
+      {...props}
+    />
+  )}
+</MagicBell>`}
+/>
+
+<br />
+
+Depending on your tech stack, there are several choices. Let's explore them.
+
+<Note>
+  Be sure to replace <pre style={{ display: 'inline' }}>MAGICBELL_API_KEY</pre> with your
+  project's API key. Keep your API secret safe, do not initialize the notification inbox
+  with it.
+</Note>
+
+## JavaScript (browser)
+
+If you are building a web-based product, you can grab the latest MagicBell build for the browser via CDN. You will get a fully working notification inbox out of the box.
+
+For example, to display the notifications for Mary, whose email was mary@example.com, copy and paste the following code before the closing body tag:
+
+<Tabs>
+
+```html title=HTML hideHeader noTopBorderRadius
+<div id="notifications-inbox" />
+<script type="text/javascript">
+  // prettier-ignore
+  (function(i,s,o,g,r,a,m) {i['MagicBellObject'] = r;(i[r] =i[r] ||function() {
+  (i[r].q = i[r].q || []).push(arguments);}),(i[r].l = 1 * new Date());(a = s.createElement(o)), (
+  m = s.getElementsByTagName(o)[0]);a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+  })(window,document,'script','https://unpkg.com/@magicbell/embeddable/dist/magicbell.min.js','magicbell');
+
+  var target = document.getElementById('notifications-inbox');
+  var options = {
+    apiKey: 'MAGICBELL_API_KEY',
+    userEmail: 'mary@example.com',
+    height: 500,
+  };
+
+  magicbell('render', target, options);
+</script>
+```
+
+```html title=ESM hideHeader noTopBorderRadius
+<div id="notifications-inbox" />
+<script type="module">
+  import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+  var target = document.getElementById('notifications-inbox');
+  var options = {
+    apiKey: 'MAGICBELL_API_KEY',
+    userEmail: 'mary@example.com',
+    height: 500,
+  };
+
+  renderWidget(target, options);
+</script>
+```
+
+</Tabs>
+
+Your MagicBell will be rendered in the `notifications-inbox` div. You can place it wherever you want MagicBell to appear in your app.
+
+## React
+
+You can get the same out-of-the-box experience with our [React SDK](https://www.npmjs.com/package/@magicbell/magicbell-react). However, unlike the previous approach, you can also build a custom UI using the components from our React library and your own.
+
+Start by installing our React package:
+
+```shell hideHeader
+npm install @magicbell/magicbell-react
+# Or
+yarn add @magicbell/magicbell-react
+```
+
+Then add it to your app:
+
+<Tabs>
+
+```jsx title=JAVASCRIPT hideHeader noTopBorderRadius
+import React from 'react';
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+export default function Notifications() {
+  return (
+    <MagicBell apiKey="MAGICBELL_API_KEY" userEmail="mary@example.com">
+      {(props) => <FloatingNotificationInbox height={500} {...props} />}
+    </MagicBell>
+  );
+}
+```
+
+```clojure title=CLOJURE hideHeader noTopBorderRadius
+(def React (.-default (js/require "react")))
+
+(def MagicBell (.-default (js/require "@magicbell/magicbell-react")))
+
+(do
+ (defn
+  notifications
+  []
+  (html
+   (ui/MagicBell
+    {:apiKey "MAGICBELL_API_KEY", :userEmail "mary@example.com"}
+    (fn
+     [props]
+     (ui/FloatingNotificationInbox (merge props {:height 500}))))))
+ nil)
+```
+
+</Tabs>
+
+Check our React guides to know more about how you can customize the default notification inbox or build your own. You can tailor it to your needs as much as you want to.
+
+## Vue.js
+
+While we don't offer a native Vue library, you can use the ESM build to render a MagicBell in your app easily.
+
+You can either grab it from our CDN or install the embeddable package from NPM.
+
+```shell hideHeader
+npm install @magicbell/embeddable
+# Or
+yarn add @magicbell/embeddable
+```
+
+After grabbing the library, you can import the `renderWidget` function to render the notification inbox.
+
+```html title=Vue.js
+<template>
+  <div ref="notifications">Notifications</div>
+</template>
+
+<script>
+  import { renderWidget } from '@magicbell/embeddable/dist/magicbell.esm.js';
+
+  export default {
+    name: 'Notifications',
+    mounted: function () {
+      const options = {
+        apiKey: 'MAGICBELL_API_KEY',
+        userEmail: 'mary@example.com',
+      };
+      renderWidget(this.$refs.notifications, options);
+    },
+  };
+</script>
+```
+
+If you prefer to use the CDN bundle, replace the import statement (line 6) with
+
+```javascript hideHeader
+import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+```
+
+## Angular
+
+You can also use the ESM build to render a MagicBell in your Angular app easily.
+
+You can either grab it from our CDN or install the embeddable package from NPM.
+
+```shell hideHeader
+npm install @magicbell/embeddable
+# Or
+yarn add @magicbell/embeddable
+```
+
+After grabbing the library, you can import the `renderWidget` function to render the notification inbox.
+
+```typescript title=Angular
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+})
+export class AppComponent implements AfterViewInit {
+  @ViewChild('notifications') notifications: ElementRef;
+
+  ngAfterViewInit() {
+    renderWidget(this.notifications.nativeElement, {
+      apiKey: MAGICBELL_API_KEY,
+      userEmail: 'mary@example.com',
+    });
+  }
+}
+```
+
+If you prefer to use the CDN bundle, replace the import statement (line 2) with
+
+```javascript hideHeader
+import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+```
+
+## Building a custom UI in any framework
+
+If you use any other JavaScript framework, check our [core package](https://www.npmjs.com/package/@magicbell/core), it handles the network calls and real-time updates and build your UI on top of it.
+
+We'll be adding more SDKs soon.

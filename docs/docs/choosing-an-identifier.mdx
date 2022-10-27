@@ -1,0 +1,15 @@
+---
+title: Choosing a Unique Identifier
+---
+
+MagicBell accepts emails and external IDs (strings) as unique identifiers for users, though the way you [send notifications](/docs/sending-notifications) to a user depends on how you identify users in your app.
+
+If your app allows users to update their email addresses, we recommend to use external IDs.
+
+There are a number of benefits to choosing external ID over email as an identifier:
+
+- External IDs are generally more robust, persistent, and can be linked to your app's DB records.
+- Should a user's email address change in your system, you can update it in the same request to [create notifications](/docs/rest-api/reference#create-notification), removing the need to separately [update the email address](/docs/rest-api/reference#update-user).
+- When sending both `email` and `external_id`, `email` will simply be an attribute for the user that's used to deliver email notifications.
+
+<Note>If you use an integer to identify users, remember to cast it to a string.</Note>
