@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: setup node
         uses: ./.github/actions/setup-node
+        with:
+          working-directory: openapi
       - name: validate openapi spec
         run: yarn validate
       - name: smoke test
