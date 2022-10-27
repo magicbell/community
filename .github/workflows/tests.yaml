@@ -1,6 +1,10 @@
-name: Unit Tests
+name: Unit Tests for Docs
 
 on: [push]
+
+defaults:
+  run:
+    working-directory: docs
 
 jobs:
   unit-tests:
