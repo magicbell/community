@@ -16,7 +16,7 @@ jobs:
         with:
           working-directory: openapi
       - name: validate openapi spec
-        run: yarn validate
+        run: yarn --cwd ./openapi validate
       - name: smoke test
         uses: ./.github/actions/smoke-test
         env:
