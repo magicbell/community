@@ -1,0 +1,69 @@
+---
+title: Postmark Integration
+subtitle: How to use Postmark with MagicBell
+---
+
+## Deliver email notifications with your Postmark account
+
+To configure Postmark for your MagicBell project, follow these steps:
+
+1. Sign up for [Postmark](https://account.postmarkapp.com/sign_up) and [obtain a server API token](https://postmarkapp.com/support/article/1008-what-are-the-account-and-server-api-tokens).
+1. Verify your sender signature in Postmark.
+1. From the **Channels** page in your Dashboard, click the ⚙ icon next to **Email** to access Email Channel Settings.
+1. Under **Postmark**, enable the provider and enter the API key from step 1 then click **Save**.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/email_postmark.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+<Note>
+  You can optionally configure a custom from email address (verified sender signature) and
+  name.
+</Note>
+
+Once your account is set up, MagicBell will automatically deliver email
+notifications through your Postmark account, **no additional work is needed**.
+
+Please keep in mind that MagicBell automatically injects both `notification_id`
+and `broadcast_id` in the metadata of messages sent to Postmark.
+
+## Sending emails with additional or unique content
+
+Our [create notifications endpoint](/docs/rest-api/reference#create-notification)
+allows you to customize the content sent to Postmark by setting
+[`notification.overrides`](/docs/overrides).
+
+The `notification.overrides` parameter accepts all of the body parameters of
+[Postmark's Email API](https://postmarkapp.com/developer/api/email-api).
+
+Below is an example of a tagged message with custom headers.
+
+```json
+{
+  "notification": {
+    "title": "Welcome to MagicBell",
+    "content": "The notification inbox for your product. Get started in minutes.",
+    "category": "signup",
+    "action_url": "https://developer.magicbell.com",
+    "recipients": [
+      {
+        "email": "dan@example.com"
+      }
+    ],
+    "overrides": {
+      "providers": {
+        "postmark": {
+          "Tag": "signup",
+          "Headers": {
+            "X-Original-To": "devs@example.com"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+<a href="mailto:hello@magicbell.com">Email us</a> if you wish to use Postmark templates!

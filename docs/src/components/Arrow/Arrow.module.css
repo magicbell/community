@@ -1,0 +1,54 @@
+.link {
+  @apply flex items-center gap-4 cursor-pointer;
+  width: fit-content;
+
+  &:hover,
+  &:focus-within {
+    .arrowWrapper {
+      width: 18px;
+    }
+
+    .middle {
+      stroke-dasharray: 16;
+    }
+  }
+}
+
+.arrowContainer {
+  @apply px-3 rounded-full;
+
+  background-color: #ffde00;
+  border: 2px solid #ffde00;
+  padding-top: 11px;
+  padding-bottom: 11px;
+
+  @screen md {
+    @apply px-2.5;
+
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+}
+
+.arrowWrapper {
+  @apply relative w-3 h-3.5;
+
+  transition-property: width;
+  transition-timing-function: cubic-bezier(0.25, 0, 0, 1);
+  transition-duration: 0.25s;
+}
+
+.line {
+  @apply stroke-current text-lightPurple stroke-2;
+
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+
+  &.middle {
+    stroke-dasharray: 9;
+
+    transition-property: stroke-dasharray;
+    transition-timing-function: cubic-bezier(0.25, 0, 0, 1);
+    transition-duration: 0.25s;
+  }
+}

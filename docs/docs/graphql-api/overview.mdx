@@ -1,0 +1,78 @@
+---
+title: GraphQL API Overview
+subtitle: Learn how to use the MagicBell GraphQL API
+---
+
+The MagicBell GraphQL API enables you to create precise and flexible queries,
+aggregate data, and type data. You might find it very useful for implementing
+your notification system.
+
+All API access is over HTTPS, and accessed from `https://api.magicbell.com/graphql`.
+
+You can perform introspection against the API directly or visit
+[MagicBell's Postman workspace](https://www.postman.com/magicbell-api/workspace/magicbell)
+to download the schema.
+
+## Pagination
+
+Our GraphQL API implements [Relay pagination](https://relay.dev/graphql/connections.htm),
+a cursor-based pagination model based on the connection pattern.
+
+- Pagination is done with the `after` argument
+- Slicing is done with the `first` argument
+- Cursors are opaque strings
+- A connection contains a field called `edges`, which is a list type
+- Each edge contains a field called `node`
+- A connection also contains a field called `pageInfo`, which contains the pagination data
+
+For example, this query:
+
+```graphql
+query {
+  notifications(first: 1, after: "opaqueCursor") {
+    edges {
+      cursor
+      node {
+        id
+        title
+        content
+        category
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+    }
+  }
+}
+```
+
+produces
+
+```json
+{
+  "data": {
+    "notifications": {
+      "edges": [
+        {
+          "cursor": "anotherOpaqueCursor",
+          "node": {
+            "id": "83d987a-83fd034",
+            "title": "We're processing your order",
+            "content": "<p>Thank you for your order. We'll notify you when these items are ready.</p>",
+            "category": "order_created"
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": false,
+        "hasPreviousPage": true
+      }
+    }
+  }
+}
+```
+
+## Rate limiting
+
+The GraphQL API imposes a limit of 200 requests per second per project. Requests exceeding this limit will return an HTTP 429 Too Many Requests response.

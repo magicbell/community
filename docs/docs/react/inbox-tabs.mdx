@@ -1,0 +1,161 @@
+---
+title: Inbox Tabs
+subtitle: Learn how to render multiple inbox tabs
+---
+
+You can make use of tabs if you wish to render multiple notification groups in the inbox. For example to separate new notifications from read ones, or to create a separate tab for a specific category.
+
+<NotificationInboxPreview
+  magicBellProps={{
+    stores: [
+      { id: 'default', defaultQueryParams: {} },
+      { id: 'unread', defaultQueryParams: { read: true } },
+      { id: 'billing', defaultQueryParams: { categories: ['billing'] } },
+    ],
+  }}
+  floatingNotificationInboxProps={{
+    tabs: [
+      { storeId: 'default', label: 'Latest' },
+      { storeId: 'unread', label: 'Archive' },
+      { storeId: 'billing', label: 'Billing' },
+    ],
+  }}
+  code={`<MagicBell
+  apiKey="MAGICBELL_API_KEY"
+  userEmail="dan@example.com"
+  stores={[
+    { id: 'default', defaultQueryParams: {} },
+    { id: 'unread', defaultQueryParams: { read: true } },
+    { id: 'billing', defaultQueryParams: { categories: ['billing'] } },
+  ]}
+  defaultIsOpen
+>
+  {(props) => (
+    <FloatingNotificationInbox
+      height={350}
+      tabs={[
+        { storeId: 'default', label: 'Latest' },
+        { storeId: 'unread', label: 'Archive' },
+        { storeId: 'billing', label: 'Billing' },
+      ]}
+      {...props}
+    />
+  )}
+</MagicBell>
+`}
+/>
+
+## Stores
+
+The first step to enable tabs, is to define multiple stores. Stores are used to fetch & expose notifications given specific filter criteria (query params). Criteria such as `read`, `seen`, `archived` `categories` and `topics`. Stores can be used for the tabs, but once defined, the storeId can also be provided to the `useNotifications` hook to only fetch notifications from that specific store.
+
+Stores are provided to the `MagicBell` provider.
+
+<Tabs>
+
+```jsx title=REACT hideHeader noTopBorderRadius
+import React from 'react';
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+const stores = [
+  { id: 'default', defaultQueryParams: {} },
+  { id: 'unread', defaultQueryParams: { read: true } },
+  { id: 'billing', defaultQueryParams: { categories: ['billing'] } },
+];
+
+export default function Notifications() {
+  return (
+    <MagicBell stores={stores} apiKey="…" userExternalId="…">
+      {(props) => <FloatingNotificationInbox height={500} {...props} />}
+    </MagicBell>
+  );
+}
+```
+
+```html title=HTML hideHeader noTopBorderRadius
+<script type="module">
+  import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+  const stores = [
+    { id: 'default', defaultQueryParams: {} },
+    { id: 'unread', defaultQueryParams: { read: true } },
+    { id: 'billing', defaultQueryParams: { categories: ['billing'] } },
+  ];
+
+  let targetEl = document.getElementById('notifications-inbox');
+  let options = {
+    apiKey: '…',
+    userExternalId: '…',
+    height: 500,
+    stores,
+  };
+
+  renderWidget(targetEl, options);
+</script>
+```
+
+</Tabs>
+
+See our [fetch api](/docs/rest-api/reference#fetch-notifications) for more details on the criteria / defaultQueryParams.
+
+## Tabs
+
+The final step is to define tabs. Tabs relate to the stores defined above. The tabs are rendered as a list of buttons in the inbox header. When clicked, the notifications from the matching store are shown. The tab config is provided to the Inbox component, which can be either `NotificationInbox` or `FloatingNotificationInbox`.
+
+<Tabs>
+
+```jsx title=REACT hideHeader noTopBorderRadius
+import React from 'react';
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+const stores = [
+  { id: 'default', defaultQueryParams: {} },
+  { id: 'unread', defaultQueryParams: { read: true } },
+  { id: 'billing', defaultQueryParams: { categories: ['billing'] } },
+];
+
+const tabs = [
+  { storeId: 'default', label: 'Latest' },
+  { storeId: 'unread', label: 'Archive' },
+  { storeId: 'billing', label: 'Billing' },
+];
+
+export default function Notifications() {
+  return (
+    <MagicBell stores={stores} apiKey="…" userExternalId="…">
+      {(props) => <FloatingNotificationInbox tabs={tabs} height={500} {...props} />}
+    </MagicBell>
+  );
+}
+```
+
+```html title=HTML hideHeader noTopBorderRadius
+<script type="module">
+  import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+  const stores = [
+    { id: 'default', defaultQueryParams: {} },
+    { id: 'unread', defaultQueryParams: { read: true } },
+    { id: 'billing', defaultQueryParams: { categories: ['billing'] } },
+  ];
+
+  const tabs = [
+    { storeId: 'default', label: 'Latest' },
+    { storeId: 'unread', label: 'Archive' },
+    { storeId: 'billing', label: 'Billing' },
+  ];
+
+  let targetEl = document.getElementById('notifications-inbox');
+  let options = {
+    apiKey: '…',
+    userExternalId: '…',
+    height: 500,
+    stores,
+    tabs,
+  };
+
+  renderWidget(targetEl, options);
+</script>
+```
+
+</Tabs>

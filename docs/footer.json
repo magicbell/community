@@ -1,0 +1,61 @@
+{
+  "legalPagesLinks": [
+    { "displayText": "Terms", "url": "https://magicbell.com/terms-and-conditions" },
+    { "displayText": "Privacy", "url": "https://magicbell.com/privacy-policy" },
+    { "displayText": "Cookie Policy", "url": "https://magicbell.com/cookie-policy" }
+  ],
+  "companyLinks": [
+    { "displayText": "About", "url": "https://magicbell.com/about" },
+    { "displayText": "Philosphy", "url": "https://www.magicbell.com/philosophy" },
+    { "displayText": "Careers", "url": "https://magicbell.com/careers" },
+    { "displayText": "Blog", "url": "https://magicbell.com/blog" },
+    { "displayText": "Case Studies", "url": "https://magicbell.com/customers" },
+    {
+      "displayText": "Media Kit",
+      "url": "https://magicbell.notion.site/eee069906e4146168bd8ca0c6595e4ac?v=b3f29b7b811144b09979dfb16b52065a"
+    }
+  ],
+  "productLinks": [
+    { "displayText": "Channels", "url": "/channels" },
+    {
+      "displayText": "Smart Delivery",
+      "url": "https://www.youtube.com/watch?v=P4gPQjs1bnQ"
+    },
+    { "displayText": "Segments", "url": "/segments" },
+    { "displayText": "Changelog", "url": "/changelog" },
+    {
+      "displayText": "Roadmap",
+      "url": "https://roadmap.magicbell.community/"
+    },
+    {
+      "displayText": "Service Status",
+      "url": "https://status.magicbell.com/"
+    },
+    {
+      "displayText": "Playground",
+      "url": "https://playground.magicbell.com/react"
+    }
+  ],
+  "resourcesLinks": [
+    {
+      "displayText": "Why MagicBell?",
+      "url": "https://www.magicbell.com/blog/building-a-user-notification-system"
+    },
+    { "displayText": "Notification Spec", "url": "https://magicbell.com/spec" },
+    { "displayText": "Pricing", "url": "https://magicbell.com/pricing" },
+    { "displayText": "Integrations", "url": "https://www.magicbell.com/integrations" },
+    {
+      "displayText": "Vulnerability Disclosure Program",
+      "url": "https://www.federacy.com/magicbell?tab=Intro"
+    }
+  ],
+  "learnLinks": [
+    { "displayText": "API Reference", "url": "/rest-api/reference" },
+    { "displayText": "Docs", "url": "/" },
+    { "displayText": "SDKs & API wrappers", "url": "/libraries-api-wrappers" },
+    {
+      "displayText": "Join our Slack community",
+      "url": "http://magicbell.community"
+    }
+  ]
+}

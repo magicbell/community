@@ -1,0 +1,21 @@
+---
+title: Twilio Integration
+subtitle: How to use Twilio with MagicBell for a magical SMS experience
+---
+
+## Deliver SMS notifications with your Twilio account
+
+To configure Twilio for your MagicBell project, follow these steps:
+
+1. Sign up for [Twilio](https://www.twilio.com/try-twilio) and obtain your account SID and auth token from the [Twilio Console](https://www.twilio.com/console).
+1. From the **Channels** page in your Dashboard, click the ⚙ icon next to **SMS** to access SMS Channel Settings.
+1. Under **Twilio**, enable the provider and enter the credentials from step 1.
+1. In the **From** field, enter a Twilio phone number in [E.164 format](https://www.twilio.com/docs/glossary/what-e164), then click **Save**.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/sms_twilio.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+After that, the only thing that remains after that is to ensure you [add phone numbers to your MagicBell users](/docs/rest-api/reference#update-user).

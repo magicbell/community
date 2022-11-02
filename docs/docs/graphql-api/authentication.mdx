@@ -1,0 +1,121 @@
+---
+title: GraphQL API Reference
+subtitle: Explore the MagicBell GraphQL API
+---
+
+## Authentication
+
+The MagicBell GraphQL API utilizes an HTTP header based authentication using
+your MagicBell's project's API key and secret. Your MagicBell project's API key
+and secret are available in the "Settings" section of your MagicBell Admin
+Dashboard.
+
+While the API key of your project can be distributed freely, **do not publish
+the API secret**.
+
+### Admin operations
+
+All API requests that perform an admin operation (like fetch all users or create
+notifications) require:
+
+- the `X-MAGICBELL-API-KEY` header containing your MagicBell project's API key
+- the `X-MAGIBCELL-API-SECRET` header containing your MagicBell project's API secret
+
+<Tabs>
+
+```curl title=cURL hideHeader noTopBorderRadius
+curl https://api.magicbell.com/graphql \
+  --request POST \
+  --header 'Content-Type: application/json' \
+  --header 'X-MAGICBELL-API-KEY: [MAGICBELL_API_KEY]' \
+  --header 'X-MAGICBELL-API-SECRET: [MAGICBELL_API_SECRET]' \
+  --data '{ "query": "{ users(first: 2) { totalCount } }" }'
+```
+
+```javascript title=JAVASCRIPT hideHeader noTopBorderRadius
+fetch('https://api.magicbell.com/graphql', {
+  method: 'POST',
+  headers: {
+    'X-MAGICBELL-API-KEY', '[MAGICBELL_API_KEY]',
+    'X-MAGICBELL-API-SECRET', '[MAGICBELL_API_SECRET]',
+  },
+  body: JSON.stringify({ query: "{ users(first: 2) { totalCount } }" })
+});
+```
+
+</Tabs>
+
+While the API key of your project can be distributed freely, do not publish the
+API secret.
+
+### Other operations
+
+Your users can perform some operations over their notifications (like
+fetch them). All API requests that perform these operations require:
+
+- the `X-MAGICBELL-API-KEY` header containing your MagicBell project's API key
+- the `X-MAGICBELL-USER-EXTERNAL-ID` header containing the ID of the user performing the request
+- the `X-MAGICBELL-USER-HMAC` header containing the computed hash for the user
+
+<Tabs>
+
+```curl title=cURL hideHeader noTopBorderRadius
+curl https://api.magicbell.com/graphql \
+  --request POST \
+  --header 'Content-Type: application/json' \
+  --header 'X-MAGICBELL-API-KEY: [MAGICBELL_API_KEY]' \
+  --header 'X-MAGICBELL-USER-EXTERNAL-ID: [USER_ID]'
+  --header 'X-MAGICBELL-USER-HMAC: [USER_ID_HMAC]'
+  --data '{ "query": "{ notifications(first: 2) { totalCount } }" }'
+```
+
+```javascript title=JAVASCRIPT hideHeader noTopBorderRadius
+fetch('https://api.magicbell.com/graphql', {
+  method: 'POST',
+  headers: {
+    'X-MAGICBELL-API-KEY', '[MAGICBELL_API_KEY]',
+    'X-MAGICBELL-USER-EXTERNAL-ID', '[USER_ID]',
+    'X-MAGICBELL-USER-HMAC', '[USER_ID_HMAC]',
+  },
+  body: JSON.stringify({ query: "{ notifications(first: 2) { totalCount } }" })
+});
+```
+
+</Tabs>
+
+On the other hand, if you identify users in your app by email, set the
+`X-MAGICBELL-USER-EMAIL` header instead:
+
+<Tabs>
+
+```curl title=cURL hideHeader noTopBorderRadius
+curl https://api.magicbell.com/graphql \
+  --request POST \
+  --header 'Content-Type: application/json' \
+  --header 'X-MAGICBELL-API-KEY: [MAGICBELL_API_KEY]' \
+  --header 'X-MAGICBELL-USER-EMAIL: [USER_EMAIL]'
+  --header 'X-MAGICBELL-USER-HMAC: [USER_EMAIL_HMAC]'
+  --data '{ "query": "{ notifications(first: 2) { totalCount } }" }'
+```
+
+```javascript title=JAVASCRIPT hideHeader noTopBorderRadius
+fetch('https://api.magicbell.com/graphql', {
+  method: 'POST',
+  headers: {
+    'X-MAGICBELL-API-KEY', '[MAGICBELL_API_KEY]',
+    'X-MAGICBELL-USER-EMAIL', '[USER_EMAIL]',
+    'X-MAGICBELL-USER-HMAC', '[USER_EMAIL_HMAC]',
+  },
+  body: JSON.stringify({ query: "{ notifications(first: 2) { totalCount } }" })
+});
+```
+
+</Tabs>
+
+If you set both the email and the external ID in the HTTP headers when
+performing a request the external ID will take precedence over the email.
+
+If you're yet to turn to HMAC authentication for your MagicBell project, you
+don't have to provide the `X-MAGICBELL-USER-HMAC` header. However, we highly
+recommend [turning on HMAC authentication](/docs/hmac-authentication)
+before releasing MagicBell to your users.

@@ -1,0 +1,33 @@
+---
+title: iOS Notifications
+subtitle: Setup iOS mobile push notifications on MagicBell
+---
+
+## Deliver mobile push notifications with Apple Push Notification service
+
+To deliver push notifications from your iOS app you need to register a new auth key for the Apple Push Notification service (APNs). MagicBell will use P8 tokens to authenticate requests made to the APNs.
+
+Follow these steps to register a new key:
+
+1. Login to [your Apple developer account](https://developer.apple.com/account) and open the keys page (you have to enroll in Apple's Developer Program, before).
+1. Register a new key, make sure you enable "Apple Push Notifications service (APNs)"
+1. Apple will generate a 10-digit ID and an authentication token signing key. Store it safely.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/registering-apple-key.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+To configure iOS mobile push notifications for your MagicBell project, follow these steps:
+
+1. From the **Channels** page in your Dashboard, click the ⚙ icon next to **Mobile Push** to access Mobile Push Channel Settings.
+1. Under **APNs**, enable the provider and complete the required fields, then click **Save**.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/mobile-push_apns.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+MagicBell needs the P8 key ID, team ID for your Apple account, P8 cert, and the iOS app's bundle ID.

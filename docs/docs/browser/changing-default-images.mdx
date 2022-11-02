@@ -1,0 +1,29 @@
+---
+title: How to Change the Default Images
+---
+
+The notification inbox shows [an image](https://assets.magicbell.io/images/empty_inbox.png) when the user has no notifications. To change it set the `images.emptyInboxUrl` key with your image's url when you initialize the inbox. For example:
+
+```html title=ESM
+<div id="notifications-inbox" />
+<script type="module">
+  import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+  let targetEl = document.getElementById('notifications-inbox');
+  let options = {
+    apiKey: MAGICBELL_API_KEY,
+    userEmail: CURRENT_USER_EMAIL,
+    height: 500,
+    images: {
+      emptyInboxUrl: 'https://my-site.com/empty-inbox.png',
+    },
+  };
+
+  renderWidget(targetEl, options);
+</script>
+```
+
+<Note>
+  Please provide images in the PNG or JPEG formats. The image will be automatically
+  resized to 200px of height and will preserve the aspect radius.
+</Note>

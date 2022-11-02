@@ -1,0 +1,16 @@
+---
+title: Log
+subtitle: How to view and debug sent notifications
+---
+
+Log is a near real-time tool in the [MagicBell dashboard](https://app.magicbell.com) that helps you confirm and debug notifications sent using the [API](/docs/graphql-api/overview) or [Compose](/docs/compose). It is a great way to test your implementation to validate notifications are being sent successfully and arriving to your destination.
+
+With Log, you can view granular metadata for each notification sent, including those sent from other [providers](/docs/email) such as [SendGrid](/docs/email/sendgrid), Apple Push Notification service (APNs), etc. Example data included in Logs is the response status code, request body, response body, ID, channel, recipient, and more!
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/logScreenshot.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+<Note>Logs may take a few minutes to appear.</Note>

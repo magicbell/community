@@ -1,0 +1,40 @@
+---
+title: Change the Position of the Notification Inbox
+subtitle: Learn how to change the default position of the floating notification inbox
+---
+
+The notification inbox position is powered by [the popper library](https://popper.js.org). Therefore, you can use [popper's offset modifier](https://popper.js.org/docs/v2/modifiers/offset) to displace the notification inbox from the bell by setting the `popperOptions` property on the `FloatingNotificationInbox` component.
+
+The `offset` option accepts an array with two numbers in the form: `[distance along the bell, distance away from the bell]`. This is a full example:
+
+```jsx title=React
+import React from 'react';
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+export default function Notifications() {
+  const distanceAlongRef = 16;
+  const distanceAwayFromRef = 32;
+
+  return (
+    <MagicBell apiKey="MAGICBELL_API_KEY" userExternalId="u001">
+      {(props) => (
+        <FloatingNotificationInbox
+          height={500}
+          placement="bottom-end"
+          popperOptions={{
+            modifiers: [
+              {
+                name: 'offset',
+                options: {
+                  offset: [distanceAlongRef, distanceAwayFromRef],
+                },
+              },
+            ],
+          }}
+          {...props}
+        />
+      )}
+    </MagicBell>
+  );
+}
+```

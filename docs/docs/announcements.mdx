@@ -1,0 +1,44 @@
+---
+title: Announcements
+subtitle: How to send a notification to all users
+---
+
+## Two options
+
+- Programatically
+- Using the Dashboard
+
+## Programmatically
+
+All users can receive a notification by using [segmentation in the API](/docs/segments#how-to-create-segments-using-the-api). In `notification.recipients`, include the `matches` attribute with a `*` as the value. Now, all users will receive the notification!
+
+```shell hideHeader
+{
+  "notification": {
+    "title": "We are processing your order",
+    "recipients": [
+      {
+        "matches": "*"
+      }
+    ]
+  }
+}
+```
+
+## The Dashboard
+
+To send a notification to all users, simply open Compose, click Recipients, and select Everyone.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/AnnouncementCompose.png"
+  style={{ width: '75%', height: 'intrinsic' }}
+/>
+
+## FAQ: Can you be more specific when you say <i>all</i> users receive announcements?
+
+An announcement will be sent to all users who have logged into your application and used MagicBell, or recieved a notification in the past. Otherwise, we do not know the user exists.
+
+### Sync your users
+
+Make sure your users are synced with MagicBell by using our [create users API](https://magicbell.com/docs/rest-api/reference#create-user) to add a user each time one is added to your system.
