@@ -12,7 +12,7 @@
     "postbuild": "next-sitemap && tsx ./scripts/build-search-index.ts",
     "refresh-openapi": "tsx scripts/refresh-openapi.ts",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test": "jest"
   },
   "lint-staged": {
