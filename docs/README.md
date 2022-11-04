@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Quick Start
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/magicbell-io/docs)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/magicbell-io/public)
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 2. Clone the repo
 
    ```bash
-   git clone git@github.com:magicbell-io/docs.git magicbell-docs
+   git clone git@github.com:magicbell-io/public.git magicbell-docs
    ```
 
 3. Navigate into the newly created directory
