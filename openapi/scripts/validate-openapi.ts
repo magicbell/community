@@ -8,7 +8,7 @@ import jsonpath from 'jsonpath';
 import { OpenAPIV3 } from 'openapi-types';
 
 const showHelp = argv.help;
-const specFile = argv.spec || 'spec/openapi.json';
+const specFile = argv.spec || process.env.INPUT_SPEC || 'spec/openapi.json';
 
 if (showHelp) {
   console.log('Usage: yarn validate [--spec <spec-file>]');

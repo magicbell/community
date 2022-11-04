@@ -6,7 +6,7 @@ import { promisify } from 'util';
 
 const convertAsync = promisify(Converter.convert);
 
-const specFile = argv.spec || 'spec/openapi.json';
+const specFile = argv.spec || process.env.INPUT_SPEC || 'spec/openapi.json';
 const spec = await fs.readJSON(path.resolve(specFile));
 
 // https://github.com/postmanlabs/openapi-to-postman/blob/HEAD/OPTIONS.md

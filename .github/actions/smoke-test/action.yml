@@ -1,5 +1,10 @@
 name: 'Smoke Test'
 description: 'Run a bunch of automated tests against the API'
+inputs:
+  spec:
+    description: 'The path to the OpenAPI spec'
+    required: true
+    default: 'openapi/spec/openapi.json'
 runs:
   using: 'node16'
   main: 'dist/index.js'
