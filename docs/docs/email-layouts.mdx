@@ -6,15 +6,23 @@ title: Email Layouts
 This feature is in beta. We'd love your feedback — please <a href="mailto:hello@magicbell.com">get in touch</a> and let us know how it can be improved.
 
 If you're curious what our team is working on, see our <a href="https://roadmap.magicbell.community/">roadmap</a> and follow us on <a href="https://twitter.com/magicbell_io">Twitter</a>!
+
 </Note>
 
-Email Layouts are a great way to decouple the rendering of a notification from the data that powers it. Email Layouts are global and apply to all notifications sent through the email channel.
+Email layouts are a great way to add HTML content around your notifications, like a header or a footer. They apply to all notifications sent through the email channel.
+
+Nota bene, if you are using templates in your email provider (via [overrides](/docs/overrides#provider-overrides)), all the rendering happens there and the email layout is ignored.
 
 ## How to compose email layouts
 
-Please visit the Channels tab in the dashboard, then select Email Layout. Here, copy/paste the HTML of your current email template. Use the merge tag `{{ template.content }}` as a placeholder for the content. The content will default to `{{ notification.content }}` for uncategorized notifications and categories without configured templates.
+Please visit the Settings tab in the dashboard, then select Email Layout. Here you can specify your layout according to the following rules.
 
-This layout will wrap around all notifications sent to the email channel.
+When the email layout is left empty, email notifications will render either:
+
+- `{{ notification.content }}` for uncategorized notifications or categories without a channel template
+- the [channel template](/docs/templates) when a [category](/docs/categories) is specified and an email channel template is defined for that category
+
+If the email layout is specified, you can use HTML and the `{{ template.content }}` merge tag, which is replaced by either the notification content or the rendered channel template as explained above.
 
 <img
   className="full-mobile"
