@@ -12,6 +12,7 @@ import { OpenAPIV3 } from 'openapi-types';
 import path from 'path';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+const specFile = argv.spec || process.env.INPUT_SPEC || 'spec/openapi.json';
 
 const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
@@ -204,7 +205,7 @@ function createTests(operations) {
 }
 
 async function main() {
-  const spec = (await swagger.dereference('openapi/spec/openapi.json')) as OpenAPIV3.Document;
+  const spec = (await swagger.dereference(specFile)) as OpenAPIV3.Document;
   const operations = getOperations(spec);
 
   const newNotificationIds = await Promise.all(

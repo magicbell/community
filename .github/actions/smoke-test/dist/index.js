@@ -78184,6 +78184,7 @@ var external_path_ = __nccwpck_require__(71017);
 
 
 main.config({ path: __nccwpck_require__.ab + ".env" });
+const specFile = argv.spec || process.env.INPUT_SPEC || 'spec/openapi.json';
 const smoke_test_ajv = new (ajv_default())({ allErrors: true, strict: false });
 dist_default()(smoke_test_ajv);
 const URL_PARAM_VALUES = {
@@ -78334,7 +78335,7 @@ function createTests(operations) {
     return suites;
 }
 async function smoke_test_main() {
-    const spec = (await swagger_parser_lib_default().dereference('spec/openapi.json'));
+    const spec = (await swagger_parser_lib_default().dereference(specFile));
     const operations = getOperations(spec);
     const newNotificationIds = await Promise.all(Array.from({ length: 5 }).map(() => request(operations.find((x) => x.operationId === 'notifications-create'), 'authenticated').then((x) => x.data)));
     if (newNotificationIds.length === 0) {
