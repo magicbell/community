@@ -1670,6 +1670,62 @@
         }
       }
     },
+    "/config": {
+      "get": {
+        "operationId": "config-get",
+        "tags": ["Config API"],
+        "summary": "Get a user's config",
+        "description": "Send a request to query the users config.",
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_user_external_id_header" },
+          { "$ref": "#/components/parameters/x_magicbell_user_email_header" },
+          { "$ref": "#/components/parameters/x_magicbell_user_hmac_header" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserConfig" },
+                "example": {
+                  "ws":{
+                    "region":"eu",
+                    "channel":"project:1:channel:540e4889-d891-4b08-86cd-a6f5f33f31cb",
+                    "auth_url":"/ws/auth"
+                  },
+                  "inbox":{
+                    "features":{}
+                  },
+                  "channels":{
+                    "web_push":{
+                      "enabled":true,
+                      "config":{
+                        "subscribe_url":"https://nameless-dust-3938.magicbell.com/web_push_subscriptions?access_token=eyJh…lVcA",
+                        "vapid_authentication":{
+                          "public_key":"BGX6…jfI="
+                        },
+                        "safari":{
+                          "web_service_url":"https://nameless-dust-3938.magicbell.com/safari/push",
+                          "website_push_id":"web.com.magicbell-notifications",
+                          "authentication_token":"b4e0aa04-b389-4257-ad13-65d9f918d676"
+                        }
+                      }
+                    }
+                  },
+                  "web_push_notifications":{
+                    "subscribe_url":"https://nameless-dust-3938.magicbell.com/web_push_subscriptions?access_token=eyJh…lVcA",
+                    "vapid_authentication":{
+                      "public_key":"BGX6…jfI="
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/imports": {
       "post": {
         "operationId": "imports-create",
@@ -2478,6 +2534,67 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/User"
+            }
+          }
+        }
+      },
+      "UserConfig": {
+        "type": "object",
+        "properties": {
+          "ws": {
+            "type": "object",
+            "properties": {
+              "region": { "type": "string" },
+              "channel": { "type": "string" },
+              "auth_url": { "type": "string" }
+            }
+          },
+          "inbox": {
+            "type": "object",
+            "properties": { "features": { "type": "object" }
+            }
+          },
+          "channels": {
+            "type": "object",
+            "properties": {
+              "web_push": {
+                "type": "object",
+                "properties": {
+                  "enabled": { "type": "boolean" },
+                  "config": {
+                    "type": "object",
+                    "properties": {
+                      "subscribe_url": { "type": "string" },
+                      "vapid_authentication": {
+                        "type": "object",
+                        "properties": {
+                          "public_key": { "type": "string" }
+                        }
+                      },
+                      "safari": {
+                        "type": "object",
+                        "properties": {
+                          "web_service_url": { "type": "string" },
+                          "website_push_id": { "type": "string" },
+                          "authentication_token": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "web_push_notifications": {
+            "type": "object",
+            "properties": {
+              "subscribe_url": { "type": "string" },
+              "vapid_authentication": {
+                "type": "object",
+                "properties": {
+                  "public_key": { "type": "string" }
+                }
+              }
             }
           }
         }
