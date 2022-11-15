@@ -21,6 +21,7 @@ const URL_PARAM_VALUES = {
   notification_id: [],
   topic: Array.from({ length: 10 }).map(() => 'acme-inc.orders.1234'),
   device_token: ['x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV'],
+  import_id: [],
 };
 
 type Operation = {
@@ -172,7 +173,10 @@ function createTests(operations) {
     // should be able to deleteNotification({ id: createNotification().id }), but as the create action
     // is done through a job runner (sidekiq) the `delete` will be executed before the `create` is done.
     const shouldSkip =
-      operation.path.includes(':{') || operationId.startsWith('users-') || operationId === 'subscriptions-delete';
+      operation.path.includes(':{') ||
+      operationId.startsWith('users-') ||
+      operationId === 'subscriptions-delete' ||
+      operationId === 'imports-get';
 
     const code = getSuccessStatusCode(operation);
     list.add({
@@ -239,7 +243,7 @@ async function main() {
   await createTests(operations)
     .run()
     .catch(() => {
-      process.exit(0);
+      process.exit(1);
     });
 }
 
