@@ -150,11 +150,13 @@ function createTests(operations) {
       task: () => list,
     });
 
+    // HACK: config route is the only route that returns a 401 for unauthenticated requests
+    const notFound = operation.operationId === 'config-get' ? 401 : 404;
     list.add({
-      title: 'HTTP 404: request without authentication headers return 404 not found',
+      title: `HTTP ${notFound}: request without authentication headers return ${notFound} not found`,
       task: async () => {
         const res = await request(operation, 'no-headers');
-        expect(res.status, res.error).equal(404);
+        expect(res.status, res.error).equal(notFound);
         expect(res.duration).lessThan(5000);
       },
     });
