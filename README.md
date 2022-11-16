@@ -14,12 +14,6 @@
 
 ---
 
-<p align="center">
-  <a href="https://magicbell.com">
-    <img alt="MagicBell Notification Inbox" src="./screenshot.png" width="620">
-  </a>
-</p>
-
 ## SDKs
 
 Apart from our [REST](https://www.magicbell.com/docs/rest-api/overview) and [GraphQL](https://www.magicbell.com/docs/graphql-api/overview) API, we offer API wrappers in several programming languages:
