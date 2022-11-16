@@ -1,9 +1,9 @@
 <p align="center">
   <a href="https://magicbell.com">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="./logo-light.svg">
-      <source media="(prefers-color-scheme: light)" srcset="./logo-dark.svg">
-      <img alt="MagicBell" src="./logo-dark.svg" width="300" height="60" style="max-width: 100%;">
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/logo-light.svg">
+      <source media="(prefers-color-scheme: light)" srcset="./.github/assets/logo-dark.svg">
+      <img alt="MagicBell" src="./.github/assets/logo-dark.svg" width="300" height="60" style="max-width: 100%;">
     </picture>
   </a>
 </p>
