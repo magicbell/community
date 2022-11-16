@@ -29,6 +29,10 @@ Read the full documentation and guides on [magicbell.com](https://magicbell.com/
 
 Contribute in [/docs](./docs).
 
+## Examples
+
+Check out the example repositories that show how to use MagicBell in [/examples](./examples).
+
 ## Community
 
 Discuss MagicBell on [GitHub Discussions](https://github.com/magicbell-io/public/discussions).
