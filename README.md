@@ -44,7 +44,7 @@ Check out the example repositories that show how to use MagicBell in [/examples]
 
 ## Community
 
-Discuss and ask questions about MagicBell on [GitHub Discussions](https://github.com/magicbell-io/public/discussions).
+Discuss and ask questions about MagicBell on [GitHub Discussions](https://github.com/orgs/magicbell-io/discussions).
 
 ##  OpenAPI specifications
 
