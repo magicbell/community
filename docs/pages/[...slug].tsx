@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps<
   const filename = slug + '.mdx';
   const docsDirectory = path.join(process.cwd(), 'docs');
   const filePath = path.join(docsDirectory, filename);
-  const editUrl = `https://github.com/magicbell-io/docs/edit/main/docs/${filename}`;
+  const editUrl = `https://github.com/magicbell-io/public/edit/main/docs/docs/${filename}`;
 
   try {
     const fileContents = fs.readFileSync(filePath, 'utf8');
