@@ -2523,10 +2523,28 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "users": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/User"
+          "import": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "users": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "external_id": { "$ref": "#/components/schemas/User/properties/external_id" },
+                    "email": { "$ref": "#/components/schemas/User/properties/email" },
+                    "first_name": { "$ref": "#/components/schemas/User/properties/first_name" },
+                    "last_name": { "$ref": "#/components/schemas/User/properties/last_name" },
+                    "custom_attributes": { "$ref": "#/components/schemas/User/properties/custom_attributes" },
+                    "phone_numbers": { "$ref": "#/components/schemas/User/properties/phone_numbers" },
+                    "channels": {
+                      "type": "object",
+                      "additionalProperties": true
+                    }
+                  }
+                }
+              }
             }
           }
         }
