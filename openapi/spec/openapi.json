@@ -2485,7 +2485,8 @@
         "properties": {
           "id": { "type": "string" },
           "device_token": { "type": "string" },
-          "platform": { "type": "string" }
+          "platform": { "type": "string" },
+          "app_bundle_id": { "type": "string" }
         }
       },
       "PushSubscription": {
