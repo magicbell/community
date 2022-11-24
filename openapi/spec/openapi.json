@@ -1318,6 +1318,9 @@
                         "type": "object",
                         "additionalProperties": false,
                         "properties": {
+                          "topic": {
+                            "type": "string"
+                          },
                           "categories": {
                             "type": "array",
                             "description": "A list of hashes containing the category slug and the reason for the subscription",
@@ -1332,6 +1335,10 @@
                                 "reason": {
                                   "type": "string",
                                   "description": "The reason for the subscription"
+                                },
+                                "status": {
+                                  "type": "string",
+                                  "enum": ["subscribed", "unsubscribed"] 
                                 }
                               }
                             }
@@ -1410,13 +1417,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "subscription": {
-                      "$ref": "#/components/schemas/TopicSubscription"
-                    }
-                  }
+                  "$ref": "#/components/schemas/TopicSubscription"
                 },
                 "example": {
                   "subscription": {
@@ -1474,7 +1475,7 @@
           { "$ref": "#/components/parameters/x_magicbell_user_external_id_header" },
           { "$ref": "#/components/parameters/x_magicbell_user_email_header" },
           { "$ref": "#/components/parameters/x_magicbell_user_hmac_header" },
-          { "$ref": "#/components/parameters/topic_subscription_query_param" }
+          { "$ref": "#/components/parameters/topic" }
         ],
         "requestBody": {
           "content": {
@@ -1498,13 +1499,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "topic_subscription": {
-                      "$ref": "#/components/schemas/TopicSubscription"
-                    }
-                  }
+                  "$ref": "#/components/schemas/TopicSubscription"
                 },
                 "example": {
                   "subscription": {
@@ -1573,7 +1568,7 @@
           { "$ref": "#/components/parameters/x_magicbell_user_external_id_header" },
           { "$ref": "#/components/parameters/x_magicbell_user_email_header" },
           { "$ref": "#/components/parameters/x_magicbell_user_hmac_header" },
-          { "$ref": "#/components/parameters/topic_subscription_query_param" }
+          { "$ref": "#/components/parameters/topic" }
         ],
         "responses": {
           "200": {
@@ -1581,13 +1576,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "topic_subscription": {
-                      "$ref": "#/components/schemas/TopicSubscription"
-                    }
-                  }
+                   "$ref": "#/components/schemas/TopicSubscription"
                 },
                 "example": {
                   "subscription": {
@@ -1639,7 +1628,7 @@
           { "$ref": "#/components/parameters/x_magicbell_user_external_id_header" },
           { "$ref": "#/components/parameters/x_magicbell_user_email_header" },
           { "$ref": "#/components/parameters/x_magicbell_user_hmac_header" },
-          { "$ref": "#/components/parameters/topic_subscription_query_param" }
+          { "$ref": "#/components/parameters/topic" }
         ],
         "requestBody": {
           "content": {
@@ -1943,6 +1932,14 @@
       },
       "topic_subscription_query_param": {
         "in": "query",
+        "name": "topic",
+        "schema": {
+          "type": "string"
+        },
+        "description": "The topic for which we'd like to filter topic subscriptions."
+      },
+      "topic": {
+        "in": "path",
         "name": "topic",
         "schema": {
           "type": "string"
@@ -2295,7 +2292,8 @@
                     },
                     "status": {
                       "type": "string",
-                      "description": "The status of the topic subscription"
+                      "description": "The status of the topic subscription",
+                      "enum": ["subscribed", "unsubscribed"]
                     }
                   }
                 }
