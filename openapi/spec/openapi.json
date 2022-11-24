@@ -2390,7 +2390,7 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "title": { "type": "string", "description": "Overriden action_url" },
+          "title": { "type": "string", "description": "Title of the notification" },
           "recipients": {
             "description": "Recipients of the notification",
             "type": "array",
@@ -2425,7 +2425,17 @@
       "CreatedNotificationBroadcast": {
         "type": "object",
         "additionalProperties": false,
-        "properties": { "id": { "type": "string" } }
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "$ref": "#/components/schemas/Notification/properties/title" },
+          "content": { "$ref": "#/components/schemas/Notification/properties/content" },
+          "action_url": { "$ref": "#/components/schemas/Notification/properties/action_url" },
+          "category": { "$ref": "#/components/schemas/Notification/properties/category" },
+          "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
+          "custom_attributes": { "$ref": "#/components/schemas/Notification/properties/custom_attributes" },
+          "sent_at": { "type": "number" }
+        },
+        "required": ["id", "title", "sent_at"]
       },
       "Notifications": {
         "type": "object",
