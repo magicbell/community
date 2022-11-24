@@ -2045,6 +2045,9 @@
           "phone_numbers": {
             "type": "array",
             "description": "An array of phone numbers to use for sending SMS notifications.",
+            "items": {
+              "type": "string"
+            },
             "maxItems": 50
           }
         }
