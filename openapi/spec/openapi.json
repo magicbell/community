@@ -2479,7 +2479,25 @@
           "notifications": {
             "type": "array",
             "description": "List of all notifications in the current page",
-            "items": { "$ref": "#/components/schemas/Notification" }
+            "items": { 
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string" },
+                "title": { "$ref": "#/components/schemas/Notification/properties/title" },
+                "content": { "$ref": "#/components/schemas/Notification/properties/content" },
+                "action_url": { "$ref": "#/components/schemas/Notification/properties/action_url" },
+                "category": { "$ref": "#/components/schemas/Notification/properties/category" },
+                "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
+                "custom_attributes": { "$ref": "#/components/schemas/Notification/properties/custom_attributes" },
+                "sent_at": { "type": "number" },
+                "seen_at": { "type": "number" },
+                "read_at": { "type": "number" },
+                "archived_at": { "type": "number" },
+                "recipient": { "$ref": "#/components/schemas/User" }
+              },
+              "required": ["id", "title", "sent_at"]
+             }
           }
         }
       },
