@@ -1730,7 +1730,7 @@
                   "type": "object",
                   "additionalProperties": false,
                   "properties": {
-                    "notification": {
+                    "import": {
                       "$ref": "#/components/schemas/CreatedUsersImport"
                     }
                   }
