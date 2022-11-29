@@ -1,0 +1,21 @@
+{
+  "name": "dark-magic-vscode-theme",
+  "displayName": "dark-magic-vscode-theme",
+  "description": "Magic Bell color theme",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.73.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Dark Magic",
+        "uiTheme": "vs-dark",
+        "path": "./themes/Dark Magic-color-theme.json"
+      }
+    ]
+  }
+}
