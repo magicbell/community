@@ -78191,6 +78191,7 @@ const URL_PARAM_VALUES = {
     notification_id: [],
     topic: Array.from({ length: 10 }).map(() => 'acme-inc.orders.1234'),
     device_token: ['x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV'],
+    import_id: [],
 };
 function getOperations(document) {
     const methods = [];
@@ -78292,6 +78293,7 @@ function createTests(operations) {
             title: `${method.toUpperCase()} ${path} ${chalk.gray(`(id: ${operationId})`)}`,
             task: () => list,
         });
+        list.parentTask = suites.tasks[suites.tasks.length - 1];
         list.add({
             title: 'HTTP 404: request without authentication headers return 404 not found',
             task: async () => {
@@ -78311,7 +78313,10 @@ function createTests(operations) {
         // we can't smoke test endpoints depending on input data, as input is created async. Technically, we
         // should be able to deleteNotification({ id: createNotification().id }), but as the create action
         // is done through a job runner (sidekiq) the `delete` will be executed before the `create` is done.
-        const shouldSkip = operation.path.includes(':{') || operationId.startsWith('users-') || operationId === 'subscriptions-delete';
+        const shouldSkip = operation.path.includes(':{') ||
+            operationId.startsWith('users-') ||
+            operationId === 'subscriptions-delete' ||
+            operationId === 'imports-get';
         const code = getSuccessStatusCode(operation);
         list.add({
             title: `HTTP ${code}: request with valid api key and payload returns expected response`,
@@ -78327,8 +78332,10 @@ function createTests(operations) {
                 smoke_test_ajv.validate({ ...schema, required: [] }, res.data);
                 const errors = (smoke_test_ajv.errors || []).filter((x) => x.keyword !== 'required' && // ignore required fields, as api might return partial objects
                     x.params?.format !== 'uri' && // ignore uri format, action_url might be an empty string, which is not a valid uri
-                    x.instancePath !== '/subscriptions/2/categories/0/reason');
-                expect(errors.length).equal(0);
+                    x.instancePath !== '/subscriptions/2/categories/0/reason' && // difference between input && output
+                    x.params?.additionalProperty !== 'meta_data' && // ignore deprecated fields
+                    !(x.params?.additionalProperty === 'user' && operationId === 'notifications-list'));
+                expect(errors.length, JSON.stringify({ errors, data: res.data }, null, 2)).equal(0);
             },
         });
     }
@@ -78348,11 +78355,20 @@ async function smoke_test_main() {
     // We need a combination of new notifications and existing ones, as the existing ones might not be enough - as some
     // tests are destructive, and new notifications take a while to be created.
     URL_PARAM_VALUES.notification_id = Array.from(new Set([...URL_PARAM_VALUES.notification_id, ...newNotificationIds]));
-    await createTests(operations)
-        .run()
-        .catch(() => {
-        process.exit(0);
+    const suites = createTests(operations);
+    await suites.run().catch(() => {
+        process.exit(1);
     });
+    const errored = suites.err.length > 0;
+    if (!errored)
+        return;
+    console.log('\n---- Error Summary ----\n');
+    for (const err of suites.err) {
+        console.log(`${chalk.red('✖')} ${err.task.listr.parentTask.title}`);
+        console.log(`  ${chalk.red('✖')} ${err.task.title}`);
+        console.log(`    error: ${err.message}`);
+    }
+    process.exit(1);
 }
 smoke_test_main();
 
