@@ -151,6 +151,8 @@ function createTests(operations) {
       task: () => list,
     });
 
+    list.parentTask = suites.tasks[suites.tasks.length - 1];
+
     list.add({
       title: 'HTTP 404: request without authentication headers return 404 not found',
       task: async () => {
@@ -198,9 +200,12 @@ function createTests(operations) {
           (x) =>
             x.keyword !== 'required' && // ignore required fields, as api might return partial objects
             x.params?.format !== 'uri' && // ignore uri format, action_url might be an empty string, which is not a valid uri
-            x.instancePath !== '/subscriptions/2/categories/0/reason', // difference between input && output
+            x.instancePath !== '/subscriptions/2/categories/0/reason' && // difference between input && output
+            x.params?.additionalProperty !== 'meta_data' && // ignore deprecated fields
+            !(x.params?.additionalProperty === 'user' && operationId === 'notifications-list'), // only op with additional fields next to the wrapper
         );
-        expect(errors.length).equal(0);
+
+        expect(errors.length, JSON.stringify({ errors, data: res.data }, null, 2)).equal(0);
       },
     });
   }
@@ -240,11 +245,22 @@ async function main() {
   // tests are destructive, and new notifications take a while to be created.
   URL_PARAM_VALUES.notification_id = Array.from(new Set([...URL_PARAM_VALUES.notification_id, ...newNotificationIds]));
 
-  await createTests(operations)
-    .run()
-    .catch(() => {
-      process.exit(1);
-    });
+  const suites = createTests(operations);
+  await suites.run().catch(() => {
+    process.exit(1);
+  });
+
+  const errored = suites.err.length > 0;
+  if (!errored) return;
+
+  console.log('\n---- Error Summary ----\n');
+  for (const err of suites.err) {
+    console.log(`${chalk.red('✖')} ${err.task.listr.parentTask.title}`);
+    console.log(`  ${chalk.red('✖')} ${err.task.title}`);
+    console.log(`    error: ${err.message}`);
+  }
+
+  process.exit(1);
 }
 
 main();

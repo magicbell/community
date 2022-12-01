@@ -21,7 +21,13 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/WrappedNotification" },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "notification": { "$ref": "#/components/schemas/NotificationPayload" }
+                },
+                "additionalProperties": false
+              },
               "example": {
                 "notification": {
                   "title": "We're processing your order",
@@ -64,7 +70,7 @@
                   "additionalProperties": false,
                   "properties": {
                     "notification": {
-                      "$ref": "#/components/schemas/CreatedNotificationBroadcast"
+                      "$ref": "#/components/schemas/Notification"
                     }
                   }
                 },
@@ -274,7 +280,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/WrappedNotification"
+                  "type": "object",
+                  "properties": {
+                    "notification": { "$ref": "#/components/schemas/NotificationDelivery" }
+                  }
                 },
                 "example": {
                   "notification": {
@@ -1730,7 +1739,7 @@
                   "type": "object",
                   "additionalProperties": false,
                   "properties": {
-                    "notification": {
+                    "import": {
                       "$ref": "#/components/schemas/CreatedUsersImport"
                     }
                   }
@@ -2014,25 +2023,34 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique id for this user.",
+            "readOnly": true
+          },
           "external_id": {
             "type": "string",
             "description": "A unique string that MagicBell can utilize to identify the user uniquely. We recommend setting this attribute to the ID of the user in your database. Provide the external id if the user's email is unavailable.",
-            "maxLength": 255
+            "maxLength": 255,
+            "nullable": true
           },
           "email": {
             "type": "string",
             "description": "The user's email.",
-            "maxLength": 255
+            "maxLength": 255,
+            "nullable": true
           },
           "first_name": {
             "type": "string",
             "description": "The user's first name.",
-            "maxLength": 50
+            "maxLength": 50,
+            "nullable": true
           },
           "last_name": {
             "type": "string",
             "description": "The user's last name.",
-            "maxLength": 50
+            "maxLength": 50,
+            "nullable": true
           },
           "custom_attributes": {
             "type": "object",
@@ -2060,11 +2078,13 @@
         "properties": {
           "email": {
             "type": "string",
-            "description": "The user's email"
+            "description": "The user's email",
+            "nullable": true
           },
           "external_id": {
             "type": "string",
-            "description": "A unique string that MagicBell can utilize to uniquely identify the user. We recommend setting this attribute to the ID of the user in your database. Provide the external id if the user's email is unavailable."
+            "description": "A unique string that MagicBell can utilize to uniquely identify the user. We recommend setting this attribute to the ID of the user in your database. Provide the external id if the user's email is unavailable.",
+            "nullable": true
           },
           "matches": {
             "type": "string",
@@ -2080,6 +2100,11 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique id for this notification.",
+            "readOnly": true
+          },
           "title": {
             "type": "string",
             "description": "Title of the notification.",
@@ -2098,19 +2123,7 @@
             "nullable": true,
             "maxLength": 2048
           },
-          "recipients": {
-            "$ref": "#/components/schemas/Recipients",
-            "description": "Users to send the notification to. You can specify up to 1000 users at once. Use matches to send a notification to everyone.",
-            "nullable": false,
-            "minItems": 1,
-            "maxItems": 1000
-          },
-          "custom_attributes": {
-            "type": "object",
-            "description": "Set of key-value pairs that you can attach to a notification, 6KB at maximum. It accepts objects for the value of a key.\n\nYou can use it to share data between channels or to render a custom UI.",
-            "nullable": true,
-            "additionalProperties": true
-          },
+          
           "category": {
             "type": "string",
             "description": "Category the notification belongs to. This is useful to allow users to set their preferences.",
@@ -2123,6 +2136,36 @@
             "nullable": true,
             "maxLength": 100
           },
+          "custom_attributes": {
+            "type": "object",
+            "description": "Set of key-value pairs that you can attach to a notification, 6KB at maximum. It accepts objects for the value of a key.\n\nYou can use it to share data between channels or to render a custom UI.",
+            "nullable": true,
+            "additionalProperties": true
+          },
+          "sent_at": {
+            "type": "number",
+            "description": "The timestamp when the notification was sent to its recipients.",
+            "readOnly": true
+          }        
+        },
+        "required": ["id", "title", "sent_at"]
+      },
+      "NotificationPayload": {
+        "additionalProperties": false,
+        "properties": {
+          "title": { "$ref": "#/components/schemas/Notification/properties/title" },
+          "content": { "$ref": "#/components/schemas/Notification/properties/content" },
+          "action_url": { "$ref": "#/components/schemas/Notification/properties/action_url" },
+          "recipients": {
+            "$ref": "#/components/schemas/Recipients",
+            "description": "Users to send the notification to. You can specify up to 1000 users at once. Use matches to send a notification to everyone.",
+            "nullable": false,
+            "minItems": 1,
+            "maxItems": 1000
+          },
+          "custom_attributes": { "$ref": "#/components/schemas/Notification/properties/custom_attributes" },
+          "category": { "$ref": "#/components/schemas/Notification/properties/category" },
+          "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
           "overrides": {
             "type": "object",
             "description": "Optional overrides to configure notifications per target destination.",
@@ -2177,6 +2220,25 @@
         },
         "required": ["title", "recipients"]
       },
+      "NotificationDelivery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "#/components/schemas/Notification/properties/id" },
+          "title": { "$ref": "#/components/schemas/Notification/properties/title" },
+          "content": { "$ref": "#/components/schemas/Notification/properties/content" },
+          "action_url": { "$ref": "#/components/schemas/Notification/properties/action_url" },
+          "category": { "$ref": "#/components/schemas/Notification/properties/category" },
+          "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
+          "custom_attributes": { "$ref": "#/components/schemas/Notification/properties/custom_attributes" },
+          "sent_at": { "type": "number" },
+          "seen_at": { "type": "number", "nullable": true },
+          "read_at": { "type": "number", "nullable": true },
+          "archived_at": { "type": "number", "nullable": true },
+          "recipient": { "$ref": "#/components/schemas/User" }
+        },
+        "required": ["title", "recipient"]
+      },
       "ChannelOverrides": {
         "type": "object",
         "properties": {
@@ -2192,13 +2254,6 @@
             "type": "string",
             "description": "Overriden action_url for this channel"
           }
-        }
-      },
-      "WrappedNotification": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "notification": { "$ref": "#/components/schemas/Notification" }
         }
       },
       "TopicSubscriptionBody": {
@@ -2384,57 +2439,6 @@
           "project": { "$ref": "#/components/schemas/Project" }
         }
       },
-      "NotificationBroadcast": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "title": { "type": "string", "description": "Title of the notification" },
-          "recipients": {
-            "description": "Recipients of the notification",
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/Recipient" }
-          },
-          "category": {
-            "type": "string",
-            "description": "Category the notification belongs to"
-          },
-          "topic": {
-            "type": "string",
-            "description": "Topic the notification belongs to"
-          },
-          "content": {
-            "type": "string",
-            "description": "Content of the notification"
-          },
-          "action_url": {
-            "type": "string",
-            "format": "uri",
-            "description": "A URL to redirect the user to when they click the notification in their notification inbox."
-          },
-          "custom_attributes": {
-            "type": "object",
-            "description": "Set of key-value pairs that you can attach to a notification",
-            "nullable": true,
-            "additionalProperties": true
-          }
-        },
-        "required": ["title", "recipients"]
-      },
-      "CreatedNotificationBroadcast": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "id": { "type": "string" },
-          "title": { "$ref": "#/components/schemas/Notification/properties/title" },
-          "content": { "$ref": "#/components/schemas/Notification/properties/content" },
-          "action_url": { "$ref": "#/components/schemas/Notification/properties/action_url" },
-          "category": { "$ref": "#/components/schemas/Notification/properties/category" },
-          "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
-          "custom_attributes": { "$ref": "#/components/schemas/Notification/properties/custom_attributes" },
-          "sent_at": { "type": "number" }
-        },
-        "required": ["id", "title", "sent_at"]
-      },
       "Notifications": {
         "type": "object",
         "additionalProperties": false,
@@ -2477,25 +2481,7 @@
           "notifications": {
             "type": "array",
             "description": "List of all notifications in the current page",
-            "items": { 
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "id": { "type": "string" },
-                "title": { "$ref": "#/components/schemas/Notification/properties/title" },
-                "content": { "$ref": "#/components/schemas/Notification/properties/content" },
-                "action_url": { "$ref": "#/components/schemas/Notification/properties/action_url" },
-                "category": { "$ref": "#/components/schemas/Notification/properties/category" },
-                "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
-                "custom_attributes": { "$ref": "#/components/schemas/Notification/properties/custom_attributes" },
-                "sent_at": { "type": "number" },
-                "seen_at": { "type": "number" },
-                "read_at": { "type": "number" },
-                "archived_at": { "type": "number" },
-                "recipient": { "$ref": "#/components/schemas/User" }
-              },
-              "required": ["id", "title", "sent_at"]
-             }
+            "items": { "$ref": "#/components/schemas/NotificationDelivery" }
           }
         }
       },
@@ -2515,7 +2501,7 @@
           "id": { "type": "string" },
           "device_token": { "type": "string" },
           "platform": { "type": "string" },
-          "app_bundle_id": { "type": "string" }
+          "app_bundle_id": { "type": "string", "nullable": true }
         }
       },
       "PushSubscription": {
