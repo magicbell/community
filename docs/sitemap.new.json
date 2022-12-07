@@ -1,0 +1,207 @@
+[
+  {
+    "section": true,
+    "links": [
+      {
+        "name": "Docs overview",
+        "to": "/"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "name": "Getting Started",
+    "links": [
+      {
+        "name": "Install the Inbox",
+        "to": "/install-the-inbox"
+      },
+      {
+        "name": "Send your first notification",
+        "to": "/send-your-first-notification"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "name": "Reference",
+    "links": [
+      {
+        "page": true,
+        "name": "API",
+        "to": "/api/overview",
+        "children": [
+          {
+            "section": true,
+            "links": [
+              {
+                "name": "Overview",
+                "to": "/api/overview"
+              },
+              {
+                "name": "Rest API",
+                "to": "/api/rest-api"
+              },
+              {
+                "name": "GraphQL API",
+                "to": "/api/graphql-api"
+              },
+              {
+                "name": "API Wrapper and Libraries",
+                "to": "/api/api-wrapper-and-libraries"
+              }
+            ]
+          },
+          {
+            "section": true,
+            "name": "Reference",
+            "links": [
+              {
+                "name": "Introduction",
+                "to": "/api/introduction"
+              },
+              {
+                "name": "Notifications",
+                "to": "/api/notification",
+                "staticRoute": true
+              },
+              {
+                "name": "Users",
+                "to": "/api/users",
+                "staticRoute": true
+              },
+              {
+                "name": "Categories",
+                "to": "/api/categories",
+                "staticRoute": true
+              },
+              {
+                "name": "Event Logs",
+                "to": "/api/event-logs",
+                "staticRoute": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Glossary",
+        "to": "/glossary"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "name": "Core Concept",
+    "links": [
+      {
+        "name": "Channels",
+        "to": "/channels/overview",
+        "page": true,
+        "children": [
+          {
+            "section": true,
+            "links": [
+              {
+                "name": "Overview",
+                "to": "/channels/overview"
+              }
+            ]
+          },
+          {
+            "section": true,
+            "links": [
+              {
+                "name": "In App (Inbox)",
+                "to": "/channels/in-app"
+              },
+              {
+                "name": "Email",
+                "to": "/channels/email"
+              },
+              {
+                "name": "Web Push",
+                "to": "/channels/web-push"
+              },
+              {
+                "name": "Mobile Push",
+                "to": "/channels/mobile-push"
+              },
+              {
+                "name": "Slack",
+                "to": "/channels/slack"
+              },
+              {
+                "name": "SMS",
+                "to": "/channels/sms"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Categories",
+        "to": "/categories"
+      },
+      {
+        "name": "Templates",
+        "to": "/templates"
+      },
+      {
+        "name": "Topics",
+        "to": "/topics"
+      },
+      {
+        "name": "Subscriptions",
+        "to": "/subscriptions"
+      },
+      {
+        "name": "Users",
+        "to": "/users"
+      },
+      {
+        "name": "Notifications",
+        "to": "/notifications"
+      },
+      {
+        "name": "Event Log",
+        "to": "/event-log"
+      },
+      {
+        "name": "Analytics",
+        "to": "/analytics"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "links": [
+      {
+        "name": "Guides",
+        "to": "/guides"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "name": "Resources",
+    "links": [
+      {
+        "name": "FAQ",
+        "to": "/faq"
+      },
+      {
+        "name": "Changelog",
+        "to": "/changelog"
+      },
+      {
+        "name": "Playground",
+        "to": "https://playground.magicbell.com"
+      },
+      {
+        "name": "Slack Community",
+        "to": "https://join.slack.com/t/magicbell-community/shared_invite/zt-1kvdkb6cg-CBoZ8A3g4YkuIhrFZG2VaA"
+      }
+    ]
+  }
+]

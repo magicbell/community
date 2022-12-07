@@ -16,10 +16,10 @@ export default function ParentMenuItem({ name, children = [], ...props }: Sitema
   return (
     <div className="submenu" aria-expanded={isOpen}>
       <button
-        className="group py-3 px-6 flex items-center w-full hover:bg-white group-hover:text-gray-800"
+        className="group py-3 flex items-center w-full hover:bg-bgHover group-hover:text-textLinkHover"
         onClick={toggle}
       >
-        <a className="flex-1 md:text-sm text-left text-gray-800">{name}</a>
+        <a className="flex-1 md:text-sm text-left text-textDefault">{name}</a>
         <ChevronRightIcon
           className={classNames(isOpen ? 'rotate-90' : 'rotate-0', 'transform h-4 w-4')}
         />

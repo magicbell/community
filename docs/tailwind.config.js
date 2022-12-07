@@ -12,6 +12,16 @@ module.exports = {
         darkPurple: '#230F65',
         lightPurple: '#5225C1',
         pink: '#C977FE',
+
+        // Background and borders
+        bgApp: '#1B1D29',
+        bgHover: '#262E45',
+        borderMuted: '#354061',
+
+        // Body Text
+        textDefault: '#EDEDEF',
+        textMuted: '#A09FA6',
+        textLinkHover: '#BCAFFD',
       },
       fontFamily: {
         sans: ['HarmoniaSans', 'Helvetica', 'Arial', 'sans-serif'],

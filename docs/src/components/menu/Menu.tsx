@@ -14,7 +14,7 @@ interface Props {
  */
 export default function Menu({ navigationItems = [], openAPILinks }: Props) {
   return (
-    <div className="pb-4 overflow-y-auto">
+    <div className="pb-4 overflow-y-auto px-6">
       <nav>
         {navigationItems.map((item, index) => (
           <MenuItem key={index} {...item} openAPILinks={openAPILinks} />

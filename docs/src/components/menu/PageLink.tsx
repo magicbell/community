@@ -27,9 +27,9 @@ export default function PageLink({ name, to, style }: Props) {
       <a
         className={classNames(
           isActive
-            ? 'bg-white text-lightPurple'
-            : 'text-gray-600 hover:bg-white group-hover:text-gray-800',
-          'group py-3 px-6 flex items-center md:text-sm justify-between',
+            ? 'bg-bgApp text-textLinkHover hover:bg-bgHover'
+            : 'text-textDefault hover:bg-bgHover group-hover:text-textLinkHover',
+          'group py-2 flex items-center md:text-sm justify-between',
         )}
         style={style}
         {...aProps}
