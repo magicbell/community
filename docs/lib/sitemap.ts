@@ -1,7 +1,5 @@
 import { flatten, isNil, reject } from 'ramda';
-// TODO: correct the import
 import sitemap from '../sitemap.new.json';
-/* import sitemap from '../sitemap.json'; */
 
 export type SitemapItem = {
   name: string;

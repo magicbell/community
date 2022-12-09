@@ -1,0 +1,165 @@
+---
+title: Localization and Internationalization (i18n)
+---
+
+MagicBell is available in 3 languages out of the box: English, Spanish and Brazilian Portuguese. English (`en`) is the default one. However, you can also translate the entire UI into any language you want.
+
+<NotificationInboxPreview
+  magicBellProps={{
+    locale: 'es',
+  }}
+  code={`<MagicBell
+  apiKey="MAGICBELL_API_KEY"
+  userEmail="dan@example.com"
+  locale="es"
+  defaultIsOpen
+>
+  {(props) => (
+    <FloatingNotificationInbox
+      height={350}
+      {...props}
+    />
+  )}
+</MagicBell>
+`}
+/>
+
+Keep in mind that this won't affect the messages of the notifications, only the notification inbox UI.
+
+## Localization
+
+To change the default language, we expose the `locale` property. Set it to
+
+- `es` for Spanish
+- `pt_BR` for Brazilian Portuguese
+
+<Tabs>
+
+```jsx title=REACT hideHeader noTopBorderRadius
+import React from 'react';
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+export default function Notifications() {
+  return (
+    <MagicBell apiKey="MAGICBELL_API_KEY" userExternalId="u001" locale="pt_BR">
+      {(props) => <FloatingNotificationInbox height={500} {...props} />}
+    </MagicBell>
+  );
+}
+```
+
+```html title=HTML hideHeader noTopBorderRadius
+<script type="module">
+  import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+  let targetEl = document.getElementById('notifications-inbox');
+  let options = {
+    apiKey: MAGICBELL_API_KEY,
+    userExternalId: 'u001',
+    height: 500,
+    locale: 'pt_BR',
+  };
+
+  renderWidget(targetEl, options);
+</script>
+```
+
+</Tabs>
+
+## Internationalization (i18n)
+
+MagicBell is ready to support any locale you need. To do it you need to set a name for the locale and the translations for default messages.
+
+This is a list of all messages the UI uses:
+
+| Key                                 | Default value (en)                                                                   |               |
+| ----------------------------------- | ------------------------------------------------------------------------------------ | ------------- |
+| `header.title`                      | NOTIFICATIONS                                                                        |               |
+| `header.mark-all-read`              | Mark All Read                                                                        |               |
+| `notification.mark-as-read`         | Mark as read                                                                         |               |
+| `notification.mark-as-unread`       | Mark as unread                                                                       |               |
+| `notification.delete`               | Delete                                                                               |               |
+| `web-push-notifications.notice`     | By enabling browser notifications, you’ll stay up to date even better.               |               |
+| `web-push-notifications.enable-now` | Enable Now                                                                           |               |
+| `messages.empty-inbox`              | All clear!&lt;br&gt;We'll let you know when there's more.                            | Supports HTML |
+| `messages.server-error`             | "We can’t seem to retrieve your notifications.&lt;br&gt;Please check back soon.      | Supports HTML |
+| `messages.no-internet-connection`   | Hmm, we’re unable to connect to the internet.&lt;br&gt;Please check your connection. | Supports HTML |
+
+For example, let's create a locale for our German users:
+
+<Tabs>
+
+```jsx title=REACT hideHeader noTopBorderRadius
+import React from 'react';
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+export default function Notifications() {
+  const locale = {
+    name: 'de_DE',
+    translations: {
+      header: {
+        title: 'Benachrichtigungen',
+        'mark-all-read': 'Markiere alle als gelesen',
+      },
+      messages: {
+        'empty-inbox': 'Keine ungelesenen Benachrichtigungen',
+      },
+    },
+  };
+
+  return (
+    <MagicBell apiKey={MAGICBELL_API_KEY} userExternalId="u001" locale="pt_BR">
+      {(props) => <FloatingNotificationInbox height={500} {...props} />}
+    </MagicBell>
+  );
+}
+```
+
+```html title=HTML hideHeader noTopBorderRadius
+<script type="module">
+  import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+  // Your custom locale definition
+  let locale = {
+    name: 'de_DE',
+    translations: {
+      header: {
+        title: 'Benachrichtigungen',
+        'mark-all-read': 'Markiere alle als gelesen',
+      },
+      messages: {
+        'empty-inbox': 'Keine ungelesenen Benachrichtigungen',
+      },
+    },
+  };
+
+  let targetEl = document.getElementById('notifications-inbox');
+  let options = {
+    apiKey: MAGICBELL_API_KEY,
+    userExternalId: 'u001',
+    height: 500,
+    locale,
+  };
+
+  renderWidget(targetEl, options);
+</script>
+```
+
+</Tabs>
+
+As you can see, you can provide complete dictionary of definitions or a subset. If an entry is not found in your definition, MagicBell just renders the default message in English.
+
+## Overriding default messages
+
+You can easily override default messages by setting the `locale` property when you render MagicBell. For example, this definition will change the default title to "My notifications":
+
+```js
+const locale = {
+  name: 'en',
+  translations: {
+    header: {
+      title: 'My notifications',
+    },
+  },
+};
+```

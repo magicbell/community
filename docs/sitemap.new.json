@@ -104,7 +104,7 @@
             "links": [
               {
                 "name": "Overview",
-                "to": "/channels/overview"
+                "to": "/channels"
               }
             ]
           },
@@ -112,8 +112,114 @@
             "section": true,
             "links": [
               {
+                "page": true,
                 "name": "In App (Inbox)",
-                "to": "/channels/in-app"
+                "to": "/channels/in-app",
+                "subpage": [
+                  {
+                    "section": true,
+                    "links": [
+                      {
+                        "name": "Overview",
+                        "to": "/channels/in-app"
+                      }
+                    ]
+                  },
+                  {
+                    "section": true,
+                    "name": "Inbox",
+                    "links": [
+                      {
+                        "name": "HMAC Authentication",
+                        "to": "/channels/in-app/hmac-authentication"
+                      },
+                      {
+                        "name": "React",
+                        "children": [
+                          {
+                            "name": "Identifying Users",
+                            "to": "/channels/in-app/react/identifying-users"
+                          },
+                          {
+                            "name": "Customize the theme",
+                            "to": "/channels/in-app/react/customize-the-theme"
+                          },
+                          {
+                            "name": "Inbox Tabs",
+                            "to": "/channels/in-app/react/inbox-tabs"
+                          },
+                          {
+                            "name": "Change the position of the notification inbox",
+                            "to": "/channels/in-app/react/change-the-position-of-the-notification-inbox"
+                          },
+                          {
+                            "name": "Set a custom click handler",
+                            "to": "/channels/in-app/react/set-a-custom-click-handler"
+                          },
+                          {
+                            "name": "Change the default notification component",
+                            "to": "/channels/in-app/react/change-the-default-notification-component"
+                          },
+                          {
+                            "name": "Play a sound when a notification arrives",
+                            "to": "/channels/in-app/react/play-a-sound-when-a-notification-arrives"
+                          },
+                          {
+                            "name": "Render notifications in a sidebar",
+                            "to": "/channels/in-app/react/render-notifications-in-a-sidebar"
+                          },
+                          {
+                            "name": "Known Issues",
+                            "to": "/channels/in-app/react/known-issues"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "React Native",
+                        "children": [
+                          {
+                            "name": "Getting started",
+                            "to": "/channels/in-app/react-native/getting-started"
+                          },
+                          {
+                            "name": "Implement mobile push notifications",
+                            "to": "/channels/in-app/react-native/implement-mobile-push-notifications"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Vue",
+                        "children": [
+                          {
+                            "name": "How to use MagicBell with NuxtJS",
+                            "to": "/channels/in-app/vue/adding-magicbell-to-your-nuxt-application"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Browser",
+                        "children": [
+                          {
+                            "name": "Change the default font",
+                            "to": "/channels/in-app/browser/changing-default-font"
+                          },
+                          {
+                            "name": "Change the default images",
+                            "to": "/channels/in-app/browser/changing-default-images"
+                          },
+                          {
+                            "name": "Notify users when a new notification arrives",
+                            "to": "/channels/in-app/browser/new-notification-hook"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Angular",
+                        "to": "/channels/in-app/angular"
+                      }
+                    ]
+                  }
+                ]
               },
               {
                 "name": "Email",

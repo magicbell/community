@@ -19,16 +19,21 @@ export default function Menu({ navigationItems = [], openAPILinks }: Props) {
   const currentPath: string[] = router.asPath.split('/').slice(1);
   let currentPageName: string | undefined;
   let currentpageItems = navigationItems;
+  let currentPagePath = '/';
 
-  // TODO : handle for arbitrary nesting of pages
-  // Get sections of the current page
-  navigationItems.map((section) => {
-    section.links?.map((link) => {
-      if (link.page && link.to?.slice(1) === currentPath[0]) {
-        // TODO : add a testcase for undefined subpage
-        currentpageItems = link.subpage as SitemapItem[];
-        currentPageName = link.name;
-      }
+  /* Get sections of the current page */
+  // Check segments of current route to find the navigationItems
+  currentPath.map((path, index) => {
+    currentpageItems.map((section) => {
+      section.links?.map((link) => {
+        // Check all the pages for link of the route segment we are going over
+        if (link.page && link.to?.split('/')[index + 1] === path) {
+          // TODO : add a testcase for undefined subpage
+          currentpageItems = link.subpage as SitemapItem[];
+          currentPageName = link.name;
+          currentPagePath = link.to;
+        }
+      });
     });
   });
 
@@ -36,7 +41,11 @@ export default function Menu({ navigationItems = [], openAPILinks }: Props) {
     <div className="pb-4 overflow-y-auto px-6">
       <nav>
         {currentPageName ? (
-          <PageHeadingMenu currentPageName={currentPageName} router={router} />
+          <PageHeadingMenu
+            currentPageName={currentPageName}
+            router={router}
+            currentPagePath={currentPagePath}
+          />
         ) : null}
 
         {currentpageItems.map((item, index) => (

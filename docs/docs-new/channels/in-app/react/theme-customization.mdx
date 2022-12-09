@@ -1,0 +1,231 @@
+---
+title: Customize the Default Theme
+subtitle: Learn how to change the default theme
+---
+
+The notification inbox has a [light](https://playground.magicbell.com/react-theme-light) (default), [flat](https://playground.magicbell.com/react-theme-flat) and [classic](https://playground.magicbell.com/react-theme-classic) theme, and can be customized to match your site's style. You can do so by overriding default theme definitions.
+
+In the following example, we show how to change the color of the bell icon, the background color, border radius and font of the header of the notification inbox.
+
+<NotificationInboxPreview
+  magicBellProps={{
+    theme: {
+      icon: { borderColor: '#2c73d2' },
+      header: {
+        fontFamily: 'Arial',
+        backgroundColor: '#c34a36',
+        textColor: '#fff',
+        borderRadius: '0px',
+      },
+      footer: { backgroundColor: '#c34a36', borderRadius: '0px' },
+    },
+  }}
+  code={`<MagicBell
+  apiKey="MAGICBELL_API_KEY"
+  userEmail="dan@example.com"
+  theme={{
+    icon: { borderColor: '#2c73d2' },
+    header: { fontFamily: 'Arial', backgroundColor: '#c34a36', textColor: '#fff', borderRadius: '0px' },
+    footer: { backgroundColor: '#c34a36', borderRadius: '0px' },
+  }}
+  defaultIsOpen
+>
+  {(props) => (
+    <FloatingNotificationInbox
+      height={350}
+      {...props}
+    />
+  )}
+</MagicBell>
+`}
+/>
+
+<Tabs>
+
+```jsx title=REACT hideHeader noTopBorderRadius
+import React from 'react';
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+export default function Notifications() {
+  // Your custom theme definition
+  const theme = {
+    icon: { borderColor: '#2c73d2' },
+    header: {
+      fontFamily: 'Arial',
+      backgroundColor: '#c34a36',
+      textColor: '#fff',
+      borderRadius: '2px',
+    },
+    footer: { backgroundColor: '#c34a36' },
+  };
+
+  return (
+    <MagicBell apiKey="MAGICBELL_API_KEY" userExternalId="mary@example.com" theme={theme}>
+      {(props) => <FloatingNotificationInbox height={500} {...props} />}
+    </MagicBell>
+  );
+}
+```
+
+```html title=HTML hideHeader noTopBorderRadius
+<script type="module">
+  import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+  // Your custom theme definition
+  const theme = {
+    icon: { borderColor: '#2c73d2' },
+    header: {
+      fontFamily: 'Arial',
+      backgroundColor: '#c34a36',
+      textColor: '#fff',
+      borderRadius: '2px',
+    },
+    footer: { backgroundColor: '#c34a36' },
+  };
+
+  const targetEl = document.getElementById('notifications-inbox');
+  const options = {
+    apiKey: 'MAGICBELL_API_KEY',
+    userExternalId: 'u001',
+    height: 500,
+    theme,
+  };
+
+  renderWidget(targetEl, options);
+</script>
+```
+
+</Tabs>
+
+## The bell icon
+
+The bell icon is an SVG image, you can change the size and color of it.
+
+<PropsTable properties={defaultMagicBellTheme.icon} />
+
+## The header
+
+You can change the background color and its opacity, the text color and size and the border radius among others.
+
+This is a complete list of the customizable settings:
+
+<PropsTable properties={defaultMagicBellTheme.header} />
+
+## The unseen badge
+
+This element shows the number of unseen notifications for the current user. You can change the background color and opacity, the border radius, and the font size among others. The size of this element is relative to the size of the bell.
+
+This is a complete list of the customizable setttings:
+
+<PropsTable properties={defaultMagicBellTheme.unseenBadge} />
+
+## The footer
+
+You can change the background color and its opacity, the text color and size and the border radius among others.
+
+This is a complete list of the customizable setttings:
+
+<PropsTable properties={defaultMagicBellTheme.footer} />
+
+## The notification
+
+The style of a notification depends on its state. It can be unseen, unread or read. Read state is the default state. Unseen and unread states override properties of the default state.
+
+This is the default style of a read notification:
+
+<PropsTable properties={defaultMagicBellTheme.notification.default} />
+
+### The unseen notification
+
+This is the default style of an unseen notification. Note that the unseen style inherits properties from the default notification style. When you override these styles, defining the differences compared to default is sufficient.
+
+<PropsTable properties={defaultMagicBellTheme.notification.unseen} />
+
+### The unread notification.
+
+And this is the default style of an unread (but seen) notification. Note that the unread style inherits properties from the default notification style. When you override these styles, defining the differences compared to default is sufficient.
+
+<PropsTable properties={defaultMagicBellTheme.notification.unread} />
+
+## Dark theme example
+
+By combining the above options you can get a huge variety of themes. For example, this is a definition for a dark theme:
+
+<NotificationInboxPreview
+  magicBellProps={{
+    theme: {
+      icon: { borderColor: '#292d3e' },
+      header: {
+        backgroundColor: '#FAD776',
+        backgroundOpacity: 0,
+        borderRadius: '4px',
+        textColor: 'white',
+      },
+      footer: {
+        backgroundColor: '#292d3e',
+        backgroundOpacity: 1,
+        borderRadius: '4px',
+        textColor: 'white',
+      },
+      container: { backgroundColor: '#292d3e' },
+      notification: {
+        default: {
+          backgroundColor: '#292d3e',
+          borderRadius: '4px',
+          textColor: 'white',
+        },
+        unread: {
+          backgroundColor: '#212328',
+          backgroundOpacity: 0.75,
+        },
+        unseen: {
+          backgroundColor: '#867555',
+          backgroundOpacity: 0.2,
+        },
+      },
+    },
+  }}
+  code={`<MagicBell
+  apiKey="MAGICBELL_API_KEY"
+  userEmail="dan@example.com"
+  theme={{
+      icon: { borderColor: '#292d3e' },
+      header: {
+        backgroundColor: '#FAD776',
+        backgroundOpacity: 0,
+        borderRadius: '4px',
+        textColor: 'white',
+      },
+      footer: {
+        backgroundColor: '#292d3e',
+        backgroundOpacity: 1,
+        borderRadius: '4px',
+        textColor: 'white',
+      },
+      container: { backgroundColor: '#292d3e' },
+      notification: {
+        default: {
+          backgroundColor: '#292d3e',
+          borderRadius: '4px',
+          textColor: 'white',
+        },
+        unread: {
+          backgroundColor: '#212328',
+          backgroundOpacity: 0.75,
+        },
+        unseen: {
+          backgroundColor: '#867555',
+          backgroundOpacity: 0.2,
+        },
+      },
+    }}
+>
+  {(props) => (
+    <FloatingNotificationInbox
+      height={350}
+      {...props}
+    />
+  )}
+</MagicBell>
+`}
+/>

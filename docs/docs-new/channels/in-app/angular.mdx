@@ -1,0 +1,45 @@
+---
+title: Angular.js and MagicBell
+---
+
+## Quickstart
+
+Though we do not offer a native Angular UI library at the moment, you can use
+the embeddable package to render a MagicBell component in your Angular app.
+
+You can either grab it from our CDN or install the embeddable package from NPM.
+
+```shell hideHeader
+npm install @magicbell/embeddable
+# Or
+yarn add @magicbell/embeddable
+```
+
+After grabbing the library, you can import the `renderWidget` function to render
+the notification inbox.
+
+```typescript title=Angular
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { renderWidget } from '@magicbell/embeddable/dist/magicbell.esm.js';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+})
+export class AppComponent implements AfterViewInit {
+  @ViewChild('notifications') notifications: ElementRef;
+
+  ngAfterViewInit() {
+    renderWidget(this.notifications.nativeElement, {
+      apiKey: MAGICBELL_API_KEY,
+      userEmail: 'mary@example.com',
+    });
+  }
+}
+```
+
+If you prefer to use the CDN bundle, replace the import statement (line 2) with
+
+```javascript hideHeader
+import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+```

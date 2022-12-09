@@ -1,0 +1,72 @@
+---
+title: Adding MagicBell to your NuxtJS Application
+---
+
+## Quickstart
+
+Though we do not offer a native Vue UI library at the moment, you can use
+the embeddable package to render a MagicBell component in your VuxtJS App.
+
+You can either grab it from our CDN or install the embeddable package from NPM.
+
+```shell hideHeader
+npm install @magicbell/embeddable
+# Or
+yarn add @magicbell/embeddable
+```
+
+After successfully installing the package, you will need to create a plugin file for MagicBell by creating a file called `magicbell.client.js` in the `plugins` folder
+
+```js
+// plugins/magicbell.client.js
+import { renderWidget } from '@magicbell/embeddable/dist/magicbell.esm.js';
+
+const MagicBellPlugin = ({ _app }, inject) => {
+  inject('magicbell', renderWidget);
+};
+
+export default MagicBellPlugin;
+```
+
+If you prefer to use the CDN bundle, replace the import statement (line 2) with
+
+```javascript
+import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+```
+
+After that, you will need to update your `nuxt.config.js` file and add the newly created plugin to the plugin array as well as the plugin to the transpile list. Your config should look like this:
+
+```js
+plugins: ['~/plugins/magicbell.client.js'],
+transpile: ['@magicbell/embeddable/dist/magicbell.esm.js']
+```
+
+If you now want to use the Widget in your code, create a `<div />` in the template and give it a `ref` so it can be referenced via the code.
+After that, you will need to use the referenced `<div />` to mount the MagicBell widget. You can do that by accessing the plugin using `this.$magicbell`.
+
+The finished code should look like that
+
+```javascript title=Vue
+// MagicBell.vue
+<template>
+    <div ref="notifications" />
+</template>
+<script>
+export default {
+    mounted(){
+        const magicbellOptions = {
+            apiKey: this.$config.MAGICBELL_API_KEY,
+            userExternalId: 'some-id',
+            // other customization options:
+            // http://magicbell.com/docs/browser/changing-default-font
+        }
+        this.$magicbell(this.$refs.notifications, magicbellOptions)
+    }
+}
+</script>
+```
+
+If you followed all steps you should have awesome Notifications in your NuxtJS application!
+You can use our prepared CodeSandBox [here](https://codesandbox.io/s/magicbell-with-nuxt-97uje?file=/components/MagicBell.vue) to try it out!
+
+**We really want to thank [Per diem](https://www.tryperdiem.com/) for providing us with their solution ✨**

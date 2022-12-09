@@ -22,7 +22,6 @@ export default function DynamicDocument({ mdxSource, metadata, editUrl }: Props)
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // TODO : check for router in the sitemap that are pages, redirect them to the default subpage
   // Load routes from the sitemap
   const allRoutes = getAllSitemapItems(sitemap)
     .filter((item) => item.to !== undefined && !item.staticRoute)
@@ -49,7 +48,6 @@ export const getStaticProps: GetStaticProps<
   const slug = params.slug.join('/');
 
   const filename = slug + '.mdx';
-  // TODO : change the docsDir back to orignal
   const docsDirectory = path.join(process.cwd(), 'docs-new');
   const filePath = path.join(docsDirectory, filename);
   const editUrl = `https://github.com/magicbell-io/public/edit/main/docs/docs/${filename}`;

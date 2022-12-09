@@ -1,4 +1,4 @@
-import ChevronRightIcon from '@heroicons/react/outline/ChevronRightIcon';
+import ChevronDownIcon from '@heroicons/react/outline/ChevronDownIcon';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { includes } from 'ramda';
@@ -16,17 +16,20 @@ export default function ParentMenuItem({ name, children = [], ...props }: Sitema
   return (
     <div className="submenu" aria-expanded={isOpen}>
       <button
-        className="group py-3 flex items-center w-full hover:bg-bgHover group-hover:text-textLinkHover"
+        className="group py-3 flex items-center w-full group-hover:text-textLinkHover"
         onClick={toggle}
       >
         <a className="flex-1 md:text-sm text-left text-textDefault">{name}</a>
-        <ChevronRightIcon
-          className={classNames(isOpen ? 'rotate-90' : 'rotate-0', 'transform h-4 w-4')}
+        <ChevronDownIcon
+          className={classNames(
+            isOpen ? 'rotate-180' : 'rotate-0',
+            'transform h-4 w-4 text-textMuted',
+          )}
         />
       </button>
       <ul
         className={classNames(
-          'border-l border-gray-200 border-dashed ml-9',
+          'border-l border-textMuted border-opacity-25 text-textMuted pl-4',
           isOpen ? '' : 'hidden',
         )}
       >

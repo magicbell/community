@@ -1,0 +1,83 @@
+---
+title: How to Change the Default Font
+---
+
+## Change the font family
+
+MagicBell uses system fonts by default (`'-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif'`). But you can change this in 2 easy steps.
+
+- Override the default theme setting the name of the font family for the elements you want to be affected
+- Provide the stylesheets that contain the definition of the font you want to use
+
+In the following example, we are changing the font to [IBM Plex Sans](https://fonts.google.com/specimen/IBM+Plex+Sans), a font available at [Google Fonts](https://fonts.google.com/).
+
+```html title=ESM
+<script type="module">
+  import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+  let theme = {
+    header: { fontFamily: 'IBM Plex Sans' },
+    footer: { fontFamily: 'IBM Plex Sans' },
+    notification: {
+      default: { fontFamily: 'IBM Plex Sans' },
+      unseen: { fontFamily: 'IBM Plex Sans' },
+      unread: { fontFamily: 'IBM Plex Sans' },
+    },
+  };
+
+  let stylesheets = [
+    'https://fonts.gstatic.com',
+    'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;500',
+  ];
+
+  let target = document.getElementById('notifications-inbox');
+  let options = {
+    apiKey: 'MAGICBELL_API_KEY',
+    userEmail: 'mary@example.com',
+    height: 500,
+    theme,
+    stylesheets,
+  };
+
+  renderWidget(target, options);
+</script>
+```
+
+<Note>
+  You don't need to provide the url of your fonts if the font is a web safe one.
+</Note>
+
+<Warning>
+  The MagicBell widget sets 500 as the notification's title weight. Therefore, make sure
+  to include in the 200 and 500 weight variations, as shown in the previous example.
+</Warning>
+
+## Change the font size
+
+Pass the font size to all elements you want to customize. In the following example we show how to set 16px as the font size for notifications in any state and 13px for the header:
+
+```html title=ESM
+<div id="notifications-inbox" />
+<script type="module">
+  import { renderWidget } from 'https://unpkg.com/@magicbell/embeddable';
+
+  let theme = {
+    header: { fontSize: '13px' },
+    notification: {
+      default: { fontSize: '16px' },
+      unseen: { fontFamily: '16px' },
+      unread: { fontFamily: '16px' },
+    },
+  };
+
+  let targetEl = document.getElementById('notifications-inbox');
+  let options = {
+    apiKey: MAGICBELL_API_KEY,
+    userEmail: CURRENT_USER_EMAIL,
+    height: 500,
+    theme,
+  };
+
+  renderWidget(targetEl, options);
+</script>
+```

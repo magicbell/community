@@ -19,7 +19,6 @@ export default function index({ mdxSource, metadata = {} }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  // TODO : change the docsDir back to orignal
   const docsDirectory = path.join(process.cwd(), 'docs-new');
   const filePath = path.join(docsDirectory, 'index.mdx');
   const fileContents = fs.readFileSync(filePath, 'utf8');
