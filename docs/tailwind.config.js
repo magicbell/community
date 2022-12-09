@@ -15,12 +15,14 @@ module.exports = {
 
         // Background and borders
         bgApp: '#1B1D29',
+        bgDefault: '#23283B',
         bgHover: '#262E45',
         borderMuted: '#354061',
 
         // Body Text
         textDefault: '#EDEDEF',
         textMuted: '#A09FA6',
+        textHighlight: '#FFEF5C',
         textLinkHover: '#BCAFFD',
       },
       fontFamily: {
@@ -29,7 +31,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      borderWidth: ['last'],
+    },
   },
   plugins: [],
 };

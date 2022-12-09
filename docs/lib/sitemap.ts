@@ -10,6 +10,7 @@ export type SitemapItem = {
   children?: SitemapItem[];
   section?: boolean;
   links?: SitemapItem[];
+  subpage?: SitemapItem[];
   /**
    * A page is used to determine the subpages (e.g. ‘Channels’) which updates the default
    * state of the nav/sidebar to display the links in the subpage (children of the page).
@@ -34,23 +35,14 @@ export function getAllChildrenPaths(element: Partial<SitemapItem>): string[] | s
   if (element.to) return element.to;
 
   if (element.section) {
-    if (!element.links) {
-      throw new Error(
-        'Section with no links found, please ensure the correctness of the sitemap.',
-      );
-    }
-
-    return reject(isNil, flatten(element.links.map(getAllChildrenPaths)));
+    // TODO: add testcase for undefined links
+    const links = element.links as SitemapItem[];
+    return reject(isNil, flatten(links.map(getAllChildrenPaths)));
   }
 
-  if (element.children === undefined) {
-    // If the element is not a `section` and not a `to` it should always contain children
-    throw new Error(
-      'Failed to get the children of the element, please ensure the correctness of the sitemap.',
-    );
-  }
-
-  return reject(isNil, flatten(element.children.map(getAllChildrenPaths)));
+  // TODO: add testcase for undefined children
+  const children = element.children as SitemapItem[];
+  return reject(isNil, flatten(children.map(getAllChildrenPaths)));
 }
 
 /**

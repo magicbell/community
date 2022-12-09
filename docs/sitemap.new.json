@@ -29,8 +29,8 @@
       {
         "page": true,
         "name": "API",
-        "to": "/api/overview",
-        "children": [
+        "to": "/api",
+        "subpage": [
           {
             "section": true,
             "links": [
@@ -95,10 +95,10 @@
     "name": "Core Concept",
     "links": [
       {
-        "name": "Channels",
-        "to": "/channels/overview",
         "page": true,
-        "children": [
+        "name": "Channels",
+        "to": "/channels",
+        "subpage": [
           {
             "section": true,
             "links": [

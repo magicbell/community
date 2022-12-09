@@ -1,0 +1,74 @@
+---
+title: Delivery Channels
+subtitle: How to Send Notifications Across Channels
+---
+
+MagicBell delivers notifications to:
+
+- Inbox
+- [Email](/docs/email)
+- Web push
+- [Mobile push](/docs/react-native/implement-mobile-push-notifications#setup-android-push-notifications)
+- [Slack](/docs/slack)
+- SMS
+
+The channels page of your [MagicBell dashboard](https://app.magicbell.com)
+provides the option to configure which channels all notifications within a
+project are delivered to.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/ConfigureSmartChannels.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+## User Preferences
+
+You can allow users to control which channels they receive notifications to.
+Check the [user preferences API](/docs/rest-api/reference#get-preferences) for
+futher information.
+
+Our UI libraries offer a preferences pane. It allows users to toggle the
+channels they prefer for each category.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/Preferences.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+Please contact us to disable this feature for your project.
+
+## In-app
+
+We believe having an in-app notification inbox is a crucial component for most
+applications - otherwise we would not exist! In-app notifications drive
+engagement, provide a better user experience, and allow applications to drive
+user awareness of key events and functionality. The in-app inbox is the starting
+point for MagicBell customers and users.
+
+## Email
+
+Deliver notifications to email addresses directly from MagicBell. HTML can be
+used directly in the Content input to customize emails. There are also extensive
+integration options with SendGrid, Postmark, and Mailgun!
+
+## Mobile push
+
+Push notifications are often a crucial component of mobile applications.
+
+## Web push
+
+Push notifications for the web are a great way to reach users working on desktop
+machines instantly. A good reminder is users must enable desktop notifications.
+
+## Slack
+
+Reach your users with Slack notifications powered by MagicBell. MagicBell supports
+both webhook and oauth Slack apps to allow you all the control you need.
+
+## SMS
+
+SMS notifications help you deliver notifications to all your users, even those
+in places with no internet, or those with internet that still like a little old
+fashioned touch :)
