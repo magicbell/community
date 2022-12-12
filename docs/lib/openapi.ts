@@ -1,30 +1,10 @@
 import swagger from '@apidevtools/swagger-parser';
 import fs from 'fs';
 import { OpenAPI, OpenAPIV3 } from 'openapi-types';
-import path from 'path';
 
-const SPEC_FILE =
-  'https://raw.githubusercontent.com/magicbell-io/public/main/openapi/spec/openapi.json';
+export const OPENAPI_FILE = 'docs/rest-api/openapi.json';
 
-export const CACHE_FILE = 'docs/rest-api/openapi.json';
-
-const canUseCacheFile = (file: string, maxAge: number) => {
-  const now = new Date().getTime();
-  const expires = new Date(now - maxAge);
-
-  try {
-    return fs.statSync(file).mtime > expires;
-  } catch {
-    return false;
-  }
-};
-
-const writeCacheFile = (file: string, data: Record<string, unknown>) => {
-  fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify(data, null, 2));
-};
-
-const readCacheFile = (file: string) => {
+const readOpenAPIFile = (file: string) => {
   try {
     return JSON.parse(fs.readFileSync(file, 'utf-8'));
   } catch {
@@ -37,7 +17,7 @@ export async function fetchOpenAPISpec(
   options: Partial<typeof defaultOptions> = defaultOptions,
 ): Promise<OpenAPIV3.Document> {
   options = { ...defaultOptions, ...options };
-  const json = readCacheFile(CACHE_FILE);
+  const json = readOpenAPIFile(OPENAPI_FILE);
 
   if (!json) {
     throw new Error(
