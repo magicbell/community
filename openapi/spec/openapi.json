@@ -1803,11 +1803,43 @@
                 },
                 "example": {
                   "import": {
-                    "id": "67e839ab-98a8-48cf-9bcb-12d2b906c9c3",
-                    "status": "processing",
-                    "summary": {},
-                    "errors": [],
-                    "failures": []
+                    "id": "90200969-fcc7-4dee-b62f-928cc3b226d9",
+                    "status": "processed",
+                    "summary": {
+                      "total": 1,
+                      "failures": 1
+                    },
+                    "failures": {
+                      "users": [
+                        {
+                          "email": "invalidEmail",
+                          "external_id": null,
+                          "errors": {
+                            "email": ["must be an email address"],
+                            "channels": {
+                              "slack": {
+                                "providers": {
+                                  "0": {
+                                    "oauth": {
+                                      "app": {
+                                        "app_id": ["could not find the slack app"]
+                                      }
+                                    }
+                                  },
+                                  "1": {
+                                    "oauth": {
+                                      "app": {
+                                        "app_id": ["could not find the slack app"]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
                   }
                 }
               }
@@ -2594,6 +2626,7 @@
           },
           "errors": {
             "type": "array",
+            "description": "A list of errors (deprecated - please use failures instead)",
             "items": {
               "type": "object",
               "additionalProperties": false,
