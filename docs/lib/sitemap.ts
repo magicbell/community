@@ -55,6 +55,16 @@ export function getAllSitemapItems(sitemap: SitemapItem[]): SitemapItem[] {
     if (item.children) {
       item.children.forEach(traverse);
     }
+
+    if (item.section) {
+      const links = item.links as SitemapItem[];
+      links.forEach(traverse);
+    }
+
+    if (item.page) {
+      const subpage = item.subpage as SitemapItem[];
+      subpage.forEach(traverse);
+    }
   };
   sitemap.forEach(traverse);
   return items;
