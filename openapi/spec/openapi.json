@@ -2648,26 +2648,23 @@
           },
           "failures": {
             "type": "object",
-            "items": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "users": {
-                  "type": "array",
-                  "description": "The array of user objects that could not be imported successfully",
-                  "properties": {
-                    "email": {
-                      "type": "string",
-                      "description": "The identifying email of the user. If the user's external_id is used as identifier, the email key will not be present"
-                    },
-                    "external_id": {
-                      "type": "string",
-                      "description": "The identifying external_id of the user. If the user's email is used as identifier, the external_id key will not be present"
-                    },
-                    "errors": {
-                      "type": "object",
-                      "description": "The errors object reflecting the structure of the user oject"
-                    }
+            "description": "Contains the entities that could not be imported successfully",
+            "properties": {
+              "users": {
+                "type": "array",
+                "description": "User objects that could not be imported successfully",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "The identifying email of the user if supplied in the import request."
+                  },
+                  "external_id": {
+                    "type": "string",
+                    "description": "The identifying external_id of the user if supplied in the import request."
+                  },
+                  "errors": {
+                    "type": "object",
+                    "description": "The errors object reflecting the structure of the user oject"
                   }
                 }
               }
