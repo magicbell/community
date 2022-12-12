@@ -2184,6 +2184,7 @@
         "required": ["id", "title", "sent_at"]
       },
       "NotificationPayload": {
+        "type": "object",
         "additionalProperties": false,
         "properties": {
           "title": { "$ref": "#/components/schemas/Notification/properties/title" },
