@@ -19,7 +19,7 @@ export default function index({ mdxSource, metadata = {} }: Props) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const docsDirectory = path.join(process.cwd(), 'docs');
+  const docsDirectory = path.join(process.cwd(), 'docs-new');
   const filePath = path.join(docsDirectory, 'index.mdx');
   const fileContents = fs.readFileSync(filePath, 'utf8');
 

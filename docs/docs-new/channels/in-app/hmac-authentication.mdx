@@ -1,0 +1,233 @@
+---
+title: Turn on HMAC Authentication
+---
+
+This guide will help you turn on HMAC authentication for your MagicBell project. Read the [HMAC entry on the glossary](/docs/glossary#hmac) for further information about this authentication code.
+
+## Is HMAC authentication necessary?
+
+When you initialize MagicBell's embeddable Notification Inbox in your website, you provide your MagicBell project's API key and a user's email or external ID (if it's feasible for them to guess one). A savvy user can open their browser's developer console and obtain your MagicBell project's API key with this setup. They can then initialize the inbox on their website with your API key but with a different email or external ID and start viewing that user's notifications.
+
+By default, HMAC is turned off because it makes it easier to test the integration. However, we highly recommend turning it on before going live. You can do this from your [MagicBell dashboard](https://app.magicbell.com). Look for it on the Settings page.
+
+## How do I enable it?
+
+You can enable HMAC authentication in the Settings section of your [MagicBell Dashboard](https://app.magicbell.com). If you have multiple MagicBell projects, you can select one to enable HMAC using the main menu.
+
+<img
+  className="full-mobile"
+  src="/docs/uploads/hmac.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+
+Remember that this is secure as long as your private key is kept safe. NEVER PUBLISH YOUR PRIVATE KEY!
+
+## How do I compute it?
+
+Use your MagicBell project's API secret to compute an HMAC code of the user's email or external ID on your server. Do not perform the calculation of the HMAC in the client.
+
+### Using an email address
+
+<Note>
+  When using an email address, the email address <strong>MUST</strong> be lowercase.
+</Note>
+
+<Tabs>
+
+```node title=NODE hideHeader noTopBorderRadius
+const userEmailHMAC = crypto
+  .createHmac('sha256', MAGICBELL_API_SECRET)
+  .update(userEmail)
+  .digest('base64');
+```
+
+```ruby title=RUBY hideHeader noTopBorderRadius
+digest = OpenSSL::Digest::Digest.new('sha256')
+user_email_hmac = Base64.encode64(OpenSSL::HMAC.digest(digest, MAGICBELL_API_SECRET, user_email))
+```
+
+```java title=JAVA hideHeader noTopBorderRadius
+import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.Mac;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
+class MagicBellAuth {
+  private static final String HMAC_SHA256 = "HmacSHA256";
+
+  public static String calculateHMAC(String data, String key) throws InvalidKeyException, NoSuchAlgorithmException {
+    SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), HMAC_SHA256);
+    Mac mac = Mac.getInstance(HMAC_SHA256);
+    mac.init(secretKeySpec);
+    return encodeToBase64(mac.doFinal(data.getBytes()));
+  }
+
+  private static String encodeToBase64(byte[] bytes) {
+    return Base64.getEncoder().encodeToString(bytes);
+  }
+}
+
+class Main {
+  public static void main(String[] args) throws InvalidKeyException, NoSuchAlgorithmException {
+    String hmac = MagicBellAuth.calculateHMAC("user@example.com", "MAGICBELL_API_SECRET");
+    System.out.println(hmac);
+  }
+}
+```
+
+```javascript title=JAVASCRIPT hideHeader noTopBorderRadius
+import Base64 from 'crypto-js/enc-base64';
+import hmacSHA256 from 'crypto-js/hmac-sha256';
+
+const userEmailHMAC = Base64.stringify(hmacSHA256(userEmail, MAGICBELL_API_SECRET));
+```
+
+```php title=PHP hideHeader noTopBorderRadius
+$hexHash = hash_hmac('sha256', $userEmail, utf8_encode($magicBellAPISecret));
+$hmac = base64_encode(hex2bin($hexHash));
+```
+
+</Tabs>
+
+### Using an external ID
+
+<Note>If you use an integer to identify users, remember to cast it to a string.</Note>
+
+<Tabs>
+
+```node title=NODE hideHeader noTopBorderRadius
+const userExternalIDHMAC = crypto
+  .createHmac('sha256', MAGICBELL_API_SECRET)
+  .update(userExternalID)
+  .digest('base64');
+```
+
+```ruby title=RUBY hideHeader noTopBorderRadius
+digest = OpenSSL::Digest::Digest.new('sha256')
+user_external_id_hmac = Base64.encode64(OpenSSL::HMAC.digest(digest, MAGICBELL_API_SECRET, user_external_id))
+```
+
+```java title=JAVA hideHeader noTopBorderRadius
+import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.Mac;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
+class MagicBellAuth {
+  private static final String HMAC_SHA256 = "HmacSHA256";
+
+  public static String calculateHMAC(String data, String key) throws InvalidKeyException, NoSuchAlgorithmException {
+    SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), HMAC_SHA256);
+    Mac mac = Mac.getInstance(HMAC_SHA256);
+    mac.init(secretKeySpec);
+    return encodeToBase64(mac.doFinal(data.getBytes()));
+  }
+
+  private static String encodeToBase64(byte[] bytes) {
+    return Base64.getEncoder().encodeToString(bytes);
+  }
+}
+
+class Main {
+  public static void main(String[] args) throws InvalidKeyException, NoSuchAlgorithmException {
+    String hmac = MagicBellAuth.calculateHMAC("[USER_EXTERNAL_ID]", "MAGICBELL_API_SECRET");
+    System.out.println(hmac);
+  }
+}
+```
+
+```javascript title=JAVASCRIPT hideHeader noTopBorderRadius
+import Base64 from 'crypto-js/enc-base64';
+import hmacSHA256 from 'crypto-js/hmac-sha256';
+
+const userExternalIDHMAC = Base64.stringify(
+  hmacSHA256(userExternalID, MAGICBELL_API_SECRET),
+);
+```
+
+```php title=PHP hideHeader noTopBorderRadius
+$hexHash = hash_hmac('sha256', $userExternalID, utf8_encode($magicBellAPISecret));
+$hmac = base64_encode(hex2bin($hexHash));
+```
+
+</Tabs>
+
+## How do I use it?
+
+Next, provide the HMAC code in the `userKey` property.
+
+You still need to set your API key and the user's email or external ID when initializing MagicBell's notification inbox.
+
+### Using an email address
+
+<Note>
+  When using an email address, the email address <strong>MUST</strong> be lowercase.
+</Note>
+
+<Tabs>
+
+```jsx title=REACT hideHeader noTopBorderRadius
+import React from "react";
+import MagicBell, { FloatingNotificationInbox } from "@magicbell/magicbell-react";
+
+export default function Notifications() {
+  return (
+    <MagicBell apiKey="MAGICBELL_API_KEY" userEmail="mary@example.com" userKey="[HMAC_CODE]">
+      {(props) => <FloatingNotificationInbox height={500} {...props} />}
+    </MagicBell>
+  );
+)
+```
+
+```html title=HTML hideHeader noTopBorderRadius
+<div id="notifications-inbox" />
+<script type="text/javascript">
+  // Other initialization code...
+  var options = {
+    apiKey: 'MAGICBELL_API_KEY',
+    userEmail: 'mary@example.com',
+    userKey: '[HMAC_CODE]',
+  };
+
+  magicbell('render', target, options);
+</script>
+```
+
+</Tabs>
+
+### Using an external ID
+
+<Note>If you use an integer to identify users, remember to cast it to a string.</Note>
+
+<Tabs>
+
+```jsx title=REACT hideHeader noTopBorderRadius
+import React from "react";
+import MagicBell, { FloatingNotificationInbox } from "@magicbell/magicbell-react";
+
+export default function Notifications() {
+  return (
+    <MagicBell apiKey="MAGICBELL_API_KEY" userExternalID="[USER_EXTERNAL_ID]" userKey="[HMAC_CODE]">
+      {(props) => <FloatingNotificationInbox height={500} {...props} />}
+    </MagicBell>
+  );
+)
+```
+
+```html title=HTML hideHeader noTopBorderRadius
+<div id="notifications-inbox" />
+<script type="text/javascript">
+  // Other initialization code...
+  var options = {
+    apiKey: 'MAGICBELL_API_KEY',
+    userExternalID: 'USER_EXTERNAL_ID',
+    userKey: '[HMAC_CODE]',
+  };
+
+  magicbell('render', target, options);
+</script>
+```
+
+</Tabs>

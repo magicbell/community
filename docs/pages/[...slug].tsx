@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps<
   const slug = params.slug.join('/');
 
   const filename = slug + '.mdx';
-  const docsDirectory = path.join(process.cwd(), 'docs');
+  const docsDirectory = path.join(process.cwd(), 'docs-new');
   const filePath = path.join(docsDirectory, filename);
   const editUrl = `https://github.com/magicbell-io/public/edit/main/docs/docs/${filename}`;
 

@@ -5,11 +5,14 @@ import GraphqlAPILinks from './GraphqlAPILinks';
 import OpenAPILinks, { OpenAPILink } from './OpenAPILinks';
 import PageLink from './PageLink';
 import ParentMenuItem from './ParentMenuItem';
+import SectionMenuItem from './SectionMenuComponent';
 
 export default function MenuItem(props: SitemapItem & { openAPILinks?: OpenAPILink[] }) {
   const router = useRouter();
 
   if (props.hiddenRoute) return null;
+
+  if (props.section) return <SectionMenuItem {...props} />;
 
   if (props.children) return <ParentMenuItem {...props} />;
 

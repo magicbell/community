@@ -1,0 +1,313 @@
+[
+  {
+    "section": true,
+    "links": [
+      {
+        "name": "Docs overview",
+        "to": "/"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "name": "Getting Started",
+    "links": [
+      {
+        "name": "Install the Inbox",
+        "to": "/install-the-inbox"
+      },
+      {
+        "name": "Send your first notification",
+        "to": "/send-your-first-notification"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "name": "Reference",
+    "links": [
+      {
+        "page": true,
+        "name": "API",
+        "to": "/api",
+        "subpage": [
+          {
+            "section": true,
+            "links": [
+              {
+                "name": "Overview",
+                "to": "/api/overview"
+              },
+              {
+                "name": "Rest API",
+                "to": "/api/rest-api"
+              },
+              {
+                "name": "GraphQL API",
+                "to": "/api/graphql-api"
+              },
+              {
+                "name": "API Wrapper and Libraries",
+                "to": "/api/api-wrapper-and-libraries"
+              }
+            ]
+          },
+          {
+            "section": true,
+            "name": "Reference",
+            "links": [
+              {
+                "name": "Introduction",
+                "to": "/api/introduction"
+              },
+              {
+                "name": "Notifications",
+                "to": "/api/notification",
+                "staticRoute": true
+              },
+              {
+                "name": "Users",
+                "to": "/api/users",
+                "staticRoute": true
+              },
+              {
+                "name": "Categories",
+                "to": "/api/categories",
+                "staticRoute": true
+              },
+              {
+                "name": "Event Logs",
+                "to": "/api/event-logs",
+                "staticRoute": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Glossary",
+        "to": "/glossary"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "name": "Core Concept",
+    "links": [
+      {
+        "page": true,
+        "name": "Channels",
+        "to": "/channels",
+        "subpage": [
+          {
+            "section": true,
+            "links": [
+              {
+                "name": "Overview",
+                "to": "/channels"
+              }
+            ]
+          },
+          {
+            "section": true,
+            "links": [
+              {
+                "page": true,
+                "name": "In App (Inbox)",
+                "to": "/channels/in-app",
+                "subpage": [
+                  {
+                    "section": true,
+                    "links": [
+                      {
+                        "name": "Overview",
+                        "to": "/channels/in-app"
+                      }
+                    ]
+                  },
+                  {
+                    "section": true,
+                    "name": "Inbox",
+                    "links": [
+                      {
+                        "name": "HMAC Authentication",
+                        "to": "/channels/in-app/hmac-authentication"
+                      },
+                      {
+                        "name": "React",
+                        "children": [
+                          {
+                            "name": "Identifying Users",
+                            "to": "/channels/in-app/react/identifying-users"
+                          },
+                          {
+                            "name": "Customize the theme",
+                            "to": "/channels/in-app/react/customize-the-theme"
+                          },
+                          {
+                            "name": "Inbox Tabs",
+                            "to": "/channels/in-app/react/inbox-tabs"
+                          },
+                          {
+                            "name": "Change the position of the notification inbox",
+                            "to": "/channels/in-app/react/change-the-position-of-the-notification-inbox"
+                          },
+                          {
+                            "name": "Set a custom click handler",
+                            "to": "/channels/in-app/react/set-a-custom-click-handler"
+                          },
+                          {
+                            "name": "Change the default notification component",
+                            "to": "/channels/in-app/react/change-the-default-notification-component"
+                          },
+                          {
+                            "name": "Play a sound when a notification arrives",
+                            "to": "/channels/in-app/react/play-a-sound-when-a-notification-arrives"
+                          },
+                          {
+                            "name": "Render notifications in a sidebar",
+                            "to": "/channels/in-app/react/render-notifications-in-a-sidebar"
+                          },
+                          {
+                            "name": "Known Issues",
+                            "to": "/channels/in-app/react/known-issues"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "React Native",
+                        "children": [
+                          {
+                            "name": "Getting started",
+                            "to": "/channels/in-app/react-native/getting-started"
+                          },
+                          {
+                            "name": "Implement mobile push notifications",
+                            "to": "/channels/in-app/react-native/implement-mobile-push-notifications"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Vue",
+                        "children": [
+                          {
+                            "name": "How to use MagicBell with NuxtJS",
+                            "to": "/channels/in-app/vue/adding-magicbell-to-your-nuxt-application"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Browser",
+                        "children": [
+                          {
+                            "name": "Change the default font",
+                            "to": "/channels/in-app/browser/changing-default-font"
+                          },
+                          {
+                            "name": "Change the default images",
+                            "to": "/channels/in-app/browser/changing-default-images"
+                          },
+                          {
+                            "name": "Notify users when a new notification arrives",
+                            "to": "/channels/in-app/browser/new-notification-hook"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Angular",
+                        "to": "/channels/in-app/angular"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Email",
+                "to": "/channels/email"
+              },
+              {
+                "name": "Web Push",
+                "to": "/channels/web-push"
+              },
+              {
+                "name": "Mobile Push",
+                "to": "/channels/mobile-push"
+              },
+              {
+                "name": "Slack",
+                "to": "/channels/slack"
+              },
+              {
+                "name": "SMS",
+                "to": "/channels/sms"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Categories",
+        "to": "/categories"
+      },
+      {
+        "name": "Templates",
+        "to": "/templates"
+      },
+      {
+        "name": "Topics",
+        "to": "/topics"
+      },
+      {
+        "name": "Subscriptions",
+        "to": "/subscriptions"
+      },
+      {
+        "name": "Users",
+        "to": "/users"
+      },
+      {
+        "name": "Notifications",
+        "to": "/notifications"
+      },
+      {
+        "name": "Event Log",
+        "to": "/event-log"
+      },
+      {
+        "name": "Analytics",
+        "to": "/analytics"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "links": [
+      {
+        "name": "Guides",
+        "to": "/guides"
+      }
+    ]
+  },
+  {
+    "section": true,
+    "name": "Resources",
+    "links": [
+      {
+        "name": "FAQ",
+        "to": "/faq"
+      },
+      {
+        "name": "Changelog",
+        "to": "/changelog"
+      },
+      {
+        "name": "Playground",
+        "to": "https://playground.magicbell.com"
+      },
+      {
+        "name": "Slack Community",
+        "to": "https://join.slack.com/t/magicbell-community/shared_invite/zt-1kvdkb6cg-CBoZ8A3g4YkuIhrFZG2VaA"
+      }
+    ]
+  }
+]

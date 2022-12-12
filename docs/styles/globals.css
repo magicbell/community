@@ -66,7 +66,7 @@
   }
 
   a:hover {
-    @apply text-lightPurple;
+    @apply text-textLinkHover;
     text-decoration: none !important;
   }
 

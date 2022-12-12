@@ -1,0 +1,50 @@
+---
+title: Identifying Users
+subtitle: Learn how to initialize the notification inbox for a user
+---
+
+To [render your MagicBell notification inbox](https://github.com/magicbell-io/magicbell-react), you need to specify the user for whom you want to display their notifications. You have two options, depending on how you identify users in your app.
+
+## By email address
+
+Set the `userEmail` property:
+
+```jsx title=React
+import React from 'react';
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+export default function Notifications() {
+  return (
+    <MagicBell apiKey="MAGICBELL_API_KEY" userEmail="mary@example.com">
+      {(props) => <FloatingNotificationInbox height={500} {...props} />}
+    </MagicBell>
+  );
+}
+```
+
+## By an ID
+
+Set the `userExternalId` property:
+
+```jsx title=React
+import React from 'react';
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+
+export default function Notifications() {
+  return (
+    <MagicBell apiKey="MAGICBELL_API_KEY" userExternalId="u001">
+      {(props) => <FloatingNotificationInbox height={500} {...props} />}
+    </MagicBell>
+  );
+}
+```
+
+<Note>
+  <b>Important.</b> Please make sure that you use the{' '}
+  <pre style={{ display: 'inline' }}>external_id</pre> parameter to identify the users
+  when{' '}
+  <a href="/docs/rest-api/reference#create-notification">
+    creating the notifications using the API
+  </a>
+  .
+</Note>

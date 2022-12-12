@@ -1,0 +1,102 @@
+---
+title: Implement Mobile Push Notifications in React Native
+subtitle: Learn how to send mobile push notifications from your React Native mobile app
+---
+
+## Configure your mobile app
+
+Good, your credentials are set! However, you still need to configure your app.
+
+If you are developing your app with [Expo](https://expo.io) or any other [React Native](https://reactnative.dev/) library we recommend using
+[this React Native library](https://github.com/zo0r/react-native-push-notification). Here you have a short example:
+
+```jsx title=React-Native
+import PushNotification from 'react-native-push-notification';
+import React, { Component } from 'react';
+import { Alert, View, Text } from 'react-native';
+
+export default class App extends Component {
+  constructor() {
+    PushNotification.createChannel({
+      channelId: 'default-channel-id',
+      channelName: 'Default channel',
+      soundName: 'default',
+      vibrate: true,
+    });
+  }
+
+  render() {
+    return (
+      <View>
+        <Text>welcome to MagicBell</Text>
+      </View>
+    );
+  }
+}
+
+PushNotification.configure({
+  onNotification: (notification) => {
+    Alert.alert(notification.title, notification.message);
+  },
+  requestPermissions: true,
+});
+```
+
+If you face any issues while configuring the library, please feel free to shoot us a note, we will be happy to help.
+You might also find it helpful to read the [full React Native example](https://github.com/magicbell-io/public/tree/main/examples/react-native-notifications-example) we created.
+
+This is a sample payload MagicBell will push to your app:
+
+```json
+{
+  "notification": {
+    "id": "7fb3ce9f-a866-4dff-8ce8-2f64f7c5ed4c",
+    "title": "Pickup Instructions – In-Store",
+    "action_url": "https://magicbell.com/pricing",
+    "content": "<ul><li>Bring your valid government-issued photo ID.</li></ul>",
+    "category": "order_ready",
+    "custom_attributes": {
+      "order_number": "W846MD",
+      "part_number": "MRJL74/C"
+    }
+  }
+}
+```
+
+If you set [overrides](https://magicbell.com/docs/rest-api/reference#create-notification) for the `mobile_push` channel, those values will be pushed to your app.
+
+## Forward device tokens to MagicBell
+
+Both Android and iOS will generate a registration token when someone installs your app on their
+device. Please retrieve it and forward it to MagicBell.
+
+```jsx title=React-Native
+import { Platform } from 'react-native';
+import PushNotification from 'react-native-push-notification';
+
+PushNotification.configure({
+  onRegister: (token) => {
+    fetch('https://api.magicbell.com/push_subscriptions', {
+      method: 'POST',
+      headers: {
+        'X-MAGICBELL-API-KEY': MAGICBELL_API_KEY,
+        'X-MAGICBELL-USER-EXTERNAL-ID': CURRENT_USER_ID,
+      },
+      body: JSON.stringify({
+        push_subscription: {
+          device_token: token,
+          platform: Platform.OS,
+        },
+      }),
+    });
+  },
+  requestPermissions: true,
+});
+```
+
+Keep in mind that a new device token will be generated when the user
+reinstalls the app or clears the app data. Therefore, you will have to forward
+the new token to MagicBell each time a new one is generated.
+
+Now MagicBell will deliver mobile push notifications when you create notifications
+through [the create notifications API endpoint](https://magicbell.com/docs/rest-api/reference#create-notification)!
