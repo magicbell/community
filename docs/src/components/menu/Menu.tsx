@@ -28,7 +28,6 @@ export default function Menu({ navigationItems = [], openAPILinks }: Props) {
       section.links?.map((link) => {
         // Check all the pages for link of the route segment we are going over
         if (link.page && link.to?.split('/')[index + 1] === path) {
-          // TODO : add a testcase for undefined subpage
           currentpageItems = link.subpage as SitemapItem[];
           currentPageName = link.name;
           currentPagePath = link.to;

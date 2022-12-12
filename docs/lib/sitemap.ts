@@ -2,7 +2,7 @@ import { flatten, isNil, reject } from 'ramda';
 import sitemap from '../sitemap.new.json';
 
 export type SitemapItem = {
-  name: string;
+  name?: string;
   to?: string;
   icon?: string;
   children?: SitemapItem[];
@@ -29,16 +29,14 @@ export type SitemapItem = {
 
 export default sitemap as SitemapItem[];
 
-export function getAllChildrenPaths(element: Partial<SitemapItem>): string[] | string {
+export function getAllChildrenPaths(element: SitemapItem): string[] | string {
   if (element.to) return element.to;
 
   if (element.section) {
-    // TODO: add testcase for undefined links
     const links = element.links as SitemapItem[];
     return reject(isNil, flatten(links.map(getAllChildrenPaths)));
   }
 
-  // TODO: add testcase for undefined children
   const children = element.children as SitemapItem[];
   return reject(isNil, flatten(children.map(getAllChildrenPaths)));
 }
