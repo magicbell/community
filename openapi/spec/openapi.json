@@ -1177,7 +1177,6 @@
     },
     "/push_subscriptions": {
       "post": {
-        "x-beta": true,
         "tags": ["Subscription to push notifications APIs"],
         "summary": "Register a device",
         "operationId": "push-subscriptions-create",
@@ -1259,7 +1258,6 @@
     },
     "/push_subscriptions/{device_token}": {
       "delete": {
-        "x-beta": true,
         "tags": ["Subscription to push notifications APIs"],
         "summary": "Unregister a device",
         "description": "Remove the subscription of a device to mobile push notifications. The device will be discarded immediately.",
@@ -1347,7 +1345,7 @@
                                 },
                                 "status": {
                                   "type": "string",
-                                  "enum": ["subscribed", "unsubscribed"] 
+                                  "enum": ["subscribed", "unsubscribed"]
                                 }
                               }
                             }
@@ -1585,7 +1583,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                   "$ref": "#/components/schemas/TopicSubscription"
+                  "$ref": "#/components/schemas/TopicSubscription"
                 },
                 "example": {
                   "subscription": {
@@ -1684,10 +1682,11 @@
     },
     "/imports": {
       "post": {
+        "x-beta": true,
         "operationId": "imports-create",
         "tags": ["Imports API"],
-        "summary": "Create a user import",
-        "description": "Send a request to start the import of a list of users. The import allows the creation of slack connections as well.",
+        "summary": "Create a import",
+        "description": "Enqueues an import - currently only supported for users. Amongst other things, the users import allows associating slack channels (if you have already setup the oauth apps).",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
           { "$ref": "#/components/parameters/x_magicbell_api_secret_header" }
@@ -1732,7 +1731,7 @@
         },
         "responses": {
           "201": {
-            "description": "Created",
+            "description": "Created (Enqueues the import)",
             "content": {
               "application/json": {
                 "schema": {
@@ -1784,10 +1783,11 @@
     },
     "/imports/{import_id}": {
       "get": {
+        "x-beta": true,
         "operationId": "imports-get",
         "tags": ["Imports API"],
-        "summary": "Get a user import",
-        "description": "Send a request to query the status & errors of the import.",
+        "summary": "Get the status of an import",
+        "description": "Query the status of the import for a summary of imported records and failures for each record that could not be imported successfully.",
         "parameters": [
           { "$ref": "#/components/parameters/import_id" },
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -1806,7 +1806,8 @@
                     "id": "67e839ab-98a8-48cf-9bcb-12d2b906c9c3",
                     "status": "processing",
                     "summary": {},
-                    "errors": []
+                    "errors": [],
+                    "failures": []
                   }
                 }
               }
@@ -2123,7 +2124,7 @@
             "nullable": true,
             "maxLength": 2048
           },
-          
+
           "category": {
             "type": "string",
             "description": "Category the notification belongs to. This is useful to allow users to set their preferences.",
@@ -2146,7 +2147,7 @@
             "type": "number",
             "description": "The timestamp when the notification was sent to its recipients.",
             "readOnly": true
-          }        
+          }
         },
         "required": ["id", "title", "sent_at"]
       },
@@ -2608,6 +2609,33 @@
                 "message": {
                   "type": "string",
                   "description": "The error message indicating why importing the user failed"
+                }
+              }
+            }
+          },
+          "failures": {
+            "type": "object",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "users": {
+                  "type": "array",
+                  "description": "The array of user objects that could not be imported successfully",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "description": "The identifying email of the user. If the user's external_id is used as identifier, the email key will not be present"
+                    },
+                    "external_id": {
+                      "type": "string",
+                      "description": "The identifying external_id of the user. If the user's email is used as identifier, the external_id key will not be present"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "description": "The errors object reflecting the structure of the user oject"
+                    }
+                  }
                 }
               }
             }
