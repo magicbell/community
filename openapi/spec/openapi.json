@@ -2655,6 +2655,7 @@
               "users": {
                 "type": "array",
                 "description": "User objects that could not be imported successfully",
+                "additionalProperties": false,
                 "properties": {
                   "email": {
                     "type": "string",
