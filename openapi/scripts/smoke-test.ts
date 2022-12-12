@@ -217,6 +217,15 @@ async function main() {
   const spec = (await swagger.dereference(specFile)) as OpenAPIV3.Document;
   const operations = getOperations(spec);
 
+  // check if api_key, api_secret and user_email are set otherwise throw an error
+  if (!process.env.API_KEY || !process.env.API_SECRET || !process.env.USER_EMAIL) {
+    throw new Error('Please set the API_KEY, API_SECRET and USER_EMAIL environment variables to run the smoke tests');
+  }
+
+  if (!process.env.SERVER_URL) {
+    throw new Error('Please set the SERVER_URL environment variable to run the smoke tests');
+  }
+
   const newNotificationIds = await Promise.all(
     Array.from({ length: 5 }).map(() =>
       request(
