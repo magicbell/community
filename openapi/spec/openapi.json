@@ -2650,6 +2650,7 @@
           "failures": {
             "type": "object",
             "description": "Contains the entities that could not be imported successfully",
+            "additionalProperties": false,
             "properties": {
               "users": {
                 "type": "array",
