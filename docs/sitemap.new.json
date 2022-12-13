@@ -36,7 +36,7 @@
             "links": [
               {
                 "name": "Overview",
-                "to": "/api/overview"
+                "to": "/api"
               },
               {
                 "name": "Rest API",
@@ -166,7 +166,7 @@
                           },
                           {
                             "name": "Render notifications in a sidebar",
-                            "to": "/channels/in-app/react/render-notifications-in-a-sidebar"
+                            "to": "/channels/in-app/react/render-notifications-sidebar"
                           },
                           {
                             "name": "Known Issues",
@@ -302,11 +302,13 @@
       },
       {
         "name": "Playground",
-        "to": "https://playground.magicbell.com"
+        "to": "https://playground.magicbell.com",
+        "staticRoute": true
       },
       {
         "name": "Slack Community",
-        "to": "https://join.slack.com/t/magicbell-community/shared_invite/zt-1kvdkb6cg-CBoZ8A3g4YkuIhrFZG2VaA"
+        "to": "https://join.slack.com/t/magicbell-community/shared_invite/zt-1kvdkb6cg-CBoZ8A3g4YkuIhrFZG2VaA",
+        "staticRoute": true
       }
     ]
   }

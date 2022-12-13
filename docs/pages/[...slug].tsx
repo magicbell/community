@@ -24,7 +24,7 @@ export default function DynamicDocument({ mdxSource, metadata, editUrl }: Props)
 export const getStaticPaths: GetStaticPaths = async () => {
   // Load routes from the sitemap
   const allRoutes = getAllSitemapItems(sitemap)
-    .filter((item) => item.to !== undefined && !item.staticRoute)
+    .filter((item) => item.to !== undefined && !item.staticRoute && item.page !== true)
     .map((item) => item.to) as string[];
 
   return {

@@ -5,7 +5,7 @@ import React from 'react';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 
 interface Props {
-  name: string | JSX.Element;
+  name?: string | JSX.Element | undefined;
   to?: string | undefined;
   staticRoute?: boolean | undefined;
   style?: React.CSSProperties;
