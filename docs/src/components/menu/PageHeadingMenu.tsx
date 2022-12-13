@@ -9,7 +9,8 @@ export default function PageHeadingMenu(props: {
   const { router } = props;
   const previousPagePath = props.currentPagePath.split('/').slice(-2, -1)[0];
   const path = [router.basePath, `/${previousPagePath}`].filter(Boolean).join('');
-  const baseURL = process.env.NEXT_STATIC_BASE_URL || 'https://www.magicbell.com';
+  let baseURL = 'https://www.magicbell.com';
+  if (process.env.NODE_ENV === 'development') baseURL = 'http://localhost:3000/docs';
 
   return (
     <div className="flex items-center py-5">
