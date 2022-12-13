@@ -18,7 +18,8 @@ export default function SearchBar() {
   const [searchState, requestDispatch] = useAlgolia(
     process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || '',
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY || '',
-    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_INDEX || `${process.env.VERCEL_ENV}_docs`,
+    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_INDEX ||
+      `${process.env.NEXT_PUBLIC_VERCEL_ENV}_docs`,
   );
 
   useEffect(() => {
