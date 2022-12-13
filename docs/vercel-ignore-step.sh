@@ -7,9 +7,11 @@ if [[ "$VERCEL_GIT_COMMIT_REF" == "main" ]]; then
   exit 1;
 
 else
-  git diff --quiet HEAD^ HEAD -- ../docs/ ../openapi/
+  git remote add origin $GIT_CREDENTIALS
+  git fetch origin main
+  git diff --quiet main HEAD -- ../docs/ ../openapi/
   CHANGED=$?
-  echo "git diff --quiet HEAD^ HEAD -- ../docs/ ../openapi/: $CHANGED"
+  echo "git diff --quiet main HEAD -- ../docs/ ../openapi/: $CHANGED"
 
   if [[ $CHANGED == 0 ]]; then
     echo "🛑 Build cancelled"
