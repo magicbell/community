@@ -1,31 +1,10 @@
 import swagger from '@apidevtools/swagger-parser';
 import fs from 'fs';
-import fetch from 'node-fetch';
 import { OpenAPI, OpenAPIV3 } from 'openapi-types';
-import path from 'path';
 
-const SPEC_FILE =
-  'https://raw.githubusercontent.com/magicbell-io/public/main/openapi/spec/openapi.json';
+export const OPENAPI_FILE = '../openapi/spec/openapi.json';
 
-export const CACHE_FILE = 'node_modules/.cache/magicbell/openapi.json';
-
-const canUseCacheFile = (file: string, maxAge: number) => {
-  const now = new Date().getTime();
-  const expires = new Date(now - maxAge);
-
-  try {
-    return fs.statSync(file).mtime > expires;
-  } catch {
-    return false;
-  }
-};
-
-const writeCacheFile = (file: string, data: Record<string, unknown>) => {
-  fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify(data, null, 2));
-};
-
-const readCacheFile = (file: string) => {
+const readOpenAPIFile = (file: string) => {
   try {
     return JSON.parse(fs.readFileSync(file, 'utf-8'));
   } catch {
@@ -38,26 +17,7 @@ export async function fetchOpenAPISpec(
   options: Partial<typeof defaultOptions> = defaultOptions,
 ): Promise<OpenAPIV3.Document> {
   options = { ...defaultOptions, ...options };
-  let json = readCacheFile(CACHE_FILE);
-
-  const forceFetch = options.force || !json;
-
-  if (forceFetch || !canUseCacheFile(CACHE_FILE, 5 * 60 * 1000)) {
-    try {
-      console.log(`fetching openapi spec from ${SPEC_FILE}`);
-      const promise = fetch(SPEC_FILE).then((x) => x.json());
-      promise.then((data) => {
-        writeCacheFile(CACHE_FILE, data as Record<string, unknown>);
-        json = data;
-        console.log('refreshed', typeof json);
-      });
-
-      // if we have a cached version we'll refetch in the background, unless the refresh is forced
-      if (forceFetch) await promise;
-    } catch (e) {
-      console.error('failed to fetch fresh openapi spec file', e);
-    }
-  }
+  const json = readOpenAPIFile(OPENAPI_FILE);
 
   if (!json) {
     throw new Error(
