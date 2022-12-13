@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { isEmpty } from 'ramda';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import useAlgolia from 'use-algolia';
 import SearchBox from './SearchBox';
@@ -18,7 +18,7 @@ export default function SearchBar() {
   const [searchState, requestDispatch] = useAlgolia(
     process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || '',
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY || '',
-    'docs',
+    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_INDEX || `${process.env.VERCEL_ENV}_docs`,
   );
 
   useEffect(() => {
