@@ -4,6 +4,7 @@ import 'zx/globals';
 import algoliasearch from 'algoliasearch';
 import dotenv from 'dotenv';
 import * as matter from 'gray-matter';
+import { OpenAPIV3 } from 'openapi-types';
 import path from 'path';
 import { flatten, isNil, reject } from 'ramda';
 import { remark } from 'remark';
@@ -12,7 +13,6 @@ import html from 'remark-html';
 // @ts-expect-error - This package doesn't have any types
 import searchable from 'remark-mdx-searchable';
 import slugify from 'slugify';
-import { OpenAPIV3 } from 'openapi-types';
 import { fetchOpenAPISpec } from '../lib/openapi';
 
 /**
@@ -178,7 +178,10 @@ function buildSearchObjects(
     const posts = await getAllPosts();
     const searchObjects = buildSearchObjects(posts);
 
-    const index = client.initIndex('docs');
+    const index = client.initIndex(
+      process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_INDEX ||
+        `${process.env.NEXT_PUBLIC_VERCEL_ENV}_docs`,
+    );
     const response = await index.saveObjects(searchObjects);
     console.log(`algolia: build and stored ${response.objectIDs.length} objects.`);
   } catch (error) {
