@@ -10,6 +10,7 @@ import { flatten, isNil, reject } from 'ramda';
 import { remark } from 'remark';
 import gfm from 'remark-gfm';
 import html from 'remark-html';
+// @ts-expect-error - This package doesn't have any types
 import searchable from 'remark-mdx-searchable';
 import slugify from 'slugify';
 import { fetchOpenAPISpec } from '../lib/openapi';
