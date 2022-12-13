@@ -4,7 +4,8 @@
     "links": [
       {
         "name": "Docs overview",
-        "to": "/"
+        "to": "/",
+        "staticRoute": true
       }
     ]
   },
