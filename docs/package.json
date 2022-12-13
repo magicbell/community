@@ -10,7 +10,6 @@
     "analyze": "ANALYZE=true next build",
     "build": "next build",
     "postbuild": "next-sitemap && tsx ./scripts/build-search-index.ts",
-    "refresh-openapi": "tsx scripts/refresh-openapi.ts",
     "start": "next start",
     "lint": "eslint .",
     "test": "jest"
