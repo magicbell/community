@@ -1,0 +1,15 @@
+{
+  "notification": {
+    "title": "We're processing your order",
+    "content": "Thank you for your order. We'll notify you when these items are ready.",
+    "category": "order_created",
+    "topic": "order:33098",
+    "recipients": [{ "email": "dan@example.com"}],
+    "overrides": {
+      "email": {
+        "title": "[MagicBell] We're processing your order",
+        "content": "Thank you for your order. If you need help, or have any questions please don't hesitate to reach out to us directly at hello@magicbell.com"
+      }
+    }
+  }
+}

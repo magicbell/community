@@ -38,7 +38,7 @@
     "breadcrumb.focusForeground": "#EDEDEF",
     "breadcrumb.activeSelectionForeground": "#EDEDEF",
     "breadcrumbPicker.background": "#08090C",
-    "list.activeSelectionBackground": "#6E56CF",
+    "list.activeSelectionBackground": "#2A314D",
     "list.activeSelectionForeground": "#EDEDEF",
     "list.invalidItemForeground": "#F65CB6",
     "list.dropBackground": "#1D1F29",
@@ -230,16 +230,14 @@
       "name": "Deleted",
       "scope": "markup.deleted.diff",
       "settings": {
-        "foreground": "#E54D2E",
-        "fontStyle": "italic"
+        "foreground": "#E54D2E"
       }
     },
     {
       "name": "Inserted",
       "scope": "markup.inserted.diff",
       "settings": {
-        "foreground": "#0AC5B3",
-        "fontStyle": "italic"
+        "foreground": "#0AC5B3"
       }
     },
     {
@@ -253,8 +251,7 @@
       "name": "Comment",
       "scope": "comment",
       "settings": {
-        "foreground": "#4D5E94",
-        "fontStyle": "italic"
+        "foreground": "#4D5E94"
       }
     },
     {
@@ -268,7 +265,7 @@
       "name": "String Quoted",
       "scope": ["string.quoted", "variable.other.readwrite.js"],
       "settings": {
-        "foreground": "#EDEDEF"
+        "foreground": "#63C174"
       }
     },
     {
@@ -336,8 +333,7 @@
       "name": "Keyword",
       "scope": ["punctuation.accessor", "keyword"],
       "settings": {
-        "foreground": "#849DFF",
-        "fontStyle": "italic"
+        "foreground": "#849DFF"
       }
     },
     {
@@ -351,8 +347,7 @@
         "storage.type.property.tsx"
       ],
       "settings": {
-        "foreground": "#849DFF",
-        "fontStyle": "italic"
+        "foreground": "#849DFF"
       }
     },
     {
@@ -387,15 +382,14 @@
       "name": "Function name",
       "scope": "entity.name.function",
       "settings": {
-        "foreground": "#9E8CFC",
-        "fontStyle": "italic"
+        "foreground": "#9E8CFC"
       }
     },
     {
       "name": "Meta Tag",
       "scope": ["punctuation.definition.tag", "meta.tag"],
       "settings": {
-        "foreground": "#0AC5B3"
+        "foreground": "#A09FA6"
       }
     },
     {
@@ -421,7 +415,6 @@
       "name": "Tag attribute",
       "scope": "entity.other.attribute-name",
       "settings": {
-        "fontStyle": "italic",
         "foreground": "#0AC5B3"
       }
     },
@@ -567,7 +560,7 @@
       "name": "Punctuation Definition String",
       "scope": "punctuation.definition.string",
       "settings": {
-        "foreground": "#BCAFFD"
+        "foreground": "#A09FA6"
       }
     },
     {
@@ -709,8 +702,7 @@
       "name": "Variable Property Other object property",
       "scope": ["variable.other.object.property"],
       "settings": {
-        "foreground": "#BCAFFD",
-        "fontStyle": "italic"
+        "foreground": "#BCAFFD"
       }
     },
     {
@@ -724,8 +716,7 @@
       "name": "Entity Name Function",
       "scope": ["entity.name.function"],
       "settings": {
-        "foreground": "#849DFF",
-        "fontStyle": "italic"
+        "foreground": "#FF8B3E"
       }
     },
     {
@@ -752,8 +743,7 @@
         "keyword.operator.expression.instanceof.tsx"
       ],
       "settings": {
-        "foreground": "#849DFF",
-        "fontStyle": "italic"
+        "foreground": "#849DFF"
       }
     },
     {
@@ -891,7 +881,7 @@
       "name": "Backtics(``) in Template Strings",
       "scope": "string.template punctuation.definition.string",
       "settings": {
-        "foreground": "#EDEDEF"
+        "foreground": "#A09FA6"
       }
     },
     {
@@ -914,8 +904,7 @@
       "name": "Quote",
       "scope": "quote",
       "settings": {
-        "foreground": "#4D5E94",
-        "fontStyle": "italic"
+        "foreground": "#4D5E94"
       }
     },
     {
@@ -1148,8 +1137,7 @@
         "source.go keyword.control.go"
       ],
       "settings": {
-        "foreground": "#9E8CFC",
-        "fontStyle": "italic"
+        "foreground": "#9E8CFC"
       }
     },
     {
@@ -1313,6 +1301,13 @@
       }
     },
     {
+      "name": "JavaScript Meta Object Key",
+      "scope": ["meta.object-literal.key.ts"],
+      "settings": {
+        "foreground": "#00C2D7"
+      }
+    },
+    {
       "name": "JavaScript Variables",
       "scope": ["variable.js", "variable.other.js"],
       "settings": {
@@ -1338,7 +1333,7 @@
       "name": "JSON Property Names",
       "scope": "support.type.property-name.json",
       "settings": {
-        "foreground": "#0AC5B3"
+        "foreground": "#FF8B3E"
       }
     },
     {
@@ -1352,7 +1347,7 @@
       "name": "JSON Property values (string)",
       "scope": "meta.structure.dictionary.value.json string.quoted.double",
       "settings": {
-        "foreground": "#D864D8"
+        "foreground": "#EDEFDEF"
       }
     },
     {
@@ -1367,6 +1362,13 @@
       "scope": "meta.structure.dictionary.json meta.structure.dictionary.value constant.language",
       "settings": {
         "foreground": "#EC5E41"
+      }
+    },
+    {
+      "name": "Curly braces, commas, and colons in JSON",
+      "scope": "source.json.comments",
+      "settings": {
+        "foreground": "#A09FA6"
       }
     },
     {
@@ -1671,12 +1673,6 @@
     {
       "name": "TypeScript[React] Variables and Object Properties",
       "scope": [
-        "variable.other.readwrite.alias.ts",
-        "variable.other.readwrite.alias.tsx",
-        "variable.other.readwrite.ts",
-        "variable.other.readwrite.tsx",
-        "variable.other.object.ts",
-        "variable.other.object.tsx",
         "variable.object.property.ts",
         "variable.object.property.tsx",
         "variable.other.ts",
@@ -1685,7 +1681,26 @@
         "variable.ts"
       ],
       "settings": {
+        "foreground": "#63C174"
+      }
+    },
+    {
+      "name": "TypeScript[React] Readwrite Alias Variables",
+      "scope": [
+        "variable.other.readwrite.alias.ts",
+        "variable.other.readwrite.alias.tsx",
+        "variable.other.object.ts",
+        "variable.other.object.tsx"
+      ],
+      "settings": {
         "foreground": "#EDEDEF"
+      }
+    },
+    {
+      "name": "TypeScript[React] Readwrite Variables",
+      "scope": ["variable.other.readwrite.ts", "variable.other.readwrite.tsx"],
+      "settings": {
+        "foreground": "#00C2D7"
       }
     },
     {
@@ -1721,7 +1736,7 @@
         "meta.export.tsx punctuation.definition.block"
       ],
       "settings": {
-        "foreground": "#EDEDEF"
+        "foreground": "#F1A10D"
       }
     },
     {
@@ -1752,7 +1767,7 @@
       "name": "JavaScript Variable Other ReadWrite",
       "scope": ["variable.other.readwrite.js", "variable.parameter"],
       "settings": {
-        "foreground": "#849DFF"
+        "foreground": "#BCAFFD"
       }
     },
     {
