@@ -10,29 +10,33 @@ interface Props {
   openAPILinks?: OpenAPILink[];
 }
 
+function splitPath(path: string): string[] {
+  const slicedPath = path.startsWith('/') ? path.substring(1) : path;
+  return slicedPath.split('/');
+}
+
 /**
  * Menu component. The `navigationItems` might be undefined when the site is
  * prerendered.
  */
 export default function Menu({ navigationItems = [], openAPILinks }: Props) {
   const router = useRouter();
-  const currentPath: string[] = router.asPath.split('/').slice(1);
-  let currentPageName: string | undefined;
-  let currentpageItems = navigationItems;
+  const currentPath: string[] = splitPath(router.asPath);
+  let currentSubpages = navigationItems;
+  let currentPageName: string | undefined; // undefined for /docs
   let currentPagePath = '/';
 
-  /* Get sections of the current page */
-  // Check segments of current route to find the navigationItems
-  currentPath.map((path, index) => {
-    currentpageItems.map((section) => {
-      section.links?.map((link) => {
-        // Check all the pages for link of the route segment we are going over
-        if (link.page && link.to?.split('/')[index + 1] === path) {
-          currentpageItems = link.subpage as SitemapItem[];
-          currentPageName = link.name;
-          currentPagePath = link.to;
-        }
-      });
+  // Find and get the current page item
+  currentPath.forEach((pathSegment, pathDepthIndex) => {
+    currentSubpages.forEach((section) => {
+      const currentPageItem = section.links
+        ?.filter((link) => link.page === true)
+        .find((link) => splitPath(link.to as string)[pathDepthIndex] === pathSegment);
+
+      if (currentPageItem === undefined) return;
+      currentSubpages = currentPageItem.subpage as SitemapItem[];
+      currentPageName = currentPageItem.name;
+      currentPagePath = currentPageItem.to as string;
     });
   });
 
@@ -47,7 +51,7 @@ export default function Menu({ navigationItems = [], openAPILinks }: Props) {
           />
         ) : null}
 
-        {currentpageItems.map((item, index) => (
+        {currentSubpages.map((item, index) => (
           <MenuItem key={index} {...item} openAPILinks={openAPILinks} />
         ))}
       </nav>

@@ -29,7 +29,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: allRoutes.map((item) => {
-      const path = item.startsWith('/') ? item.substr(1) : item;
+      const path = item.startsWith('/') ? item.substring(1) : item;
       const slug = path.split('/');
       return { params: { slug } };
     }),
