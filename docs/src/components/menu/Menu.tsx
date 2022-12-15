@@ -29,14 +29,17 @@ export default function Menu({ navigationItems = [], openAPILinks }: Props) {
   // Find and get the current page item
   currentPath.forEach((pathSegment, pathDepthIndex) => {
     currentSubpages.forEach((section) => {
-      const currentPageItem = section.links
-        ?.filter((link) => link.page === true)
-        .find((link) => splitPath(link.to as string)[pathDepthIndex] === pathSegment);
+      if (!section.links) return;
+
+      const currentPageItem = section.links.find(
+        (link) =>
+          link.page && splitPath(link.to as string)[pathDepthIndex] === pathSegment,
+      );
 
       if (currentPageItem === undefined) return;
       currentSubpages = currentPageItem.subpage as SitemapItem[];
       currentPageName = currentPageItem.name;
-      currentPagePath = currentPageItem.to as string;
+      currentPagePath = currentPageItem.to || '/';
     });
   });
 
