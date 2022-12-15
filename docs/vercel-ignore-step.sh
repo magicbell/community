@@ -9,7 +9,7 @@ if [[ "$VERCEL_GIT_COMMIT_REF" == "main" ]]; then
 else
   git remote add origin "https://github.com/$VERCEL_GIT_REPO_OWNER/$VERCEL_GIT_REPO_SLUG.git"
   git fetch origin main
-  git diff --quiet main HEAD -- ../docs/ ../openapi/
+  git diff --quiet origin/main HEAD -- ../docs/ ../openapi/
   CHANGED=$?
   echo "git diff --quiet main HEAD -- ../docs/ ../openapi/: $CHANGED"
 
