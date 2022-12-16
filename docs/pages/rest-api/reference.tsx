@@ -3,15 +3,14 @@ import * as matter from 'gray-matter';
 import { GetStaticProps } from 'next';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
+import { OpenAPIV3 } from 'openapi-types';
 import path from 'path';
-import React from 'react';
 import autolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
-import DocPage from '../../src/components/DocPage';
-import Document from '../../src/components/openapi/Document';
-import { OpenAPIV3 } from 'openapi-types';
 import { fetchOpenAPISpec, getApiLinks } from '../../lib/openapi';
+import DocPage from '../../src/components/DocPage';
 import { OpenAPILink } from '../../src/components/menu/OpenAPILinks';
+import Document from '../../src/components/openapi/Document';
 
 interface Props {
   metadata?: { [key: string]: unknown };
@@ -41,7 +40,7 @@ export default function reference({
 
 export const getStaticProps: GetStaticProps = async () => {
   const docsDirectory = path.join(process.cwd(), 'docs');
-  const filePath = path.join(docsDirectory, 'rest-api/authentication.mdx');
+  const filePath = path.join(docsDirectory, 'rest-api/authentication-mini.mdx');
   const fileContents = fs.readFileSync(filePath, 'utf8');
 
   const openapi = await fetchOpenAPISpec({ dereference: true });
