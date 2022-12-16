@@ -275,6 +275,10 @@
     "name": "Notification Primitives",
     "children": [
       {
+        "name": "Overview",
+        "to": "/notification-primitives/overview"
+      },
+      {
         "name": "Category",
         "to": "/categories"
       },
