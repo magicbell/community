@@ -42,7 +42,8 @@
           },
           {
             "name": "OpenAPI Spec",
-            "to": "https://github.com/magicbell-io/public/blob/main/openapi/spec/openapi.json"
+            "to": "https://github.com/magicbell-io/public/blob/main/openapi/spec/openapi.json",
+            "staticRoute": true
           }
         ]
       },
