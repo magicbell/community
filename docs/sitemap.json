@@ -283,12 +283,21 @@
         "to": "/categories"
       },
       {
-        "name": "Topic",
-        "to": "/topics"
-      },
-      {
-        "name": "Subscriptions",
-        "to": "/subscriptions"
+        "name": "Topics & Subscriptions",
+        "children": [
+          {
+            "name": "Overview",
+            "to": "/topics-subscriptions/overview"
+          },
+          {
+            "name": "Topic",
+            "to": "/topics"
+          },
+          {
+            "name": "Subscriptions",
+            "to": "/subscriptions"
+          }
+        ]
       }
     ]
   },
