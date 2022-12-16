@@ -57,113 +57,23 @@
         ]
       },
       {
-        "name": "API wrappers and libraries",
+        "name": "Wrappers and SDK",
         "icon": "library",
         "to": "/libraries-api-wrappers"
       }
     ]
   },
   {
-    "name": "Channels",
+    "name": "Delivery Channels",
     "children": [
       {
         "name": "Overview",
         "to": "/channels"
       },
       {
-        "name": "Email",
-        "children": [
-          {
-            "name": "Overview",
-            "to": "/email"
-          },
-          {
-            "name": "Mailgun",
-            "to": "/email/mailgun"
-          },
-          {
-            "name": "Ping",
-            "to": "/email/ping"
-          },
-          {
-            "name": "Postmark",
-            "to": "/email/postmark"
-          },
-          {
-            "name": "SendGrid",
-            "to": "/email/sendgrid"
-          },
-          {
-            "name": "Amazon SES",
-            "to": "/email/amazon-ses"
-          }
-        ]
+        "name": "Smart Delivery",
+        "to": "/smart-delivery"
       },
-      {
-        "name": "Web Push",
-        "children": [
-          {
-            "name": "Overview",
-            "to": "/web-push"
-          },
-          {
-            "name": "Safari",
-            "to": "/web-push/safari"
-          }
-        ]
-      },
-      {
-        "name": "Mobile Push",
-        "children": [
-          {
-            "name": "Overview",
-            "to": "/mobile-push"
-          },
-          {
-            "name": "iOS (APNs)",
-            "to": "/mobile-push/ios"
-          },
-          {
-            "name": "Android (FCM)",
-            "to": "/mobile-push/android"
-          }
-        ]
-      },
-      {
-        "name": "Slack",
-        "children": [
-          {
-            "name": "Our slack integration",
-            "to": "/slack"
-          },
-          {
-            "name": "MagicBell apps (for testing/internal use)",
-            "to": "/slack/magicbell-apps"
-          },
-          {
-            "name": "Create your own app",
-            "to": "/slack/custom-apps"
-          },
-          {
-            "name": "MagicBell & Slack Blocks",
-            "to": "/slack/block-api"
-          }
-        ]
-      },
-      {
-        "name": "SMS",
-        "children": [
-          {
-            "name": "Twilio",
-            "to": "/sms/twilio"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Guides",
-    "children": [
       {
         "name": "Notification Inbox",
         "children": [
@@ -266,21 +176,102 @@
         ]
       },
       {
-        "name": "Categories",
-        "to": "/categories"
-      },
-      {
-        "name": "Templates",
+        "name": "Email",
         "children": [
           {
             "name": "Overview",
-            "to": "/templates"
+            "to": "/email"
           },
           {
-            "name": "Email layouts",
-            "to": "/email-layouts"
+            "name": "Mailgun",
+            "to": "/email/mailgun"
+          },
+          {
+            "name": "Ping",
+            "to": "/email/ping"
+          },
+          {
+            "name": "Postmark",
+            "to": "/email/postmark"
+          },
+          {
+            "name": "SendGrid",
+            "to": "/email/sendgrid"
+          },
+          {
+            "name": "Amazon SES",
+            "to": "/email/amazon-ses"
           }
         ]
+      },
+      {
+        "name": "Web Push",
+        "children": [
+          {
+            "name": "Overview",
+            "to": "/web-push"
+          },
+          {
+            "name": "Safari",
+            "to": "/web-push/safari"
+          }
+        ]
+      },
+      {
+        "name": "Mobile Push",
+        "children": [
+          {
+            "name": "Overview",
+            "to": "/mobile-push"
+          },
+          {
+            "name": "iOS (APNs)",
+            "to": "/mobile-push/ios"
+          },
+          {
+            "name": "Android (FCM)",
+            "to": "/mobile-push/android"
+          }
+        ]
+      },
+      {
+        "name": "Slack",
+        "children": [
+          {
+            "name": "Our slack integration",
+            "to": "/slack"
+          },
+          {
+            "name": "MagicBell apps (for testing/internal use)",
+            "to": "/slack/magicbell-apps"
+          },
+          {
+            "name": "Create your own app",
+            "to": "/slack/custom-apps"
+          },
+          {
+            "name": "MagicBell & Slack Blocks",
+            "to": "/slack/block-api"
+          }
+        ]
+      },
+      {
+        "name": "SMS",
+        "children": [
+          {
+            "name": "Twilio",
+            "to": "/sms/twilio"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Notification Primitives",
+    "children": [
+      {
+        "name": "Category",
+        "to": "/categories"
       },
       {
         "name": "Topics",
@@ -294,15 +285,29 @@
             "to": "/subscriptions"
           }
         ]
+      }
+    ]
+  },
+  {
+    "name": "Notification Rendering",
+    "children": [
+      {
+        "name": "Templates",
+        "to": "/templates"
       },
       {
-        "name": "Smart Delivery",
-        "to": "/smart-delivery"
+        "name": "Email layouts",
+        "to": "/email-layouts"
       },
       {
-        "name": "Override content across channels",
+        "name": "Channel & Provider API overrides",
         "to": "/overrides"
-      },
+      }
+    ]
+  },
+  {
+    "name": "MagicBell Dashboard",
+    "children": [
       {
         "name": "Segments",
         "to": "/segments"
