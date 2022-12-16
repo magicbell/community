@@ -279,17 +279,12 @@
         "to": "/categories"
       },
       {
-        "name": "Topics",
-        "children": [
-          {
-            "name": "Overview",
-            "to": "/topics"
-          },
-          {
-            "name": "Subscriptions",
-            "to": "/subscriptions"
-          }
-        ]
+        "name": "Topic",
+        "to": "/topics"
+      },
+      {
+        "name": "Subscriptions",
+        "to": "/subscriptions"
       }
     ]
   },
@@ -297,7 +292,7 @@
     "name": "Notification Rendering",
     "children": [
       {
-        "name": "Templates",
+        "name": "Channel Templates",
         "to": "/templates"
       },
       {
