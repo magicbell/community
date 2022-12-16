@@ -24,6 +24,10 @@
     "name": "API",
     "children": [
       {
+        "name": "Authentication",
+        "to": "/rest-api/authentication"
+      },
+      {
         "name": "Rest API",
         "icon": "terminal",
         "children": [
@@ -32,13 +36,13 @@
             "to": "/rest-api/overview"
           },
           {
-            "name": "Idempotent Requests",
-            "to": "/rest-api/idempotent-requests"
-          },
-          {
             "name": "API reference",
             "to": "/rest-api/reference",
             "staticRoute": true
+          },
+          {
+            "name": "OpenAPI Spec",
+            "to": "https://github.com/magicbell-io/public/blob/main/openapi/spec/openapi.json"
           }
         ]
       },
