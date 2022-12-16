@@ -25,7 +25,7 @@
     "children": [
       {
         "name": "Authentication",
-        "to": "/rest-api/authentication"
+        "to": "/api-authentication"
       },
       {
         "name": "Rest API",
