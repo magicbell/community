@@ -322,17 +322,6 @@
     ]
   },
   {
-    "name": "Changelog",
-    "icon": "changelog",
-    "to": "/changelog"
-  },
-  {
-    "name": "Roadmap",
-    "icon": "roadmap",
-    "to": "https://roadmap.magicbell.community/",
-    "staticRoute": true
-  },
-  {
     "name": "Glossary",
     "to": "/glossary"
   },
