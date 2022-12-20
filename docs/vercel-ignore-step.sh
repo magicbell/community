@@ -14,7 +14,7 @@ else
   echo "git diff --quiet main HEAD -- ../docs/ ../openapi/: $CHANGED"
 
   if [[ $CHANGED == 0 ]]; then
-    echo "🛑 Build cancelled"
+    echo "🛑 Build cancelled: neither ../docs/ nor ../openapi/ changed"
     exit 0;
 
   else
