@@ -1,6 +1,6 @@
 ---
 title: Topics & Subscriptions
-subtitle: Send more granular notifications with topic and subscriptions
+subtitle: Send more granular notifications with topics and subscriptions
 ---
 
 While a [category](/docs/categories) lets you specify the type of notification,
@@ -10,16 +10,19 @@ on particular posts, comment threads, or pictures. `Topic` represents a uniquely
 like a `Post with ID 123` a user with email `peter@piedpiper.com`, or even a `tag #hiphop`.
 
 The social network could send multiple notifications about the `post with ID 123`,
-across different categories like`comment` or `like`. You can see where this is going!
-Notifications from the same topic (and category) should thread in an email client
-or be batched up in the in-app inbox (ex: Julie and three others commented on your latest pic).
+across different categories like `comment` or `like`. You can see where this is going!
+Notifications from the same topic (and `category`) need to thread in an email client
+or sent as a batch in the in-app inbox (ex: Julie and three others commented on your latest pic).
 With topics, you would have a way to be specific (and precise) when grouping things.
 As long as you find a unique identifier for something, you can model it as a topic!
 
 Topics also enable
 
-- The ability to notify all subscribers of a topic. This allows you to build a more stateless notification system by subscribing users when it makes sense and not having to build a recipient list when sending notifications.
-- Follow/unfollow or watch/unwatch functionality in your front end. You can easily build something like the GitHub Watch button (with category-level granularity) or the Youtube Subscribe button.
+- The ability to notify all subscribers of a topic. This allows you to build a more stateless
+  notification system by subscribing users when it makes sense and not having to build a
+  recipient list when sending notifications.
+- Follow/unfollow or watch/unwatch functionality in your front end. You can quickly build something
+  like the GitHub Watch button (with category-level granularity) or the Youtube Subscribe button.
 - `matches` for specifying recipients using a SQL-like syntax.
 - `unsubscribe_url` in Templates.
 - Inline display of notifications in the topic view in your application.

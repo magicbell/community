@@ -9,18 +9,18 @@ title: Notification Primitives
 </Note>
 
 MagicBell offers several features to help you build common notification patterns.
-Underpinning these features are a few foundational elements that we have painstakingly crafted them to be simple and far-reaching.
+Underpinning these features are a few foundational elements that we have painstakingly crafted to be simple and far-reaching.
 We call them primitives. Understanding them is critical to leveraging MagicBell for your product.
 
-Some features involve multiple primitives, and some primitives show up in many features.
+Some features involve multiple primitives, and some primitives show up in many places.
 That is by design! We believe fewer, more well-designed, interconnected primitives lead to a better experience as you work on your notification system.
 They enable you to form a strong and coherent mental model that improves with each new feature you build.
-As we build out MagicBell, we'll add new primitives, but deliberately, in a way that makes the existing primitives more useful.
+As we build out MagicBell, we'll add new primitives deliberately, making the existing primitives more useful.
 
-For example, notification preferences are powered the the `Category` and `Channel` primitives, and un-subscriptions are powered by `Category` and `Topics`.
+For example, the `Category` and `Channel` primitives power `notification preferences,` and `Category` and `Topics` power `unsubscriptions`.
 
 If you are currently exploring the landscape of notification providers, we suggest paying attention to the primitives offered by different providers.
-They will impact how closely (and joyfully) you can translate your product ideas into working features.
-For example, suppose you are building a social network, and want to offer users one-click unsubscriptions from updates on specific discussions.
-In that case, you will need a primitive that enables storing a user preference at that level of granularity.
-In MagicBell, that is a `topic subscription`.
+They will impact how closely (and joyfully) you can translate your product ideas into working features. Suppose you are building a social network and
+want to offer users one-click unsubscriptions from updates on specific discussions. In this case, you will need a primitive that enables storing a user
+preference at that level of granularity. In MagicBell, that is a `topic subscription`. If you are using a provider that does not offer this primitive,
+you will need to build it yourself.
