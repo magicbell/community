@@ -13,7 +13,12 @@
   },
   {
     "source": "/idempotent-requests",
-    "destination": "/rest-api/idempotent-requests",
+    "destination": "/rest-api/overview#idempotent-requests",
+    "permanent": true
+  },
+  {
+    "source": "/rest-api/idempotent-requests",
+    "destination": "/rest-api/overview#idempotent-requests",
     "permanent": true
   },
   {
