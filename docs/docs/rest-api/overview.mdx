@@ -75,7 +75,13 @@ All timestamps returned by the REST API are in seconds since the Unix epoch.
 
 ## Rate limiting
 
-The REST API imposes a limit of 200 requests per second by project. If the limit is exceeded, you will get an HTTP 429 Too Many Requests response.
+The REST API imposes a limit of 100 requests per second for most `GET/OPTIONS/HEAD` endpoints
+and 60 requests/per second for `POST/PATCH/PUT/DELETE` endpoints.
+You will get an HTTP 429 Too Many Requests response if you send requests fasters than that,
+often accompanied by a helpful error message explaining the limit you have hit.
+Unless you are on an Enterprise plan, these limits are subject to change without announcement.
+
+Many of our API endpoints support bulk operations, and we recommend using them to reduce the number of requests you make.
 
 ## Idempotent requests
 
