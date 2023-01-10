@@ -255,8 +255,8 @@
             "to": "/slack/custom-apps"
           },
           {
-            "name": "MagicBell & Slack Blocks",
-            "to": "/slack/block-api"
+            "name": "Slack Provider Overrides (and Blocks)",
+            "to": "/slack/slack-provider-overrides"
           }
         ]
       },

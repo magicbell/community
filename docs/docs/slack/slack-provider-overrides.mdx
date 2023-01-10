@@ -1,12 +1,19 @@
 ---
-title: MagicBell & Slack's Block Kit
-subtitle: How to fully utiilize Slack's Block Kit to send beautiful notifications
+title: Slack Provider Overrides (and Blocks)
+subtitle: How to customize Slack notifications
 ---
 
-This page provides an example of hose to make use of Slack's Block Kit. We use the [Stacking multiple blocks example](https://api.slack.com/block-kit/building#stack_of_blocks) as part of our code example. To make use of Slack's Block Kit you need to specify the blocks as part of the provider overrides in the notification body. Here is an example body to be sent to the `/notifications` endpoint:
+Our [create notifications endpoint](/docs/rest-api/reference#create-notification) allows you to customize the payload sent to Slack by setting [`notification.overrides`](/docs/overrides).
 
-```JSON
-{
+The `notification.overrides.slack` parameter accepts all the body parameters of [Slack's chat.postMessage API](https://api.slack.com/methods/chat.postMessage).
+
+Provider-specific parameters in `notification.overrides` take precedence over the ones specified in `notification`.
+
+### Example: Slack Blocks
+
+Here's how you would translate the [Stacking multiple blocks example](https://api.slack.com/block-kit/building#stack_of_blocks) from the Slack docs:
+
+<Snippets params={{
   "notification": {
     "recipients": [
       {
@@ -60,5 +67,4 @@ This page provides an example of hose to make use of Slack's Block Kit. We use t
       }
     }
   }
-}
-```
+}} />

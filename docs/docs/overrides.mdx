@@ -10,13 +10,10 @@ subtitle: How to control content across channels and providers
 used to change a specific channel's title, content, and action url when that
 content should differ from other channels.
 
-Below illustrates how to make the subject of an email different from the title
+The snippet below illustrates how to make the subject of an email different from the title
 of other notifications.
 
-<Tabs>
-
-```json title=PAYLOAD hideHeader noTopBorderRadius
-{
+<Snippets params={{
   "notification": {
     "title": "Task assigned to you: Upgrade to Startup plan",
     "content": "Hello, please upgrade us to the Startup plan. Thank you.",
@@ -37,139 +34,7 @@ of other notifications.
       }
     }
   }
-}
-```
-
-```curl title=cURL hideHeader noTopBorderRadius
-curl https://api.magicbell.com/notifications \
-  --request POST \
-  --header 'X-MAGICBELL-API-KEY: MAGICBELL_API_KEY' \
-  --header 'X-MAGICBELL-API-SECRET: MAGICBELL_API_SECRET' \
-  --data '{
-    "notification": {
-      "title": "Task assigned to you: Upgrade to Startup plan",
-      "content": "Hello, please upgrade us to the Startup plan. Thank you.",
-      "category": "billing",
-      "recipients": [
-        {
-          "email": "dan@example.com"
-        }
-      ],
-      "overrides": {
-        "channels": {
-          "email": {
-            "title": "[Urgent] Upgrade to Startup plan"
-          },
-          "web_push": {
-            "title": "Task assigned to you"
-          }
-        }
-      }
-    }
-  }'
-```
-
-```ruby title=RUBY hideHeader noTopBorderRadius
-require 'httparty'
-
-headers = {
-  "X-MAGICBELL-API-KEY": "MAGICBELL_API_KEY",
-  "X-MAGICBELL-API-SECRET": "MAGICBELL_API_SECRET",
-}
-
-body = {
-  notification: {
-    title: "Task assigned to you: Upgrade to Startup plan",
-    content: "Hello, please upgrade us to the Startup plan. Thank you.",
-    category: "billing",
-    recipients: [
-      {
-        email: "dan@example.com"
-      }
-    ],
-    overrides: {
-      channels: {
-        email: {
-          title: "[Urgent] Upgrade to Startup plan"
-        },
-        web_push: {
-          title: "Task assigned to you"
-        }
-      }
-    }
-  }
-}
-
-response = HTTParty.post("https://api.magicbell.com", { body: body.to_json, headers: headers })
-```
-
-```python title=PYTHON hideHeader noTopBorderRadius
-import requests
-
-headers = {
-    'X-MAGICBELL-API-SECRET': 'MAGICBELL_API_KEY',
-    'X-MAGICBELL-API-KEY': 'MAGICBELL_API_SECRET',
-}
-
-data = {
-    "notification": {
-        "title": "Task assigned to you: Upgrade to Startup plan",
-        "content": "Hello, please upgrade us to the Startup plan. Thank you.",
-        "category": "billing",
-        "recipients": [
-            { "email": "dan@example.com" }
-        ],
-        "overrides": {
-            "channels": {
-                "email": {
-                    "title": "[Urgent] Upgrade to Startup plan"
-                },
-                "web_push": {
-                    "title": "Task assigned to you"
-                }
-            }
-        }
-    }
-}
-
-response = requests.post('https://api.magicbell.com/notifications', headers=headers, json=data)
-```
-
-```javascript title=JAVASCRIPT hideHeader noTopBorderRadius
-import axios from 'axios';
-
-const headers = {
-  'X-MAGICBELL-API-SECRET': 'MAGICBELL_API_KEY',
-  'X-MAGICBELL-API-KEY': 'MAGICBELL_API_SECRET',
-};
-
-const data = {
-  notification: {
-    title: 'Task assigned to you: Upgrade to Startup plan',
-    content: 'Hello, please upgrade us to the Startup plan. Thank you.',
-    category: 'billing',
-    recipients: [
-      {
-        email: 'dan@example.com',
-      },
-    ],
-    overrides: {
-      channels: {
-        email: {
-          title: '[Urgent] Upgrade to Startup plan',
-        },
-        web_push: {
-          title: 'Task assigned to you',
-        },
-      },
-    },
-  },
-};
-
-axios.post('https://api.magicbell.com/notifications', data, { headers });
-```
-
-</Tabs>
+}}/>
 
 The keys accepted are:
 
@@ -185,76 +50,32 @@ The keys accepted are:
 - `mobile_push.title`
 - `mobile_push.content`
 - `mobile_push.action_url`
+- `sms.title`
+- `sms.content`
+- `sms.action_url`
 
 ## Provider Overrides
 
-You can use `notification.overrides` to send payoad specific to a
-delivery provider like [Postmark](https://magicbell.com/docs/email/postmark),
-[Mailgun](https://magicbell.com/docs/email/mailgun) or
-[Firebase](https://firebase.google.com/).
+You can use `notification.overrides` to send provider-specific data and customize the behavior of any provider. The data is sent to the provider's API as-is: MagicBell does not validate or transform it.
 
-The data is sent to the provider's API. MagicBell does not validate or
-transform this data. Please refer to your provider's API reference, here you
-have links to some of the providers we integrate with:
+For example, you can:
 
-- [Postmark](https://postmarkapp.com/developer/api/email-api)
-- [SendGrid](https://docs.sendgrid.com/api-reference/mail-send/mail-send)
-- [Mailgun](https://documentation.mailgun.com/en/latest/api-sending.html#sending)
-- [iOS](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/PayloadKeyReference.html)
+- Add CC and BCC recipients for Postmark
+- Use a SendGrid email template
+- Tag an email in Mailgun
+- Specify the "from" in Amazon SES
+- Modify the badge of your iOS app icon
+- Pass the URL of an image to display in a Firebase notification
+- Make use of Slack's Block Kit
+- ...And anything the provider's API supports
 
-For example, you can add cc and bcc recipients for Postmark sending this payload
-to the create notifications endpoint:
+More details in the provider-specific docs:
 
-<Tabs>
-
-```json title=PAYLOAD hideHeader noTopBorderRadius
-{
-  "notification": {
-    "title": "Task assigned to you: Upgrade to Startup plan",
-    "content": "Hello, please upgrade us to the Startup plan. Thank you.",
-    "category": "billing",
-    "recipients": [
-      {
-        "email": "dan@example.com"
-      }
-    ],
-    "overrides": {
-      "providers": {
-        "postmark": {
-          "Cc": "mila@example.com",
-          "Bcc": "hana@example.com"
-        }
-      }
-    }
-  }
-}
-```
-
-```curl title=cURL hideHeader noTopBorderRadius
-curl https://api.magicbell.com/notifications \
-  --request POST \
-  --header 'X-MAGICBELL-API-KEY: MAGICBELL_API_KEY' \
-  --header 'X-MAGICBELL-API-SECRET: MAGICBELL_API_SECRET' \
-  --data '{
-    "notification": {
-      "title": "Task assigned to you: Upgrade to Startup plan",
-      "content": "Hello, please upgrade us to the Startup plan. Thank you.",
-      "category": "billing",
-      "recipients": [
-        {
-          "email": "dan@example.com"
-        }
-      ],
-      "overrides": {
-        "providers": {
-          "postmark": {
-            "Cc": "mila@example.com",
-            "Bcc": "hana@example.com"
-          }
-        }
-      }
-    }
-  }'
-```
-
-</Tabs>
+- [Email - Mailgun](/docs/email/mailgun)
+- [Email - Postmark](/docs/email/postmark)
+- [Email - SendGrid](/docs/email/sendgrid)
+- [Email - Amazon SES](/docs/email/amazon-ses)
+- [Mobile Push - iOS (APNs)](/docs/mobile-push/ios)
+- [Mobile Push - Android (FCM)](/docs/mobile-push/android)
+- [Slack](/docs/slack/slack-provider-overrides)
+- [SMS - Twilio](/docs/sms/twilio)

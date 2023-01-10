@@ -9,8 +9,8 @@ To configure Postmark for your MagicBell project, follow these steps:
 
 1. Sign up for [Postmark](https://account.postmarkapp.com/sign_up) and [obtain a server API token](https://postmarkapp.com/support/article/1008-what-are-the-account-and-server-api-tokens).
 1. Verify your sender signature in Postmark.
-1. From the **Channels** page in your Dashboard, click the ⚙ icon next to **Email** to access Email Channel Settings.
-1. Under **Postmark**, enable the provider and enter the API key from step 1 then click **Save**.
+1. From the **Settings > Providers** page in your dashboard, select Postmark.
+1. Enable the provider and enter the API key from step 1 then click **Save**.
 
 <img
   className="full-mobile"
@@ -29,19 +29,17 @@ notifications through your Postmark account, **no additional work is needed**.
 Please keep in mind that MagicBell automatically injects both `notification_id`
 and `broadcast_id` in the metadata of messages sent to Postmark.
 
-## Sending emails with additional or unique content
+## Provider Overrides
 
-Our [create notifications endpoint](/docs/rest-api/reference#create-notification)
-allows you to customize the content sent to Postmark by setting
-[`notification.overrides`](/docs/overrides).
+Our [create notifications endpoint](/docs/rest-api/reference#create-notification) allows you to customize the payload sent to Postmark by setting [`notification.overrides`](/docs/overrides).
 
-The `notification.overrides` parameter accepts all of the body parameters of
-[Postmark's Email API](https://postmarkapp.com/developer/api/email-api).
+The `notification.overrides.postmark` parameter accepts all the body parameters of [Postmark's Email API](https://postmarkapp.com/developer/api/email-api).
 
-Below is an example of a tagged message with custom headers.
+Provider-specific parameters in `notification.overrides` take precedence over the ones specified in `notification`.
 
-```json
-{
+### Example: Tag an email and set a custom header
+
+<Snippets params={{
   "notification": {
     "title": "Welcome to MagicBell",
     "content": "The notification inbox for your product. Get started in minutes.",
@@ -63,7 +61,8 @@ Below is an example of a tagged message with custom headers.
       }
     }
   }
-}
-```
+}} />
 
-<a href="mailto:hello@magicbell.com">Email us</a> if you wish to use Postmark templates!
+<Note>
+  <a href="mailto:hello@magicbell.com">Email us</a> if you wish to use Postmark templates!
+</Note>
