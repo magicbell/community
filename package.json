@@ -1,11 +1,12 @@
 {
-  "name": "public",
+  "name": "@magicbell-io/public",
   "version": "1.0.0",
   "description": "A monorepo for MagicBell's public assets and discourse",
   "repository": "git@github.com:magicbell-io/public.git",
   "author": "Stephan Meijer <stephan.meijer@gmail.com>",
   "license": "MIT",
   "private": true,
+  "main": "shared-components/dist/index.js",
   "type": "module",
   "scripts": {
     "validate": "tsx scripts/validate-openapi.ts",
