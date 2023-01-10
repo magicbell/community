@@ -17,7 +17,8 @@
     "smoke-test": "tsx scripts/smoke-test.ts",
     "build:smoke-test": "ncc build scripts/smoke-test.ts -o .github/actions/smoke-test/dist",
     "prepare": "husky install",
-    "lint": "eslint --fix ."
+    "lint": "eslint --fix .",
+    "test": "exit 0"
   },
   "lint-staged": {
     "*.{md,json,yml,yaml}": [
