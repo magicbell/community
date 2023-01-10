@@ -6,8 +6,11 @@
   "author": "Stephan Meijer <stephan.meijer@gmail.com>",
   "license": "MIT",
   "private": true,
-  "main": "shared-components/dist/index.js",
   "type": "module",
+  "main": "shared-components/dist/index.js",
+  "publishConfig": {
+    "@magicbell-io:registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "validate": "tsx scripts/validate-openapi.ts",
     "postman:generate": "tsx scripts/generate-postman.ts",
