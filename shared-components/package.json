@@ -3,6 +3,9 @@
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "publishConfig": {
+    "@magicbell-io:registry": "https://npm.pkg.github.com"
+  },
   "files": [
     "dist",
     "src"
