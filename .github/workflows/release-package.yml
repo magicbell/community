@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-        run: cd shared-components
+      - run: cd shared-components
       - name: Build
         run: yarn build
       - run: yarn install --frozen-lockfile
