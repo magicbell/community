@@ -1,8 +1,12 @@
-name: Node.js Package
+name: Publish Shared-Components Package
 
+# on:
+#   release:
+#     types: [created]
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - feat/share-components
 
 jobs:
   build:
@@ -16,14 +20,12 @@ jobs:
         with:
           node-version: 16
       - run: yarn install --frozen-lockfile
+      - run: yarn build
       - run: yarn test
 
   publish-gpr:
     needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: shared-components
     permissions:
       packages: write
       contents: read
@@ -33,8 +35,8 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
+          scope: "@magicbell-io"
       - run: yarn install --frozen-lockfile
-      - run: yarn build
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
