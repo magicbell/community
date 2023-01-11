@@ -5,7 +5,6 @@
   "repository": "git@github.com:magicbell-io/public.git",
   "author": "Stephan Meijer <stephan.meijer@gmail.com>",
   "license": "MIT",
-  "private": true,
   "type": "module",
   "main": "shared-components/dist/index.js",
   "publishConfig": {
