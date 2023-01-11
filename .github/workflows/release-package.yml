@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-          scope: "@magicbell-io"
+          scope: "@magicbell-io/public"
       - run: yarn install --frozen-lockfile
       - run: npm publish
         env:
