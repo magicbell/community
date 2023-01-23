@@ -16,13 +16,46 @@ To configure mobile push notifications using Firebase Cloud Messaging for your M
   style={{ width: '100%', height: 'intrinsic' }}
 />
 
-3. In MagicBell, go to the **Channels** page in your Dashboard, then click the ⚙ icon next to **Mobile Push** to access Mobile Push Channel Settings.
-4. Under **FCM**, enable the provider and complete the required fields (server key token (API key) from step 2 above and your app bundle ID), then click **Save**.
+3. From the **Settings > Providers** page in your dashboard, select Mobile Push > Firebase FCM.
+4. Enable the provider and complete the required fields (server key token (API key) from step 2 above and your app bundle ID), then click **Save**.
 
 <img
   className="full-mobile"
-  src="/docs/uploads/mobile-push_fcm.gif"
+  src="/docs/uploads/mobile-push_fcm.png"
   style={{ width: '100%', height: 'intrinsic' }}
 />
 
 <Note>FCM can also be used to configure mobile push notifications for iOS apps.</Note>
+
+## Provider Overrides
+
+Our [create notifications endpoint](/docs/rest-api/reference#create-notification) allows you to customize the payload sent to the Firebase by setting [`notification.overrides`](/docs/overrides).
+
+The `notification.overrides.android` parameter accepts all the body parameters of the [Firebase API](https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages).
+
+Provider-specific parameters in `notification.overrides` take precedence over the ones specified in `notification`.
+
+### Example: Set the notification image
+
+<Snippets params={{
+  "notification": {
+    "title": "We are processing your order",
+    "content": "<p>Thank you for your order. We will notify you when these items are ready.</p>",
+    "recipients": [
+      {
+        "email": "dan@example.com"
+      }
+    ],
+    "overrides": {
+      "providers": {
+        "android": {
+          "notification": {
+              "title": "Order status updated",
+              "body": "Your order is being processed",
+              "image": "https://example.com/image.png"
+          }
+        }
+      }
+    }
+  }
+}} />

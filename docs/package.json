@@ -40,6 +40,7 @@
     "hotkeys-js": "^3.8.7",
     "html-to-text": "^8.1.0",
     "httpsnippet": "^2.0.0",
+    "javascript-stringify": "^2.1.0",
     "next": "^12.2.4",
     "next-compose-plugins": "^2.2.1",
     "next-mdx-remote": "^3.0.8",
