@@ -75,5 +75,10 @@
     "source": "/slack/block-api",
     "destination": "/slack/slack-provider-overrides",
     "permanent": true
+  },
+  {
+    "source": "/rest-api/authentication",
+    "destination": "/api-authentication",
+    "permanent": true
   }
 ]
