@@ -157,7 +157,7 @@ function createTests(operations) {
       title: 'HTTP 404: request without authentication headers return 404 not found',
       task: async () => {
         const res = await request(operation, 'no-headers');
-        expect(res.status, res.error).equal(404);
+        expect(res.status, res.error).equal(401);
         expect(res.duration).lessThan(5000);
       },
     });
