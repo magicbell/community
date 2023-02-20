@@ -51,7 +51,9 @@ export default function Request({ field, schema, operation }: Props) {
     <div>
       <p className="font-mono text-sm">
         <span
-          className={'py-1 px-2 text-xs uppercase rounded-sm bg-green-500 text-green-50'}
+          className={
+            'py-1 px-2 text-xs uppercase rounded-sm bg-emerald-500 text-emerald-50'
+          }
         >
           POST
         </span>

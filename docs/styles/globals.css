@@ -120,7 +120,7 @@
 
 @tailwind components;
 @tailwind utilities;
-@tailwind screens;
+@tailwind variants;
 
 @layer utilities {
   .masonry {

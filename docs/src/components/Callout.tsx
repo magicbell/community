@@ -10,7 +10,7 @@ export default function Callout({ children, className }: Props) {
   return (
     <div
       className={classNames(
-        'my-4 p-4 rounded-md bg-yellow-100 text-gray-900 border border-yellow-300',
+        'my-4 p-4 rounded-md bg-amber-100 text-gray-900 border border-yellow-300',
         className,
       )}
     >

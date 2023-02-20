@@ -21,7 +21,7 @@ export default function ParentMenuItem({ name, children = [], ...props }: Sitema
       >
         <a className="flex-1 md:text-sm text-left text-gray-800">{name}</a>
         <ChevronRightIcon
-          className={classNames(isOpen ? 'rotate-90' : 'rotate-0', 'transform h-4 w-4')}
+          className={classNames(isOpen ? 'rotate-90' : 'rotate-0', 'h-4 w-4')}
         />
       </button>
       <ul

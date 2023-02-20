@@ -28,9 +28,9 @@ export default function OpenAPILinks({ links = [] }: { links?: OpenAPILink[] }) 
                         <span
                           className={classNames(
                             'uppercase font-mono w-6 block',
-                            method === 'post' && 'text-green-500',
+                            method === 'post' && 'text-emerald-500',
                             method === 'get' && 'text-blue-500',
-                            method === 'put' && 'text-purple-500',
+                            method === 'put' && 'text-violet-500',
                             method === 'delete' && 'text-red-500',
                           )}
                           style={{ fontSize: '10px', lineHeight: 1.3 }}

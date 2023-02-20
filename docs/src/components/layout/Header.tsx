@@ -14,7 +14,7 @@ export default function Header({ onToggleMenu }: Props) {
   };
 
   return (
-    <header className="z-20 flex-shrink-0 flex sticky top-0 bg-white">
+    <header className="z-20 shrink-0 flex sticky top-0 bg-white">
       <div className="flex-1 hidden justify-between md:flex max-w-screen-xl mx-auto md:px-8 p-4">
         <div className="flex-1 flex items-center space-x-10 py-4">
           <div className="flex-1 flex space-x-24">
