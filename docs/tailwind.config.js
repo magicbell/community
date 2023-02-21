@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} \*/
 module.exports = {
   content: [
     './docs/**/*.mdx',
@@ -8,13 +9,38 @@ module.exports = {
     extend: {
       colors: {
         current: 'currentColor',
+
+        /* Dark Magic */
+        // Primary
+        yellow: '#FFB224',
+
+        // Text
+        default: '#EDEDEF',
+        muted: '#A09FA6',
+        link: '#9E8CFC',
+        hover: '#BCAFFD',
+
+        // Gradient
+        yellowOutlineStart: '#FFB224BF',
+        yellowOutlineEnd: '#FFB22459',
+
+        // Base
+        app: '#1B1D29',
+        app2: '#1E212F',
+        outlineDark: '#3F3566',
+        darkGradientStart: '#23283d40',
+        darkGradientEnd: '#1e212f0d',
+        borderMuted: '#354061',
+
+        // Old Colors
         darkGrey: '#9187B2',
         darkPurple: '#230F65',
         lightPurple: '#5225C1',
         pink: '#C977FE',
       },
       fontFamily: {
-        sans: ['HarmoniaSans', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['Source Sans Pro', 'Helvetica', 'Arial', 'sans-serif'],
+        heading: ['Catamaran', 'Helvetica', 'Arial', 'sans-serif'],
       },
     },
   },

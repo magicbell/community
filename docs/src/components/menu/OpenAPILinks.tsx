@@ -14,7 +14,7 @@ export type OpenAPILink = {
 export default function OpenAPILinks({ links = [] }: { links?: OpenAPILink[] }) {
   const groupedLinks = useMemo(() => groupBy(prop('path'), links), [links]);
   return (
-    <div className="divide-y divide-dashed divide-gray-200 px-6">
+    <div className="divide-y divide-dashed divide-outlineDark px-6">
       {Object.values(groupedLinks).map((path) => {
         return (
           <ul key={path[0].path} className="py-3">

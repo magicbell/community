@@ -8,13 +8,15 @@ interface Props {
 
 export default function Callout({ children, className }: Props) {
   return (
-    <div
-      className={classNames(
-        'my-4 p-4 rounded-md bg-amber-100 text-gray-900 border border-yellow-300',
-        className,
-      )}
-    >
-      {children}
+    <div className="rounded bg-gradient-to-b from-yellowOutlineStart to-yellowOutlineEnd p-[1px] my-4 relative">
+      <div
+        className={classNames(
+          'p-4 rounded g-app bg-app bg-gradient-to-b from-darkGradientStart to-darkGradientEnd text-yellow relative bottom-[0.5px]',
+          className,
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }

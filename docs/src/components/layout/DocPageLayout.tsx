@@ -43,7 +43,7 @@ export default function DocPageLayout({
         canonical={canonical}
       />
       <Header onToggleMenu={toggleSidebar} />
-      <div className="max-w-screen-xl mx-auto divide-x divide-gray-200 flex flex-1 w-full">
+      <div className="max-w-screen-xl mx-auto divide-x divide-outlineDark flex flex-1 w-full">
         <MobileMenu
           navigationItems={sitemap}
           isOpen={sidebarOpen}

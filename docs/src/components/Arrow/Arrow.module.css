@@ -15,12 +15,7 @@
 }
 
 .arrowContainer {
-  @apply px-3 rounded-full;
-
-  background-color: #ffde00;
-  border: 2px solid #ffde00;
-  padding-top: 11px;
-  padding-bottom: 11px;
+  @apply px-3 rounded-full bg-yellow border-yellow border-2 py-3;
 
   @screen md {
     @apply px-2.5;
@@ -39,7 +34,7 @@
 }
 
 .line {
-  @apply stroke-current text-lightPurple stroke-2;
+  @apply stroke-current text-app stroke-2;
 
   stroke-linecap: round;
   stroke-miterlimit: 10;

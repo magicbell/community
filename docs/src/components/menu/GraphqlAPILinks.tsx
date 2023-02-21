@@ -14,7 +14,7 @@ export default function GraphqlAPILinks() {
   if (isNil(queries) && isNil(mutations)) return null;
 
   return (
-    <div className="divide-y divide-dashed divide-gray-200 px-6">
+    <div className="divide-y divide-dashed divide-outlineDark px-6">
       {queries ? (
         <ul className="py-3">
           {Object.keys(queries).map((queryKey: string) => (

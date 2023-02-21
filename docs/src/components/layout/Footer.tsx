@@ -8,11 +8,11 @@ import FooterLink from './FooterLink';
 
 export default function Footer() {
   return (
-    <footer className="flex justify-between max-w-screen-xl mx-auto md:px-8 px-4 md:py-24 py-12 w-full md:flex-row flex-col-reverse text-darkPurple">
+    <footer className="flex justify-between max-w-screen-xl mx-auto md:px-8 px-4 md:py-24 py-12 w-full md:flex-row flex-col-reverse text-default">
       <div className="flex flex-1 flex-col gap-4">
         <a href="https://www.magicbell.com/" aria-label="Go to homepage">
           <MagicBellLogo
-            className="md:h-7 h-6 fill-current text-darkPurple"
+            className="md:h-7 h-6 fill-current text-default"
             role="img"
             aria-label="MagicBell logo"
             focusable="false"
@@ -27,7 +27,7 @@ export default function Footer() {
           <li>
             <a
               href="https://twitter.com/magicbell_io"
-              className="text-darkGrey hover:text-darkPurple"
+              className="text-muted hover:text-hover"
               aria-label="Go to our Twitter page"
               rel="noreferrer"
             >
@@ -43,7 +43,7 @@ export default function Footer() {
           <li>
             <a
               href="https://es.linkedin.com/company/magicbell"
-              className="text-darkGrey hover:text-darkPurple"
+              className="text-muted hover:text-hover"
               aria-label="Go to our LinkedIn page"
               rel="noreferrer"
             >
@@ -58,7 +58,7 @@ export default function Footer() {
           <li>
             <a
               href="https://www.youtube.com/channel/UCqz_KjolBVyaxHnxEeO1RCQ"
-              className="text-darkGrey hover:text-darkPurple"
+              className="text-muted hover:text-hover"
               aria-label="Go to our YouTube page"
               rel="noreferrer"
             >
@@ -82,7 +82,7 @@ export default function Footer() {
       </div>
       <div className="grid gap-y-8 gap-x-10 grid-cols-none sm:grid-cols-2 md:mb-0 mb-14">
         <div>
-          <h4 className="font-bold text-2xl">Company</h4>
+          <h4 className="font-bold text-2xl text-yellow">Company</h4>
           <ul className="flex flex-col gap-4 mt-4" aria-label="Company pages">
             {footerNav.companyLinks.map((link, index) => (
               <FooterLink key={`company-page-${index}`} link={link} />
@@ -90,7 +90,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="font-bold text-2xl">Product</h4>
+          <h4 className="font-bold text-2xl text-yellow">Product</h4>
           <ul className="flex flex-col gap-4 mt-4" aria-label="Product pages">
             {footerNav.productLinks.map((link, index) => (
               <FooterLink key={`product-page-${index}`} link={link} />
@@ -98,7 +98,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="font-bold text-2xl">Resources</h4>
+          <h4 className="font-bold text-2xl text-yellow">Resources</h4>
           <ul className="flex flex-col gap-4 mt-4" aria-label="Project pages">
             {footerNav.resourcesLinks.map((link, index) => (
               <FooterLink key={`resources-page-${index}`} link={link} />
@@ -106,7 +106,7 @@ export default function Footer() {
           </ul>
         </div>
         <div>
-          <h4 className="font-bold text-2xl">Build</h4>
+          <h4 className="font-bold text-2xl text-yellow">Build</h4>
           <ul className="flex flex-col gap-4 mt-4" aria-label="Learn pages">
             {footerNav.learnLinks.map((link, index) => (
               <FooterLink key={`build-page-${index}`} link={link} />

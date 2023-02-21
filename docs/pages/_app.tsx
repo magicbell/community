@@ -14,6 +14,11 @@ import 'botz/styles.css';
 import { SupportWidget } from '@magicbell/support-widget';
 import PropsTable from '../src/components/PropsTable';
 
+// Fonts
+import '@fontsource/source-sans-pro/400.css';
+import '@fontsource/catamaran/500.css';
+import '@fontsource/catamaran/600.css';
+
 const NotificationInboxPreview = dynamic(
   import('../src/components/magicbell/NotificationInboxPreview'),
 );

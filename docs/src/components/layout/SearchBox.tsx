@@ -20,13 +20,13 @@ export default function SearchBox({ onSubmit }: Props) {
           <label htmlFor="search-field" className="sr-only">
             Search
           </label>
-          <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
+          <div className="relative w-full text-gray-700 focus-within:text-gray-600">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center ml-2">
               <SearchIcon className="h-5 w-5" />
             </div>
             <Field
               id="search-field"
-              className="block h-full w-full border-transparent md:py-2 py-4 pl-8 text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent"
+              className="block bg-[#202640] rounded h-full w-full border-transparent md:py-2 py-4 pl-8 text-default placeholder-gray-700 focus:outline-none focus:placeholder-gray-600 focus:ring-0 focus:border-transparent"
               placeholder="Quick search"
               name="query"
               autoComplete="off"
