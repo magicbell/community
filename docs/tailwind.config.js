@@ -13,6 +13,7 @@ module.exports = {
         /* Dark Magic */
         // Primary
         yellow: '#FFB224',
+        lightYellow: '#FFC561',
 
         // Text
         default: '#EDEDEF',

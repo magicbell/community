@@ -11,8 +11,7 @@ export default function Callout({ children, className }: Props) {
     <div className="rounded bg-gradient-to-b from-yellowOutlineStart to-yellowOutlineEnd p-[1px] my-4 relative">
       <div
         className={classNames(
-          'p-4 rounded g-app bg-app bg-gradient-to-b from-darkGradientStart to-darkGradientEnd text-yellow relative bottom-[0.5px]',
-          className,
+          'p-4 rounded g-app bg-app bg-gradient-to-b from-darkGradientStart to-darkGradientEnd text-yellow relative bottom-[0.5px] [&>a]:underline [&>a]:text-yellow [&>a:hover]:text-lightYellow [&>a:hover]:underline', className,
         )}
       >
         {children}

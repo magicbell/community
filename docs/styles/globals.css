@@ -74,12 +74,12 @@ img::selection {
   }
 
   a {
-    @apply text-link;
+    @apply text-link underline-offset-4;
   }
 
   a:hover {
     @apply text-hover;
-    text-decoration: none !important;
+    text-decoration: none;
   }
 
   main ul {
