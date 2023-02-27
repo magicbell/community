@@ -3,7 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import FormSubmitter from '../FormSubmitter';
 import SearchBoxShortcut from './SearchBoxShortcut';
-import { Input } from '@darkmagic/react';
+import { Input, Icon } from '@darkmagic/react';
 
 interface Props {
   onSubmit: (query: string) => void;
@@ -31,6 +31,7 @@ export default function SearchBox({ onSubmit }: Props) {
               name="query"
               autoComplete="off"
               as={Input}
+              leadingAddon={<Icon icon={SearchIcon} />}
             />
           </div>
           <SearchBoxShortcut />
