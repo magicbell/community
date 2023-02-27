@@ -8,6 +8,7 @@ import Grid from '../src/components/Grid';
 import dynamic from 'next/dynamic';
 import Table from '../src/components/Table';
 import Tabs from '../src/components/tabs/Tabs';
+import Snippets from '../src/components/tabs/Snippets';
 import '../styles/globals.css';
 import '../styles/material.css';
 import 'botz/styles.css';
@@ -30,6 +31,7 @@ const components = {
   Grid,
   Card,
   Tabs,
+  Snippets,
   HighlightedCode,
   NotificationInboxPreview,
   PropsTable,

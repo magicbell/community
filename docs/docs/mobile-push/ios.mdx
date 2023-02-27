@@ -21,8 +21,8 @@ Follow these steps to register a new key:
 
 To configure iOS mobile push notifications for your MagicBell project, follow these steps:
 
-1. From the **Channels** page in your Dashboard, click the ⚙ icon next to **Mobile Push** to access Mobile Push Channel Settings.
-1. Under **APNs**, enable the provider and complete the required fields, then click **Save**.
+1. From the **Settings > Providers** page in your dashboard, select Mobile Push > Safari APNs.
+1. Enable the provider and complete the required fields, then click **Save**.
 
 <img
   className="full-mobile"
@@ -31,3 +31,32 @@ To configure iOS mobile push notifications for your MagicBell project, follow th
 />
 
 MagicBell needs the P8 key ID, team ID for your Apple account, P8 cert, and the iOS app's bundle ID.
+
+## Provider Overrides
+
+Our [create notifications endpoint](/docs/rest-api/reference#create-notification) allows you to customize the payload sent to the APNs by setting [`notification.overrides`](/docs/overrides).
+
+The `notification.overrides.ios` parameter accepts all the body parameters of the [APNs API](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/PayloadKeyReference.html).
+
+Provider-specific parameters in `notification.overrides` take precedence over the ones specified in `notification`.
+
+### Example: Set the bagde of the app icon
+
+<Snippets params={{
+  "notification": {
+    "title": "We are processing your order",
+    "content": "<p>Thank you for your order. We will notify you when these items are ready.</p>",
+    "recipients": [
+      {
+        "email": "dan@example.com"
+      }
+    ],
+    "overrides": {
+      "providers": {
+        "ios": {
+          "badge": 5
+        }
+      }
+    }
+  }
+}} />

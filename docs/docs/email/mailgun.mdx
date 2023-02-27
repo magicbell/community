@@ -8,8 +8,8 @@ subtitle: How to use Mailgun with MagicBell
 To configure Mailgun for your MagicBell project, follow these steps:
 
 1. Sign up for [Mailgun](https://signup.mailgun.com/new/signup) and [obtain an API key](https://help.mailgun.com/hc/en-us/articles/203380100-Where-can-I-find-my-API-key-and-SMTP-credentials-). Note: We do not support Mailgun's EU region at this time.
-1. From the **Channels** page in your dashboard, click the ⚙ icon next to **Email** to access Email Channel Settings.
-1. Under **Mailgun**, enable the provider and enter the API key from step 1 and your sender domain. You can find the sender domain under your MailGun dashboard. Sometimes, it is named "sending domain".
+1. From the **Settings > Providers** page in your dashboard, select Mailgun.
+1. Enable the provider and enter the API key from step 1 and your sender domain. You can find the sender domain under your Mailgun dashboard. Sometimes, it is named "sending domain".
 1. Add the email address and name you want your notification emails to come from. Then click **Save**.
 
 <img
@@ -23,22 +23,20 @@ To configure Mailgun for your MagicBell project, follow these steps:
 Once your account is set up, MagicBell will automatically deliver email notifications through your Mailgun account, **no
 additional work is needed**.
 
-## Sending emails with additional or unique content
+## Provider Overrides
 
-Our [create notifications endpoint](/docs/rest-api/reference#create-notification)
-allows you to customize the content sent to Mailgun by setting
-[`notification.overrides`](/docs/overrides).
+Our [create notifications endpoint](/docs/rest-api/reference#create-notification) allows you to customize the payload sent to Mailgun by setting [`notification.overrides`](/docs/overrides).
 
-The `notification.overrides` parameter accepts all of the [Mailgun's Messages API](https://documentation.mailgun.com/en/latest/api-sending.html#sending)
-body parameters. If there are common parameters in `notification.overrides` and `notifications`, then `notification.overrides` will override the parameters in `notifications`.
+The `notification.overrides.mailgun` parameter accepts all the body parameters of [Mailgun's Messages API](https://documentation.mailgun.com/en/latest/api-sending.html#sending).
 
-Below is an example of a tagged message with custom headers.
+Provider-specific parameters in `notification.overrides` take precedence over the ones specified in `notification`.
 
-```json
-{
+### Example: Tag an email and set a custom header
+
+<Snippets params={{
   "notification": {
-    "title": "We're processing your order",
-    "content": "<p>Thank you for your order. We'll notify you when these items are ready.</p>",
+    "title": "We are processing your order",
+    "content": "<p>Thank you for your order. We will notify you when these items are ready.</p>",
     "recipients": [
       {
         "email": "dan@example.com"
@@ -53,21 +51,18 @@ Below is an example of a tagged message with custom headers.
       }
     }
   }
-}
-```
+}} />
 
-## Using Mailgun email templates
+### Example: Using Mailgun email templates
 
-In addition to our own [email templates](/docs/templates), MagicBell can deliver email notifications using MailGun's.
+In addition to our own [email templates](/docs/templates), MagicBell can render email notifications using Mailgun's.
 
-Create a template in Mailgun, and grab its ID. Then create a notification with the `template` attribute set in
-`notification.overrides.providers.mailgun`. MagicBell will use `custom_attributes` to fill in your template.
+After creating a template in Mailgun, you can specify its ID in `notification.overrides.providers.mailgun.template` and the values for substitution in `notification.custom_attributes`:
 
-```json
-{
+<Snippets params={{
   "notification": {
-    "title": "We're processing your order",
-    "content": "<p>Thank you for your order. We'll notify you when these items are ready.</p>",
+    "title": "We are processing your order",
+    "content": "<p>Thank you for your order. We will notify you when these items are ready.</p>",
     "recipients": [
       {
         "email": "dan@example.com"
@@ -80,10 +75,12 @@ Create a template in Mailgun, and grab its ID. Then create a notification with t
     "overrides": {
       "providers": {
         "mailgun": {
-          "template": "incident_report"
+          "template": "MAILGUN_TEMPLATE_ID"
         }
       }
     }
   }
-}
-```
+}} />
+
+Keep in mind that the content of the notification is ignored when you use a
+template. Mailgun will use the template content instead.

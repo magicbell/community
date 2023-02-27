@@ -10,13 +10,13 @@ If you're curious what our team is working on, see our <a href="https://roadmap.
 
 </Note>
 
-## Create and install your own app into your slack workspace
+## Create and install your own app into your Slack workspace
 
 - Create a Slack application and obtain an oauth key.
 - Send us your oauth key (encrypt it with our [public PGP key](/docs/uploads/magicbell-support.key)).
-- Verify the slack channel in MagicBell is enabled
+- Verify the Slack channel in MagicBell is enabled
 
-## Create a slack application and obtain an oath key
+## Create a Slack application and obtain an oath key
 
 Head over to https://api.slack.com/apps and click on the "Create New App" button
 
@@ -25,7 +25,7 @@ Head over to https://api.slack.com/apps and click on the "Create New App" button
   src="/docs/uploads/yourApps.png"
   style={{ width: '75%', height: 'intrinsic' }}
 />
-Name your slack app to something that makes sense to you, eg MagicBell, select the workspace
+Name your Slack app to something that makes sense to you, eg MagicBell, select the workspace
 you'd like to install it to and cleck on Create.
 <img
   className="full-mobile"
@@ -71,9 +71,9 @@ the OAuth Tokens for Your Workspace section and send it over.
   style={{ width: '75%', height: 'intrinsic' }}
 />
 
-## Verify the slack channel in MagicBell is enabled
+## Verify the Slack channel in MagicBell is enabled
 
-Go to `https://app.magicbell.com/projects/project_id/channels` and ensure that the slack channel is enabled.
+Go to `https://app.magicbell.com/projects/project_id/channels` and ensure that the Slack channel is enabled.
 
 <img
   className="full-mobile"
@@ -81,11 +81,11 @@ Go to `https://app.magicbell.com/projects/project_id/channels` and ensure that t
   style={{ width: '75%', height: 'intrinsic' }}
 />
 
-## Send a notification to a slack user/channel
+## Send a notification to a Slack user/channel
 
-Once your account is set up, MagicBell will automatically deliver slack
+Once your account is set up, MagicBell will automatically deliver Slack
 notifications through your Slack app, **no additional work is needed**.
-To send a message to a Slack Channel use the Channel's ID as the externalId.
+To send a message to a Slack Channel use the Channel's ID as the `external_id`.
 To send a DM in Slack you can use the user's email address.
 
 <Tabs>
@@ -97,7 +97,7 @@ To send a DM in Slack you can use the user's email address.
     "recipients": [
       {
         "email": "dan@example.com",
-        "externalId": "AB1234BCA"
+        "external_id": "AB1234BCA"
       }
     ],
     "custom_attributes": {
@@ -120,7 +120,7 @@ curl https://api.magicbell.com/notifications \
       "title": "Welcome to Example Inc",
       "recipients": [{
         "email": "dan@example.com",
-        "externalId": "AB1234BCA"
+        "external_id": "AB1234BCA"
       }],
       "custom_attributes": {
         "name": "Dan",
@@ -136,4 +136,4 @@ curl https://api.magicbell.com/notifications \
 
 ## Distribute your app to your end users
 
-One you've tested the integration between MagicBell and Slack, you can distribute your application to your end users. Currently you need to contact MagicBell when your app installed into a Slack workspace. We will set up the installed slack app in MagicBell's backend. We're working on providing an API for this in the near future.
+One you've tested the integration between MagicBell and Slack, you can distribute your application to your end users. Currently you need to contact MagicBell when your app installed into a Slack workspace. We will set up the installed Slack app in MagicBell's backend. We're working on providing an API for this in the near future.

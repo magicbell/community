@@ -154,10 +154,10 @@ function createTests(operations) {
     list.parentTask = suites.tasks[suites.tasks.length - 1];
 
     list.add({
-      title: 'HTTP 404: request without authentication headers return 404 not found',
+      title: 'HTTP 401: request without authentication headers return 401 unauthorized',
       task: async () => {
         const res = await request(operation, 'no-headers');
-        expect(res.status, res.error).equal(404);
+        expect(res.status, res.error).equal(401);
         expect(res.duration).lessThan(5000);
       },
     });

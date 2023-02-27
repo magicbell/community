@@ -70,5 +70,15 @@
     "source": "/turn-on-hmac-authentication",
     "destination": "/hmac-authentication",
     "permanent": true
+  },
+  {
+    "source": "/slack/block-api",
+    "destination": "/slack/slack-provider-overrides",
+    "permanent": true
+  },
+  {
+    "source": "/rest-api/authentication",
+    "destination": "/api-authentication",
+    "permanent": true
   }
 ]
