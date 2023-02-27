@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=14.x"
+    "node": ">=16.x"
   },
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.0.2",
+    "@darkmagic/react": "^0.5.0",
     "@fontsource/catamaran": "^4.5.10",
     "@fontsource/source-sans-pro": "^4.5.11",
     "@headlessui/react": "^1.4.1",
