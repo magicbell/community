@@ -40,7 +40,7 @@ export default function DocPage({
   return (
     <DocPageLayout title={pageTitle} description={subtitle} openAPILinks={openAPILinks}>
       <h1 className="mt-16 mb-1 text-center">{title}</h1>
-      <p className="mb-16 font-normal text-gray-500 text-center text-xl">{subtitle}</p>
+      <p className="mb-16 mt-8 font-normal text-center text-xl">{subtitle}</p>
       {mdxSource ? (
         <article className="mdx-content">
           <MDXRemote

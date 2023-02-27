@@ -30,7 +30,7 @@ export default function MobileMenu({
             visible: { x: 0 },
           }}
           transition={{ duration: 0.35, stiffness: 0 }}
-          className="fixed h-screen top-0 bottom-0 flex-1 flex flex-col max-w-xs w-full bg-white z-50 shadow"
+          className="fixed h-screen top-0 bottom-0 flex-1 flex flex-col max-w-xs w-full z-50 shadow"
         >
           <button
             onClick={toggle}

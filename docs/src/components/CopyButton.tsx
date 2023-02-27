@@ -16,7 +16,7 @@ export default function CopyButton({ text }: { text: string }) {
   return (
     <button type="button" onClick={handleClick} aria-label={copied ? 'copied' : 'copy'}>
       {copied ? (
-        <CheckIcon className="h-4 w-4 text-green-400" />
+        <CheckIcon className="h-4 w-4 text-emerald-400" />
       ) : (
         <ClipboardIcon className="h-4 w-4" />
       )}

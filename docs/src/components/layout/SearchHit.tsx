@@ -25,10 +25,10 @@ export default function SearchHit({ hit }: Props) {
   if (!title && !content) return null;
   return (
     <Link href={slug} passHref>
-      <article className="px-8 py-4 text-white hover:bg-gray-700 cursor-pointer">
+      <article className="px-8 py-4 text-white hover:bg-[#23283B] cursor-pointer">
         <p className="m-0" dangerouslySetInnerHTML={{ __html: title?.value || '' }} />
         <div
-          className="m-0 text-gray-400 truncate text-sm"
+          className="m-0 text-muted truncate text-sm"
           dangerouslySetInnerHTML={{ __html: content?.value || '' }}
         />
       </article>

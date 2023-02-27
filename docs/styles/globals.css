@@ -1,33 +1,48 @@
-/* Fonts */
-@font-face {
-  font-family: 'HarmoniaSans';
-  font-weight: 400;
-  src: url('../fonts/HarmoniaSansRegular.woff2') format('woff2'),
-    url('../fonts/HarmoniaSansRegular.woff') format('woff');
-  font-display: swap;
+/* scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-@font-face {
-  font-family: 'HarmoniaSans';
-  font-weight: 600;
-  src: url('../fonts/HarmoniaSansSemiBold.woff2') format('woff2'),
-    url('../fonts/HarmoniaSansSemiBold.woff') format('woff');
-  font-display: swap;
+/* Track */
+::-webkit-scrollbar-track {
+  background: #1e212f;
 }
 
-@font-face {
-  font-family: 'ITCSouvenir';
-  font-weight: 600;
-  src: url('../fonts/ITCSouvenirDemi.woff2') format('woff2'),
-    url('../fonts/ITCSouvenirDemi.woff') format('woff');
-  font-display: swap;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #2a314d;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #354061;
+}
+
+/* Selection */
+*::selection {
+  background: #354061;
+}
+
+a *::selection {
+  color: white;
+}
+
+img::selection {
+  background: #9e8cfc;
 }
 
 /* Tailwind */
 @tailwind base;
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+
   body,
   html {
+    @apply bg-app text-default;
     font-size: 16px;
 
     -webkit-font-smoothing: antialiased;
@@ -35,22 +50,19 @@
   }
 
   h1 {
-    @apply text-4xl mb-14 font-bold;
-    @apply text-darkPurple;
-
-    font-family: ITCSouvenir, Times, 'Times New Roman', serif;
+    @apply text-6xl mb-14 font-semibold text-default font-heading;
   }
 
   h2 {
-    @apply text-2xl mt-14 mb-4 font-bold;
+    @apply text-3xl mt-14 mb-4 font-semibold font-heading;
   }
 
   h3 {
-    @apply text-xl font-bold;
+    @apply text-2xl font-medium font-heading;
   }
 
   .mdx-content h2 {
-    @apply border-b border-gray-200 pb-3;
+    @apply border-b border-borderMuted pb-3;
   }
 
   .mdx-content h3 {
@@ -62,12 +74,12 @@
   }
 
   a {
-    @apply text-pink;
+    @apply text-link underline-offset-4;
   }
 
   a:hover {
-    @apply text-lightPurple;
-    text-decoration: none !important;
+    @apply text-hover;
+    text-decoration: none;
   }
 
   main ul {
@@ -102,7 +114,7 @@
   }
 
   table {
-    @apply min-w-full divide-y divide-gray-200 table-fixed;
+    @apply min-w-full divide-y divide-outlineDark table-fixed;
   }
 
   table thead th {
@@ -120,7 +132,7 @@
 
 @tailwind components;
 @tailwind utilities;
-@tailwind screens;
+@tailwind variants;
 
 @layer utilities {
   .masonry {
@@ -152,11 +164,7 @@ a.mobile-signup-button {
 
 /* Footer */
 footer a {
-  @apply text-darkPurple;
-}
-
-footer a:hover {
-  @apply text-pink;
+  @apply text-default hover:text-hover;
 }
 
 /* Search (algolia) */
@@ -182,5 +190,5 @@ h3 a {
 
 h2 a:hover,
 h3 a:hover {
-  @apply text-lightPurple;
+  @apply text-hover;
 }

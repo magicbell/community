@@ -48,7 +48,7 @@ export default function Field({ field, operation, schema }: Props) {
                 <>
                   <span
                     className={
-                      'font-mono text-sm py-1 px-2 text-xs uppercase rounded-sm bg-purple-50 text-purple-600 mr-2'
+                      'font-mono text-sm py-1 px-2 text-xs uppercase rounded-sm bg-violet-50 text-violet-600 mr-2'
                     }
                   >
                     INPUT

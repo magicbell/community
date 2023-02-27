@@ -12,7 +12,7 @@ export default function DesktopMenu({ navigationItems, openAPILinks }: Props) {
   return (
     <div className="sticky top-28 h-full">
       <div
-        className="flex-shrink-0 w-72 hidden md:block overflow-y-scroll ml-2"
+        className="shrink-0 w-72 hidden md:block overflow-y-auto ml-2"
         style={{ maxHeight: '85vh' }}
       >
         <Menu navigationItems={navigationItems} openAPILinks={openAPILinks} />
