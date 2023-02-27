@@ -3,7 +3,7 @@ import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import FormSubmitter from '../FormSubmitter';
 import SearchBoxShortcut from './SearchBoxShortcut';
-import { Input, Icon } from '@darkmagic/react';
+import { Input } from '@darkmagic/react';
 
 interface Props {
   onSubmit: (query: string) => void;
@@ -22,16 +22,13 @@ export default function SearchBox({ onSubmit }: Props) {
             Search
           </label>
           <div className="relative w-full text-gray-700 focus-within:text-gray-600">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center ml-2">
-              <SearchIcon className="h-5 w-5" />
-            </div>
             <Field
+              as={Input}
               id="search-field"
               placeholder="Quick search"
               name="query"
               autoComplete="off"
-              as={Input}
-              leadingAddon={<Icon icon={SearchIcon} />}
+              leadingAddon={<SearchIcon className="h-5 w-5" />}
             />
           </div>
           <SearchBoxShortcut />
