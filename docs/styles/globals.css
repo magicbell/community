@@ -37,7 +37,7 @@ img::selection {
 @tailwind base;
 @layer base {
   * {
-    box-sizing: border-box;
+    @apply border-outlineDark box-border;
   }
 
   body,
@@ -191,4 +191,8 @@ h3 a {
 h2 a:hover,
 h3 a:hover {
   @apply text-hover;
+}
+
+.caption {
+  @apply font-semibold text-sm;
 }

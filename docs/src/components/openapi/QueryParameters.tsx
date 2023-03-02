@@ -16,8 +16,8 @@ export default function QueryParameters({ parameteres = [] }: Props) {
   if (!params.length) return null;
   return (
     <div className="mt-8 mb-12">
-      <p className="uppercase text-sm">Query parameters</p>
-      <ul className="border border-gray-200 rounded divide-y m-0">
+      <p className="uppercase">Query parameters</p>
+      <ul className="border border-outlineDark rounded divide-y m-0">
         {params.map((param, index) => (
           <Parameter key={index} param={param} />
         ))}

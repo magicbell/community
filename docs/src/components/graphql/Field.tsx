@@ -24,11 +24,11 @@ export default function Field({ field, operation, schema }: Props) {
   const inputTypes = getGraphqlInputTypes(args);
 
   return (
-    <article id={href} className="py-36 border-t">
-      <h2 className="mt-0">
+    <article id={href} className="py-36 border-t mb-4">
+      <h2 className="mt-0 inline-block">
         <a href={`#${href}`}>{title}</a>
       </h2>
-      <p className="text-xs rounded bg-blue-50 px-3 py-2 text-blue-600 uppercase font-mono mb-4 inline-block">
+      <p className="text-xs rounded bg-blue-600 px-3 py-2 text-blue-50 uppercase font-mono inline-block relative bottom-1 ml-5">
         {operation.name}
       </p>
       <div className="flex space-x-0 xl:space-x-4 flex-wrap xl:flex-nowrap">
@@ -48,7 +48,7 @@ export default function Field({ field, operation, schema }: Props) {
                 <>
                   <span
                     className={
-                      'font-mono text-sm py-1 px-2 text-xs uppercase rounded-sm bg-violet-50 text-violet-600 mr-2'
+                      'font-mono text-sm py-1 px-2 text-xs uppercase rounded-sm bg-violet-600 text-violet-50 mr-2'
                     }
                   >
                     INPUT

@@ -19,7 +19,9 @@ export default function InputArgument({ argument }: Props) {
 
   return (
     <li className="list-none p-2">
-      <p className="font-mono flex items-center mb-0.5">{name}</p>
+      <p className="font-mono flex items-center mb-0.5">
+        <span className="bg-bgDefault text-highlight p-1 rounded">{name}</span>
+      </p>
       {description && (
         <p
           className="opacity-80 m-0"
@@ -28,7 +30,7 @@ export default function InputArgument({ argument }: Props) {
           }}
         />
       )}
-      <p className="opacity-80 m-0 capitalize">
+      <p className="opacity-80 m-0 mt-2 capitalize caption text-muted">
         {isInputType ? <a href={`#${getLink(type)}`}>{typeName}</a> : typeName}
       </p>
     </li>

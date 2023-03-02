@@ -18,7 +18,7 @@ export default function CollapsedSection({ children, className, maxItems = 7 }: 
       {truncate ? take(maxItems, childrenArray).map((child) => child) : childrenArray}
       {truncate && (
         <button
-          className="block w-full p-2 bg-gray-100 text-darkPurple text-sm"
+          className="block w-full p-2 bg-bgDefault hover:bg-bgHover text-sm transition-colors"
           onClick={toggleCollapsed}
         >
           Show all

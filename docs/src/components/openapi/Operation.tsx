@@ -22,11 +22,11 @@ export default function Operation({ pathKey, operation, method }: Props) {
 
   return (
     <article id={operation.operationId} className="py-36 border-t">
-      <h2 className="mt-0" id={href}>
+      <h2 className="mt-0 mb-10 inline-block" id={href}>
         <a href={`#${href}`}>{operation.summary}</a>
       </h2>
       {realTimeEnabled ? (
-        <p className="text-xs rounded bg-blue-50 px-3 py-2 text-blue-600 uppercase font-mono mb-4 inline-block">
+        <p className="text-xs rounded bg-blue-600 px-3 py-2 text-blue-50 uppercase font-mono inline-block ml-5 relative bottom-1">
           real-time
         </p>
       ) : null}
