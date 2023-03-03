@@ -79,9 +79,25 @@ function assertExamplesMatchSchema() {
   }
 }
 
+function assertPathsMatchConvention() {
+  for (const path of Object.keys(api.paths)) {
+    if (path.includes('(') || path.includes(')')) {
+      errors.push(`Path "${path}" contains parentheses, please use curly braces for path params.`);
+    }
+
+    const openBracesCount = path.split('{').length - 1;
+    const closeBracesCount = path.split('}').length - 1;
+
+    if (openBracesCount !== closeBracesCount) {
+      errors.push(`Path "${path}" has mismatched braces, { and } must be balanced.`);
+    }
+  }
+}
+
 assertUniqueOperationIds();
 assertOperationIdsMatchConvention();
 assertExamplesMatchSchema();
+assertPathsMatchConvention();
 
 for (const error of errors) {
   console.log(chalk.redBright(error));
