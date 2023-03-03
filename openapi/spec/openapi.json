@@ -1252,7 +1252,7 @@
         }
       }
     },
-    "/push_subscriptions/(device_token}": {
+    "/push_subscriptions/{device_token}": {
       "delete": {
         "tags": ["Subscription to push notifications APIs"],
         "summary": "Delete user's device token",
