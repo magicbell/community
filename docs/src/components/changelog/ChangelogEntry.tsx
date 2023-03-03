@@ -41,7 +41,7 @@ export default function ChangelogEntry({
               viewBox="0 0 12 12"
               className={classNames(
                 'w-3 h-3 mr-6 overflow-visible',
-                isHighlighted ? 'text-purple-600' : 'text-gray-300',
+                isHighlighted ? 'text-violet-600' : 'text-gray-300',
               )}
             >
               <circle cx="6" cy="6" r="6" fill="currentColor"></circle>

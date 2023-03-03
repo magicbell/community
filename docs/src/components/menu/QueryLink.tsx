@@ -8,9 +8,9 @@ interface Props {
 }
 
 const colors = {
-  query: 'text-green-500',
+  query: 'text-emerald-500',
   mutation: 'text-blue-500',
-  input: 'text-purple-500',
+  input: 'text-violet-500',
   type: 'text-orange-500',
 };
 

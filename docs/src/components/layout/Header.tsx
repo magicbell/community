@@ -14,13 +14,13 @@ export default function Header({ onToggleMenu }: Props) {
   };
 
   return (
-    <header className="z-20 flex-shrink-0 flex sticky top-0 bg-white">
+    <header className="z-20 shrink-0 flex sticky top-0 border-b border-outlineDark bg-app h-24">
       <div className="flex-1 hidden justify-between md:flex max-w-screen-xl mx-auto md:px-8 p-4">
         <div className="flex-1 flex items-center space-x-10 py-4">
           <div className="flex-1 flex space-x-24">
             <a href="https://www.magicbell.com" aria-label="Go to homepage">
               <MagicBellLogo
-                className="md:h-7 h-6 fill-current text-darkPurple"
+                className="md:h-7 h-6 fill-current text-default"
                 role="img"
                 aria-label="MagicBell logo"
                 focusable="false"
@@ -29,32 +29,32 @@ export default function Header({ onToggleMenu }: Props) {
             <div className="flex-1 space-x-6">
               <a
                 href="https://www.magicbell.com/spec"
-                className="text-darkPurple hover:text-pink"
+                className="text-default hover:text-hover"
               >
                 Notification Spec
               </a>
               <a
                 href="https://www.magicbell.com/docs"
-                className="text-pink hover:text-pink"
+                className="text-link hover:text-hover"
               >
                 Docs
               </a>
               <a
                 href="https://www.magicbell.com/pricing"
-                className="text-darkPurple hover:text-pink"
+                className="text-default hover:text-hover"
               >
                 Pricing
               </a>
               <a
                 href="https://www.magicbell.com/careers"
-                className="text-darkPurple hover:text-pink"
+                className="text-default hover:text-hover"
               >
                 Careers
               </a>
             </div>
           </div>
           <a
-            className="font-bold text-2xl hover:text-darkPurple text-darkPurple"
+            className="font-bold text-2xl hover:text-hover text-default"
             href="https://app.magicbell.com"
             rel="nofollow"
           >

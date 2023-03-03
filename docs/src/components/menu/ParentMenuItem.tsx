@@ -16,20 +16,17 @@ export default function ParentMenuItem({ name, children = [], ...props }: Sitema
   return (
     <div className="submenu" aria-expanded={isOpen}>
       <button
-        className="group py-3 px-6 flex items-center w-full hover:bg-white group-hover:text-gray-800"
+        className="group py-3 px-6 flex items-center w-full hover:bg-app2"
         onClick={toggle}
       >
-        <a className="flex-1 md:text-sm text-left text-gray-800">{name}</a>
+        <a className="flex-1 md:text-sm text-left group-hover:text-hover text-default">
+          {name}
+        </a>
         <ChevronRightIcon
-          className={classNames(isOpen ? 'rotate-90' : 'rotate-0', 'transform h-4 w-4')}
+          className={classNames(isOpen ? 'rotate-90' : 'rotate-0', 'h-4 w-4')}
         />
       </button>
-      <ul
-        className={classNames(
-          'border-l border-gray-200 border-dashed ml-9',
-          isOpen ? '' : 'hidden',
-        )}
-      >
+      <ul className={classNames('border-l border-muted/25 ml-9', isOpen ? '' : 'hidden')}>
         {children.map((item, index) => (
           <MenuItem key={index} {...props} {...item} />
         ))}
