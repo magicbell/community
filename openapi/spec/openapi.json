@@ -644,7 +644,7 @@
       "get": {
         "operationId": "users-list",
         "tags": ["Users APIs"],
-        "summary": "Fetch users for a project",
+        "summary": "Fetch users",
         "description": "Fetches users for the project identified by the auth keys. Supports filtering, ordering, and pagination.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -735,6 +735,8 @@
                       }
                     },
                     {
+                      "id": "7fb3ce9f-a866-4dff-8ce8-2f79f7c5ddc",
+                      "external_id": "",
                       "email": "hello@example.com",
                       "first_name": "Example",
                       "last_name": "Mc'Example",
@@ -768,6 +770,61 @@
       }
     },
     "/users/{user_id}": {
+      "get": {
+        "operationId": "users-fetch",
+        "tags": ["Users APIs"],
+        "summary": "Fetch user by id",
+        "description": "Fetch a user by id, for the project identified by the auth keys.",
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" },
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "The user id is the MagicBell user id. Accepts a UUID",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WrappedUser" },
+                "example": {
+                  "user": {
+                    "id": "7c784822-2bac-4df5-951e-6be0cc9e5bfb",
+                    "external_id": "56780",
+                    "email": "hana@magicbell.io",
+                    "first_name": "Hana",
+                    "last_name": "Mohan",
+                    "custom_attributes": {
+                      "plan": "enterprise",
+                      "pricing_version": "v10",
+                      "preferred_pronoun": "She"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "message": "A user with the the given id doesn't exist for the project"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
       "put": {
         "operationId": "users-update",
         "tags": ["Users APIs"],
