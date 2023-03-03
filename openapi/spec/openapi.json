@@ -649,18 +649,8 @@
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
           { "$ref": "#/components/parameters/x_magicbell_api_secret_header" },
-          {
-            "in": "query",
-            "name": "per_page",
-            "schema": { "type": "integer" },
-            "description": "A limit on the number of users to be returned. It can range between 1 and 100, and the default is 100"
-          },
-          {
-            "in": "query",
-            "name": "page",
-            "schema": { "type": "integer" },
-            "description": "A parameter for use for paginating the list of users. Defaults to 1."
-          },
+          { "$ref": "#/components/parameters/page_query_param" },
+          { "$ref": "#/components/parameters/per_page_query_param" },
           {
             "in": "query",
             "name": "last_seen_at:before",
@@ -778,13 +768,7 @@
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
           { "$ref": "#/components/parameters/x_magicbell_api_secret_header" },
-          {
-            "in": "path",
-            "name": "user_id",
-            "description": "The user id is the MagicBell user id. Accepts a UUID",
-            "required": true,
-            "schema": { "type": "string", "format": "uuid" }
-          }
+          { "$ref": "#/components/parameters/user_id_path_param" }
         ],
         "responses": {
           "200": {
@@ -943,7 +927,7 @@
       "put": {
         "operationId": "users-update-by-email",
         "tags": ["Users APIs"],
-        "summary": "Update a user by email",
+        "summary": "Update a user identified by email",
         "description": "Update a user's data. If you identify users by their email addresses, you need to update the MagicBell data, so this user can still access their notifications.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -1032,7 +1016,7 @@
       "delete": {
         "operationId": "users-delete-by-email",
         "tags": ["Users APIs"],
-        "summary": "Delete a user by email",
+        "summary": "Delete a user identified by email",
         "description": "Immediately deletes a user.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -1067,7 +1051,7 @@
       "put": {
         "operationId": "users-update-by-external-id",
         "tags": ["Users APIs"],
-        "summary": "Update a user by external ID",
+        "summary": "Update a user identified by external ID",
         "description": "Update a user's data. If you identify users by their email addresses, you need to update the MagicBell data, so this user can still access their notifications.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -1156,7 +1140,7 @@
       "delete": {
         "operationId": "users-delete-by-external-id",
         "tags": ["Users APIs"],
-        "summary": "Delete a user by external ID",
+        "summary": "Delete a user identified by external ID",
         "description": "Immediately deletes a user.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -1184,6 +1168,180 @@
               }
             }
           }
+        }
+      }
+    },
+    "/push_subscriptions": {
+      "post": {
+        "tags": ["Subscription to push notifications APIs"],
+        "summary": "Register a device token for a user",
+        "operationId": "push-subscriptions-create",
+        "description": "Register a device token for push notifications.\n\nPlease keep in mind that mobile push notifications will be delivered to this device only if the channel is configured and enabled.",
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          {
+            "$ref": "#/components/parameters/x_magicbell_user_external_id_header"
+          },
+          {
+            "$ref": "#/components/parameters/x_magicbell_user_email_header"
+          },
+          { "$ref": "#/components/parameters/x_magicbell_user_hmac_header" }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WrappedNewPushSubscription"
+              },
+              "example": {
+                "push_subscription": {
+                  "device_token": "x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV",
+                  "platform": "ios"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "push_subscription": {
+                      "$ref": "#/components/schemas/CreatedPushSubscription"
+                    }
+                  }
+                },
+                "example": {
+                  "push_subscription": {
+                    "id": "f80a7574-b309-4395-bb26-c503fe697d52",
+                    "device_token": "x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV",
+                    "platform": "ios"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "description": "List of validation errors"
+                    }
+                  }
+                },
+                "example": {
+                  "errors": [
+                    { "message": "Param 'push_subscription.device_token' is missing" },
+                    { "message": "Param 'push_subscription.platform' is missing" }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/push_subscriptions/(device_token}": {
+      "delete": {
+        "tags": ["Subscription to push notifications APIs"],
+        "summary": "Delete user's device token",
+        "description": "Deletes the registered device token to remove the mobile push subscription.",
+        "operationId": "push-subscriptions-delete",
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_user_external_id_header" },
+          { "$ref": "#/components/parameters/x_magicbell_user_email_header" },
+          { "$ref": "#/components/parameters/x_magicbell_user_hmac_header" },
+          { "$ref": "#/components/parameters/device_token_path_param" }
+        ],
+        "responses": {
+          "204": { "description": "Subscription delete successfully" },
+          "404": {
+            "description": "The device token was not registered",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "message": "No subscription with the provided device token was found"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/(user_id)/push_subscriptions": {
+      "get": {
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" },
+          { "$ref": "#/components/parameters/page_query_param" },
+          { "$ref": "#/components/parameters/per_page_query_param" },
+          { "$ref": "#/components/parameters/user_id_path_param" }
+        ],
+        "tags": ["User's Push Subscriptions APIs"],
+        "summary": "Fetch user's push subscriptions",
+        "description": "Fetch a user's push subscriptions. Returns a paginated list of web and mobile push subscriptions for all platforms.",
+        "operationId": "user-push-subscriptions-get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedPushSubscriptions"
+                },
+                "example": {
+                  "current_page": 1,
+                  "per_page": 10,
+                  "total_pages": 1,
+                  "total_count": 1,
+                  "push_subscriptions": [
+                    {
+                      "id": "f80a7574-b309-4395-bb26-c503fe697d52",
+                      "user_id": "7fb3ce9f-a866-4dff-8ce8-2f64f7c5ed4c",
+                      "device_token": "x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV",
+                      "platform": "ios",
+                      "created_at": "2021-03-01T12:00:00.000Z",
+                      "discarded_at": ""
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/push_subscriptions/{subscription_id}": {
+      "delete": {
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" },
+          { "$ref": "#/components/parameters/user_id_path_param" },
+          { "$ref": "#/components/parameters/subscription_id_path_param" }
+        ],
+        "tags": ["User's Push Subscriptions APIs"],
+        "summary": "Delete user's push subscription",
+        "description": "Delete a user's push subscriptions. Identifies the user by the user's ID and the push subscription by the subscription's ID. ",
+        "operationId": "user-push-subscription-delete",
+        "responses": {
+          "204": { "description": "Subscription delete successfully" },
+          "404": { "description": "User or subscription not found" }
         }
       }
     },
@@ -1357,135 +1515,12 @@
         }
       }
     },
-    "/push_subscriptions": {
-      "post": {
-        "tags": ["Subscription to push notifications APIs"],
-        "summary": "Register a device",
-        "operationId": "push-subscriptions-create",
-        "description": "Register a device token for push notifications.\n\nPlease keep in mind that mobile push notifications will be delivered to this device only if the channel is configured and enabled.",
-        "parameters": [
-          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
-          {
-            "$ref": "#/components/parameters/x_magicbell_user_external_id_header"
-          },
-          {
-            "$ref": "#/components/parameters/x_magicbell_user_email_header"
-          },
-          { "$ref": "#/components/parameters/x_magicbell_user_hmac_header" }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/WrappedPushSubscription"
-              },
-              "example": {
-                "push_subscription": {
-                  "device_token": "x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV",
-                  "platform": "ios"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "push_subscription": {
-                      "$ref": "#/components/schemas/CreatedPushSubscription"
-                    }
-                  }
-                },
-                "example": {
-                  "push_subscription": {
-                    "id": "f80a7574-b309-4395-bb26-c503fe697d52",
-                    "device_token": "x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV",
-                    "platform": "ios"
-                  }
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    { "message": "Param 'push_subscription.device_token' is missing" },
-                    { "message": "Param 'push_subscription.platform' is missing" }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/push_subscriptions/{device_token}": {
-      "delete": {
-        "tags": ["Subscription to push notifications APIs"],
-        "summary": "Unregister a device",
-        "description": "Remove the subscription of a device to mobile push notifications. The device will be discarded immediately.",
-        "operationId": "push-subscriptions-delete",
-        "parameters": [
-          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
-          {
-            "$ref": "#/components/parameters/x_magicbell_user_external_id_header"
-          },
-          {
-            "$ref": "#/components/parameters/x_magicbell_user_email_header"
-          },
-          { "$ref": "#/components/parameters/x_magicbell_user_hmac_header" },
-          {
-            "in": "path",
-            "name": "device_token",
-            "description": "Token of the device you want to remove",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "204": { "description": "Subscription delete successfully" },
-          "404": {
-            "description": "The device token was not registered",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "No subscription with the provided device token was found"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/subscriptions": {
       "get": {
         "operationId": "subscriptions-list",
         "tags": ["Subscription API"],
-        "summary": "List subscriptions",
-        "description": "List a user's subscriptions status for all topics and categories.",
+        "summary": "Fetch user's topic subscriptions",
+        "description": "Fetch a user's topic subscriptions.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
           { "$ref": "#/components/parameters/x_magicbell_user_external_id_header" },
@@ -2114,6 +2149,13 @@
         "required": true,
         "schema": { "type": "string" }
       },
+      "user_id_path_param": {
+        "in": "path",
+        "name": "user_id",
+        "description": "The user id is the MagicBell user id. Accepts a UUID",
+        "required": true,
+        "schema": { "type": "string", "format": "uuid" }
+      },
       "archived_query_param": {
         "in": "query",
         "name": "archived",
@@ -2169,6 +2211,32 @@
           "type": "string"
         },
         "description": "The topic for which we'd like to filter topic subscriptions."
+      },
+      "page_query_param": {
+        "in": "query",
+        "name": "page",
+        "schema": { "type": "integer" },
+        "description": "The page number of the paginated response. Defaults to 1."
+      },
+      "per_page_query_param": {
+        "in": "query",
+        "name": "per_page",
+        "schema": { "type": "integer" },
+        "description": "The number of items per page. Defaults to 20."
+      },
+      "subscription_id_path_param": {
+        "in": "path",
+        "name": "subscription_id",
+        "schema": { "type": "string", "format": "uuid" },
+        "required": true,
+        "description": "ID of the subscription.\nThe ID of a subscription can be obtained from the \"Fetch user subscriptions\" API endpoint or from push events sent to the MagicBell React library.\n"
+      },
+      "device_token_path_param": {
+        "in": "path",
+        "name": "device_token",
+        "description": "Token of the device you want to remove",
+        "required": true,
+        "schema": { "type": "string" }
       }
     },
     "schemas": {
@@ -2701,12 +2769,26 @@
           }
         }
       },
-      "WrappedPushSubscription": {
+      "WrappedNewPushSubscription": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "push_subscription": {
-            "$ref": "#/components/schemas/PushSubscription"
+            "$ref": "#/components/schemas/NewPushSubscription"
+          }
+        }
+      },
+      "PaginatedPushSubscriptions": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "total": { "type": "integer" },
+          "per_page": { "type": "integer" },
+          "total_pages": { "type": "integer" },
+          "current_page": { "type": "integer" },
+          "push_subscriptions": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PushSubscription" }
           }
         }
       },
@@ -2721,6 +2803,18 @@
         }
       },
       "PushSubscription": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "user_id": { "type": "string", "format": "uuid" },
+          "device_token": { "type": "string" },
+          "platform": { "type": "string" },
+          "created_at": { "type": "string", "format": "date-time" },
+          "discarded_at": { "type": "string", "format": "date-time", "nullable": true }
+        }
+      },
+      "NewPushSubscription": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
