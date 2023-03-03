@@ -10,6 +10,7 @@ import * as dotenv from 'dotenv';
 import { Listr } from 'listr2';
 import { OpenAPIV3 } from 'openapi-types';
 import path from 'path';
+import { setTimeout } from 'timers/promises';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 const specFile = argv.spec || process.env.INPUT_SPEC || 'spec/openapi.json';
@@ -54,7 +55,7 @@ function toCurl({ method, baseURL, url, data, headers }: AxiosRequestConfig) {
   ].join(' ');
 }
 
-async function request(operation: Operation, type: 'no-headers' | 'authenticated' | 'invalid-auth') {
+async function request(operation: Operation, type: 'no-headers' | 'authenticated' | 'invalid-auth', params = {}) {
   const start = Date.now();
 
   const headers = type === 'no-headers' ? {} : getAuthHeaders(type === 'authenticated', operation);
@@ -77,6 +78,7 @@ async function request(operation: Operation, type: 'no-headers' | 'authenticated
       'user-agent': 'magicbell-openapi-smoke-test',
       ...headers,
     },
+    params,
   };
 
   const response = await axios.request(config).catch((e) => {
@@ -213,6 +215,9 @@ function createTests(operations) {
   return suites;
 }
 
+const CREATE_NOTIFICATIONS_COUNT = 10;
+const MAX_SETUP_ATTEMPTS = 4;
+
 async function main() {
   const spec = (await swagger.dereference(specFile)) as OpenAPIV3.Document;
   const operations = getOperations(spec);
@@ -227,7 +232,7 @@ async function main() {
   }
 
   const newNotificationIds = await Promise.all(
-    Array.from({ length: 5 }).map(() =>
+    Array.from({ length: CREATE_NOTIFICATIONS_COUNT }).map(() =>
       request(
         operations.find((x) => x.operationId === 'notifications-create'),
         'authenticated',
@@ -239,12 +244,24 @@ async function main() {
     throw new Error('Failed to create new notifications during test setup');
   }
 
-  URL_PARAM_VALUES.notification_id = await request(
-    operations.find((x) => x.operationId === 'notifications-list'),
-    'authenticated',
-  ).then((x) => x.data.notifications.map((x) => x.id));
+  // As the created notifications are processes via an (async) job runner, we might need to try fetching them a few times.
+  for (let attempt = 1; attempt <= MAX_SETUP_ATTEMPTS; attempt++) {
+    URL_PARAM_VALUES.notification_id = await request(
+      operations.find((x) => x.operationId === 'notifications-list'),
+      'authenticated',
+      { per_page: 50 },
+    ).then((x) => x.data.notifications.map((x) => x.id));
 
-  if (URL_PARAM_VALUES.notification_id.length === 0) {
+    // end the loop when we have enough notifications
+    if (URL_PARAM_VALUES.notification_id.length >= CREATE_NOTIFICATIONS_COUNT || attempt === MAX_SETUP_ATTEMPTS) break;
+
+    // Exponential backoff, with a max of 2 minutes.
+    const delay = Math.min(3 ** attempt, 120);
+    console.log(`Not enough notifications created yet, waiting ${delay} seconds before trying again.`);
+    await setTimeout(delay * 1000);
+  }
+
+  if (URL_PARAM_VALUES.notification_id.length < CREATE_NOTIFICATIONS_COUNT) {
     throw new Error(
       "Ran out of notifications to act upon. Some have been created, but aren't ready yet. Please rerun this test in a sec",
     );
