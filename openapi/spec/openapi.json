@@ -260,7 +260,7 @@
     "/notifications/{notification_id}": {
       "get": {
         "tags": ["User Notifications APIs"],
-        "summary": "Fetch a notification",
+        "summary": "Fetch notification by ID",
         "operationId": "notifications-get",
         "description": "Fetch a user's notification by its ID.",
         "parameters": [
@@ -763,7 +763,7 @@
       "get": {
         "operationId": "users-fetch",
         "tags": ["Users APIs"],
-        "summary": "Fetch user by id",
+        "summary": "Fetch user by ID",
         "description": "Fetch a user by id, for the project identified by the auth keys.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -1296,7 +1296,7 @@
         "tags": ["User's Push Subscriptions APIs"],
         "summary": "Fetch user's push subscriptions",
         "description": "Fetch a user's push subscriptions. Returns a paginated list of web and mobile push subscriptions for all platforms.",
-        "operationId": "user-push-subscriptions-get",
+        "operationId": "users-push-subscriptions-get",
         "responses": {
           "200": {
             "description": "OK",
@@ -1338,7 +1338,7 @@
         "tags": ["User's Push Subscriptions APIs"],
         "summary": "Delete user's push subscription",
         "description": "Delete a user's push subscriptions. Identifies the user by the user's ID and the push subscription by the subscription's ID. ",
-        "operationId": "user-push-subscription-delete",
+        "operationId": "users-push-subscription-delete",
         "responses": {
           "204": { "description": "Subscription delete successfully" },
           "404": { "description": "User or subscription not found" }
