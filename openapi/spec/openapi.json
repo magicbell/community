@@ -1284,7 +1284,7 @@
         }
       }
     },
-    "/users/(user_id)/push_subscriptions": {
+    "/users/{user_id}/push_subscriptions": {
       "get": {
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
