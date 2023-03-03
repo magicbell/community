@@ -78174,7 +78174,10 @@ var Manager = class {
 // EXTERNAL MODULE: external "path"
 var external_path_ = __nccwpck_require__(71017);
 var external_path_default = /*#__PURE__*/__nccwpck_require__.n(external_path_);
+;// CONCATENATED MODULE: external "timers/promises"
+const promises_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.url)("timers/promises");
 ;// CONCATENATED MODULE: ./openapi/scripts/smoke-test.ts
+
 
 
 
@@ -78214,7 +78217,7 @@ function toCurl({ method, baseURL, url, data, headers }) {
         data && `-d '${JSON.stringify(data)}'`,
     ].join(' ');
 }
-async function request(operation, type) {
+async function request(operation, type, params = {}) {
     const start = Date.now();
     const headers = type === 'no-headers' ? {} : getAuthHeaders(type === 'authenticated', operation);
     const data = getBodyContent(operation.requestBody).example;
@@ -78234,6 +78237,7 @@ async function request(operation, type) {
             'user-agent': 'magicbell-openapi-smoke-test',
             ...headers,
         },
+        params,
     };
     const response = await axios_default().request(config).catch((e) => {
         console.log(`ERROR: request ${config.method} ${config.url} resulted in a network error:`, {
@@ -78317,6 +78321,7 @@ function createTests(operations) {
         const shouldSkip = operation.path.includes(':{') ||
             operationId.startsWith('users-') ||
             operationId === 'subscriptions-delete' ||
+            operationId === 'push-subscriptions-delete' ||
             operationId === 'imports-get';
         const code = getSuccessStatusCode(operation);
         list.add({
@@ -78342,6 +78347,8 @@ function createTests(operations) {
     }
     return suites;
 }
+const CREATE_NOTIFICATIONS_COUNT = 10;
+const MAX_SETUP_ATTEMPTS = 4;
 async function smoke_test_main() {
     const spec = (await swagger_parser_lib_default().dereference(specFile));
     const operations = getOperations(spec);
@@ -78352,12 +78359,22 @@ async function smoke_test_main() {
     if (!process.env.SERVER_URL) {
         throw new Error('Please set the SERVER_URL environment variable to run the smoke tests');
     }
-    const newNotificationIds = await Promise.all(Array.from({ length: 5 }).map(() => request(operations.find((x) => x.operationId === 'notifications-create'), 'authenticated').then((x) => x.data)));
+    const newNotificationIds = await Promise.all(Array.from({ length: CREATE_NOTIFICATIONS_COUNT }).map(() => request(operations.find((x) => x.operationId === 'notifications-create'), 'authenticated').then((x) => x.data)));
     if (newNotificationIds.length === 0) {
         throw new Error('Failed to create new notifications during test setup');
     }
-    URL_PARAM_VALUES.notification_id = await request(operations.find((x) => x.operationId === 'notifications-list'), 'authenticated').then((x) => x.data.notifications.map((x) => x.id));
-    if (URL_PARAM_VALUES.notification_id.length === 0) {
+    // As the created notifications are processes via an (async) job runner, we might need to try fetching them a few times.
+    for (let attempt = 1; attempt <= MAX_SETUP_ATTEMPTS; attempt++) {
+        URL_PARAM_VALUES.notification_id = await request(operations.find((x) => x.operationId === 'notifications-list'), 'authenticated', { per_page: 50 }).then((x) => x.data.notifications.map((x) => x.id));
+        // end the loop when we have enough notifications
+        if (URL_PARAM_VALUES.notification_id.length >= CREATE_NOTIFICATIONS_COUNT || attempt === MAX_SETUP_ATTEMPTS)
+            break;
+        // Exponential backoff, with a max of 2 minutes.
+        const delay = Math.min(3 ** attempt, 120);
+        console.log(`Not enough notifications created yet, waiting ${delay} seconds before trying again.`);
+        await (0,promises_namespaceObject.setTimeout)(delay * 1000);
+    }
+    if (URL_PARAM_VALUES.notification_id.length < CREATE_NOTIFICATIONS_COUNT) {
         throw new Error("Ran out of notifications to act upon. Some have been created, but aren't ready yet. Please rerun this test in a sec");
     }
     // We need a combination of new notifications and existing ones, as the existing ones might not be enough - as some
