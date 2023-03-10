@@ -78321,6 +78321,7 @@ function createTests(operations) {
         const shouldSkip = operation.path.includes(':{') ||
             operationId.startsWith('users-') ||
             operationId === 'subscriptions-delete' ||
+            operationId === 'push-subscriptions-delete' ||
             operationId === 'imports-get';
         const code = getSuccessStatusCode(operation);
         list.add({
