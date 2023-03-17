@@ -30,18 +30,18 @@ export default function MobileMenu({
             visible: { x: 0 },
           }}
           transition={{ duration: 0.35, stiffness: 0 }}
-          className="fixed h-screen top-0 bottom-0 flex-1 flex flex-col max-w-xs w-full z-50 shadow"
+          className="fixed h-screen top-0 bottom-0 flex-1 flex flex-col max-w-xs w-full z-50 shadow bg-app"
         >
           <button
             onClick={toggle}
-            className="absolute top-0 right-0 p-4 text-gray-400 hover:text-gray-800"
+            className="absolute top-0 right-0 p-4 text-gray-400 hover:text-default"
           >
             <XIcon className="h-6 w-6" />
           </button>
           <div className="mt-12 flex flex-col overflow-scroll">
             <Menu navigationItems={navigationItems} openAPILinks={openAPILinks} />
             <a
-              className="m-6 mobile-signup-button text-center"
+              className="m-6 text-center rounded-md py-3 px-6 font-bold text-black bg-yellow hover:text-black hover:bg-lightYellow transition-colors"
               href="https://app.magicbell.com"
             >
               Sign Up

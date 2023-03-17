@@ -50,7 +50,8 @@ img::selection {
   }
 
   h1 {
-    @apply text-6xl mb-14 font-semibold text-default font-heading;
+    @apply mb-14 font-semibold text-default font-heading;
+    font-size: clamp(2rem, 8vw - 1.5rem, 3.5rem);
   }
 
   h2 {
@@ -154,12 +155,6 @@ img::selection {
 /* Header */
 header {
   font-size: 20px;
-}
-
-a.mobile-signup-button {
-  background-color: #230f65 !important;
-  color: white !important;
-  @apply rounded-md py-3 px-6 font-bold;
 }
 
 /* Footer */
