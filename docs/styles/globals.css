@@ -157,12 +157,6 @@ header {
   font-size: 20px;
 }
 
-a.mobile-signup-button {
-  background-color: #230f65 !important;
-  color: white !important;
-  @apply rounded-md py-3 px-6 font-bold;
-}
-
 /* Footer */
 footer a {
   @apply text-default hover:text-hover;

@@ -41,7 +41,7 @@ export default function MobileMenu({
           <div className="mt-12 flex flex-col overflow-scroll">
             <Menu navigationItems={navigationItems} openAPILinks={openAPILinks} />
             <a
-              className="m-6 mobile-signup-button text-center"
+              className="m-6 text-center rounded-md py-3 px-6 font-bold text-black bg-yellow hover:text-black hover:bg-lightYellow transition-colors"
               href="https://app.magicbell.com"
             >
               Sign Up
