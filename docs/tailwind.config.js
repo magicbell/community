@@ -20,6 +20,8 @@ module.exports = {
         muted: '#A09FA6',
         link: '#9E8CFC',
         hover: '#BCAFFD',
+        highlight: '#FFEF5C',
+        error: ' #F16A50',
 
         // Gradient
         yellowOutlineStart: '#FFB224BF',
@@ -28,6 +30,8 @@ module.exports = {
         // Base
         app: '#1B1D29',
         app2: '#1E212F',
+        bgDefault: '#23283B',
+        bgHover: '#21283E',
         outlineDark: '#3F3566',
         darkGradientStart: '#23283d40',
         darkGradientEnd: '#1e212f0d',

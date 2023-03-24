@@ -24,11 +24,11 @@ export function Type({ type }: TypeProps) {
   }`;
 
   return (
-    <article id={href} className="py-36 border-t">
-      <h2 className="mt-0">
+    <article id={href} className="py-24 border-t">
+      <h2 className="mt-0 inline-block">
         <a href={`#${href}`}>{type.name}</a>
       </h2>
-      <p className="text-xs rounded bg-blue-50 px-3 py-2 text-blue-600 uppercase font-mono mb-4 inline-block">
+      <p className="text-xs rounded bg-blue-600 px-3 py-2 text-blue-50 uppercase font-mono mb-4 inline-block relative bottom-1 ml-5">
         {objectType}
       </p>
       <div className="flex space-x-0 xl:space-x-4 flex-wrap xl:flex-nowrap">

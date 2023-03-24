@@ -27,7 +27,7 @@ export default function Headers({ field }: Props) {
   return (
     <div className="mt-8 mb-12">
       <p className="uppercase text-sm">HTTP headers</p>
-      <ul className="border border-gray-200 rounded divide-y m-0">
+      <ul className="border border-outlineDark rounded divide-y m-0">
         {requestHeaders.map((header, index) => (
           // @ts-ignore
           <Parameter key={index} param={header} />

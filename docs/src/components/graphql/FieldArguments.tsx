@@ -16,7 +16,7 @@ export default function FieldArguments({ args, caption }: Props) {
       <p className={caption ? 'text-md' : 'text-sm uppercase'}>
         {caption || 'GraphQL Arguments'}
       </p>
-      <CollapsedSection className="border border-gray-200 rounded divide-y m-0">
+      <CollapsedSection className="border border-outlineDark rounded divide-y m-0">
         {args.map((argument, index) => (
           <InputArgument key={index} argument={argument} />
         ))}

@@ -1,5 +1,6 @@
 import { OpenAPIV3 } from 'openapi-types';
 import React from 'react';
+import { Tag } from '@darkmagic/react';
 
 interface Props {
   param?: OpenAPIV3.ParameterObject;
@@ -10,8 +11,8 @@ export default function Parameter({ param }: Props) {
   return (
     <li className="list-none p-2">
       <p className="font-mono flex items-center mb-0.5">
-        {param.name}
-        {param.required && <span className="text-red-500 mx-4 text-xs">required</span>}
+        <span className="bg-bgDefault text-highlight p-1 rounded">{param.name}</span>
+        {param.required && <span className="text-error mx-4 text-xs">Required</span>}
       </p>
       <p
         className="opacity-80 m-0"
@@ -19,10 +20,10 @@ export default function Parameter({ param }: Props) {
           __html: param.description?.replace(/\n/g, '<br/>') || '',
         }}
       />
-      <p className="opacity-80 m-0 capitalize">
+      <Tag css={{ mt: '8px' }}>
         {/* @ts-ignore */}
         {param.schema?.type}
-      </p>
+      </Tag>
     </li>
   );
 }
