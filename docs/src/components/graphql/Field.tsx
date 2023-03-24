@@ -24,7 +24,7 @@ export default function Field({ field, operation, schema }: Props) {
   const inputTypes = getGraphqlInputTypes(args);
 
   return (
-    <article id={href} className="py-36 border-t mb-4">
+    <article id={href} className="py-24 border-t mb-4">
       <h2 className="mt-0 inline-block">
         <a href={`#${href}`}>{title}</a>
       </h2>

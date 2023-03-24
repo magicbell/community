@@ -21,6 +21,7 @@ module.exports = {
         link: '#9E8CFC',
         hover: '#BCAFFD',
         highlight: '#FFEF5C',
+        error: ' #F16A50',
 
         // Gradient
         yellowOutlineStart: '#FFB224BF',

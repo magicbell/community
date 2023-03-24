@@ -2,6 +2,7 @@ import { GraphQLArgument, GraphQLNonNull } from 'graphql';
 import React from 'react';
 import { isGraphqlInputObjectType } from './lib';
 import { getLink } from './link';
+import { Tag } from '@darkmagic/react'
 
 interface Props {
   argument: GraphQLArgument;
@@ -30,9 +31,9 @@ export default function InputArgument({ argument }: Props) {
           }}
         />
       )}
-      <p className="opacity-80 m-0 mt-2 capitalize caption text-muted">
+      <Tag className="mt-2">
         {isInputType ? <a href={`#${getLink(type)}`}>{typeName}</a> : typeName}
-      </p>
+      </Tag>
     </li>
   );
 }

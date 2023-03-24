@@ -2,6 +2,7 @@ import { OpenAPIV3 } from 'openapi-types';
 import { includes, init, last } from 'ramda';
 import React from 'react';
 import CollapsedSection from '../CollapsedSection';
+import { Tag } from '@darkmagic/react';
 
 interface Props {
   object?: OpenAPIV3.SchemaObject;
@@ -34,31 +35,27 @@ export default function SchemaObject({
   const objectParents = init(objectPathAcc);
   const propertyName = last(objectPathAcc);
   return (
-    <div className="p-2">
+    <div className="p-3">
       <p className="font-mono white break-all mb-0.5">
         <span className="bg-bgDefault rounded p-1">
           {objectParents.length > 0 ? <>{objectParents.join('.') + '.'}</> : null}
           <span className="text-highlight">{propertyName}</span>
         </span>
-        {required && <span className="text-red-500 mx-4 text-xs">required</span>}
+        {required && <span className="text-error mx-4 text-xs">Required</span>}
       </p>
       <p className="m-0 opacity-80">{object.description}</p>
-      <p className="mb-0 opacity-80 capitalize mt-2 text-muted caption">{object.type}</p>
+      <Tag css={{ mt: '8px' }}>{object.type}</Tag>
       {object.maxLength ? (
-        <p className="mb-0 opacity-80 text-muted caption">
-          Max length: {object.maxLength}
-        </p>
+        <Tag css={{ mt: '8px', ml: '6px' }}>Max length: {object.maxLength}</Tag>
       ) : null}
       {object.minLength ? (
-        <p className="mb-0 opacity-80 text-muted caption">
-          Min length: {object.minLength}
-        </p>
+        <Tag css={{ mt: '8px', ml: '6px' }}>Min length: {object.minLength}</Tag>
       ) : null}
       {object.maxItems ? (
-        <p className="mb-0 opacity-80 text-muted caption">Max items: {object.maxItems}</p>
+        <Tag css={{ mt: '8px', ml: '6px' }}>Max items: {object.maxItems}</Tag>
       ) : null}
       {object.minItems ? (
-        <p className="mb-0 opacity-80 text-muted caption">Min items: {object.minItems}</p>
+        <Tag css={{ mt: '8px', ml: '6px' }}>Min items: {object.minItems}</Tag>
       ) : null}
     </div>
   );

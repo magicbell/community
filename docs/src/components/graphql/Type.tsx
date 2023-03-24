@@ -24,7 +24,7 @@ export function Type({ type }: TypeProps) {
   }`;
 
   return (
-    <article id={href} className="py-36 border-t">
+    <article id={href} className="py-24 border-t">
       <h2 className="mt-0 inline-block">
         <a href={`#${href}`}>{type.name}</a>
       </h2>

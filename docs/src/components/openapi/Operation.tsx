@@ -21,7 +21,7 @@ export default function Operation({ pathKey, operation, method }: Props) {
   const href = getLink(operation.summary || '');
 
   return (
-    <article id={operation.operationId} className="py-36 border-t">
+    <article id={operation.operationId} className="py-24 first:pt-12">
       <h2 className="mt-0 mb-10 inline-block" id={href}>
         <a href={`#${href}`}>{operation.summary}</a>
       </h2>
