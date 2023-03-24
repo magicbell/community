@@ -2,7 +2,7 @@ import { GraphQLArgument, GraphQLNonNull } from 'graphql';
 import React from 'react';
 import { isGraphqlInputObjectType } from './lib';
 import { getLink } from './link';
-import { Tag } from '@darkmagic/react'
+import { Tag } from '@darkmagic/react';
 
 interface Props {
   argument: GraphQLArgument;
