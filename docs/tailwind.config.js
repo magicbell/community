@@ -44,8 +44,8 @@ module.exports = {
         pink: '#C977FE',
       },
       fontFamily: {
-        sans: ['Source Sans Pro', 'Helvetica', 'Arial', 'sans-serif'],
-        heading: ['Catamaran', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['Inter', 'Source Sans Pro', 'Helvetica', 'Arial', 'sans-serif'],
+        heading: ['Inter', 'Catamaran', 'Helvetica', 'Arial', 'sans-serif'],
       },
     },
   },

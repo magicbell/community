@@ -22,6 +22,7 @@
     "@apidevtools/swagger-parser": "^10.0.2",
     "@darkmagic/react": "^0.5.0",
     "@fontsource/catamaran": "^4.5.10",
+    "@fontsource/inter": "^4.5.15",
     "@fontsource/source-sans-pro": "^4.5.11",
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.5",
