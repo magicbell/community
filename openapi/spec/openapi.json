@@ -1296,7 +1296,7 @@
         "tags": ["User's Push Subscriptions APIs"],
         "summary": "Fetch user's push subscriptions",
         "description": "Fetch a user's push subscriptions. Returns a paginated list of web and mobile push subscriptions for all platforms.",
-        "operationId": "users-push-subscriptions-get",
+        "operationId": "users-push-subscriptions-list",
         "responses": {
           "200": {
             "description": "OK",
