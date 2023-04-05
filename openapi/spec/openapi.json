@@ -1338,7 +1338,7 @@
         "tags": ["User's Push Subscriptions APIs"],
         "summary": "Delete user's push subscription",
         "description": "Delete a user's push subscriptions. Identifies the user by the user's ID and the push subscription by the subscription's ID. ",
-        "operationId": "users-push-subscription-delete",
+        "operationId": "users-push-subscriptions-delete",
         "responses": {
           "204": { "description": "Subscription delete successfully" },
           "404": { "description": "User or subscription not found" }
