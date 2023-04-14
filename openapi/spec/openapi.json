@@ -79,6 +79,59 @@
         }
       }
     },
+    "/broadcasts/{broadcast_id}/notifications": {
+      "get": {
+        "x-beta": true,
+        "tags": ["Notification Broadcasts APIs"],
+        "operationId": "broadcasts-notifications-list",
+        "summary": "Fetch notifications by broadcast id.",
+        "description": "Fetch the notifications on a notification broadcast.",
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" },
+          { "$ref": "#/components/parameters/broadcast_id" },
+          { "$ref": "#/components/parameters/page_query_param" },
+          { "$ref": "#/components/parameters/per_page_query_param" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/PaginationProps" },
+                    {
+                      "type": "object",
+                      "required": ["notifications"],
+                      "properties": {
+                        "notifications": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": { "$ref":  "#/components/schemas/Notification/properties/id" },
+                              "category": { "$ref":  "#/components/schemas/Notification/properties/category" },
+                              "topic": { "$ref":  "#/components/schemas/Notification/properties/topic" },
+                              "sent_at": { "$ref":  "#/components/schemas/Notification/properties/sent_at" },
+                              "user": { "$ref":  "#/components/schemas/User" },
+                              "deliveries": {
+                                "type": "array",
+                                "items": { "$ref":  "#/components/schemas/Delivery" }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/notifications": {
       "post": {
         "operationId": "notifications-create",
@@ -2720,6 +2773,17 @@
           "recipient": { "$ref": "#/components/schemas/User" }
         },
         "required": ["title", "recipient"]
+      },
+      "Delivery": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "channel", "scheduled_at", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "channel": { "type": "string" },
+          "scheduled_at": { "type": "string", "format": "date-time" },
+          "status": { "type": "integer", "description": "0: unseen, 5: unread, 10: read, 20: archived" }
+        }
       },
       "ChannelOverrides": {
         "type": "object",
