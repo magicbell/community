@@ -20,6 +20,7 @@ addFormats(ajv);
 
 const URL_PARAM_VALUES = {
   notification_id: [],
+  broadcast_id: [],
   topic: Array.from({ length: 10 }).map(() => 'acme-inc.orders.1234'),
   device_token: ['x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV'],
   import_id: [],
@@ -247,14 +248,31 @@ async function main() {
 
   // As the created notifications are processes via an (async) job runner, we might need to try fetching them a few times.
   for (let attempt = 1; attempt <= MAX_SETUP_ATTEMPTS; attempt++) {
-    URL_PARAM_VALUES.notification_id = await request(
-      operations.find((x) => x.operationId === 'notifications-list'),
-      'authenticated',
-      { per_page: 50 },
-    ).then((x) => x.data.notifications.map((x) => x.id));
+    if (URL_PARAM_VALUES.broadcast_id.length === 0) {
+      URL_PARAM_VALUES.broadcast_id = await request(
+        operations.find((x) => x.operationId === 'broadcasts-list'),
+        'authenticated',
+        { per_page: 50 },
+      ).then((x) => x.data.broadcasts.map((x) => x.id));
+    }
+
+    if (URL_PARAM_VALUES.notification_id.length === 0) {
+      URL_PARAM_VALUES.notification_id = await request(
+        operations.find((x) => x.operationId === 'notifications-list'),
+        'authenticated',
+        { per_page: 50 },
+      ).then((x) => x.data.notifications.map((x) => x.id));
+    }
 
     // end the loop when we have enough notifications
-    if (URL_PARAM_VALUES.notification_id.length >= CREATE_NOTIFICATIONS_COUNT || attempt === MAX_SETUP_ATTEMPTS) break;
+    if (
+      [URL_PARAM_VALUES.broadcast_id, URL_PARAM_VALUES.notification_id].every(
+        (x) => x.length >= CREATE_NOTIFICATIONS_COUNT,
+      ) ||
+      attempt === MAX_SETUP_ATTEMPTS
+    ) {
+      break;
+    }
 
     // Exponential backoff, with a max of 2 minutes.
     const delay = Math.min(3 ** attempt, 120);
