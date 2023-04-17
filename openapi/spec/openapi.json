@@ -1296,7 +1296,8 @@
         "tags": ["User's Push Subscriptions APIs"],
         "summary": "Fetch user's push subscriptions",
         "description": "Fetch a user's push subscriptions. Returns a paginated list of web and mobile push subscriptions for all platforms.",
-        "operationId": "users-push-subscriptions-get",
+        "operationId": "users-push-subscriptions-list",
+        "x-beta": true,
         "responses": {
           "200": {
             "description": "OK",
@@ -1338,7 +1339,8 @@
         "tags": ["User's Push Subscriptions APIs"],
         "summary": "Delete user's push subscription",
         "description": "Delete a user's push subscriptions. Identifies the user by the user's ID and the push subscription by the subscription's ID. ",
-        "operationId": "users-push-subscription-delete",
+        "operationId": "users-push-subscriptions-delete",
+        "x-beta": true,
         "responses": {
           "204": { "description": "Subscription delete successfully" },
           "404": { "description": "User or subscription not found" }
