@@ -2468,8 +2468,16 @@
             "additionalProperties": true
           },
           "sent_at": {
-            "type": "number",
+            "type": "string",
+            "format": "date-time",
             "description": "The timestamp when the notification was sent to its recipients.",
+            "readOnly": true,
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp when the notification was created.",
             "readOnly": true
           },
           "recipients": {
@@ -2485,29 +2493,50 @@
             "minItems": 1,
             "maxItems": 1000
           },
-          "recipients_count": {
-            "type": "integer",
-            "description": "The number of recipients that the broadcast was sent to.",
-            "readOnly": true,
-            "nullable": false
-          },
           "overrides": {
             "type": "object",
             "additionalProperties": true
           },
-          "processing_status": {
-            "status": "string",
-            "summary": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "total": { "type": "integer" },
-                "failures": { "type": "integer" }
+          "status": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["status", "summary", "errors"],
+            "properties": {
+              "status": {
+                "type": "string",
+                "readOnly": true,
+                "nullable": false
+              },
+              "summary": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["total", "failures"],
+                "properties": {
+                  "total": {
+                    "type": "integer",
+                    "description": "The number of recipients that the broadcast was sent to.",
+                    "readOnly": true,
+                    "nullable": false
+                  },
+                  "failures": {
+                    "type": "integer",
+                    "description": "The number of failures while processing the broadcast.",
+                    "readOnly": true,
+                    "nullable": false
+                  }
+                }
+              },
+              "errors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
               }
             }
           }
         },
-        "required": ["id", "title", "sent_at"]
+        "required": ["id", "title", "created_at", "recipients", "status"]
       },
       "Notification": {
         "type": "object",
@@ -3155,7 +3184,6 @@
         "properties": {
           "external_id": {
             "type": "string",
-            "format": "email",
             "description": "The identifying external_id of the recipient.",
             "nullable": false
           }
