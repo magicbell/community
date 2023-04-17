@@ -47,6 +47,38 @@
         }
       }
     },
+    "/broadcasts/{broadcast_id}": {
+      "get": {
+        "x-beta": true,
+        "tags": ["Notification Broadcasts APIs"],
+        "operationId": "broadcasts-get",
+        "summary": "Fetch a notification broadcast by its ID",
+        "description": "Fetch a notification broadcast by its ID.",
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" },
+          { "$ref": "#/components/parameters/broadcast_id" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["broadcasts"],
+                  "properties": {
+                    "broadcast": {
+                      "$ref": "#/components/schemas/Broadcast"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/notifications": {
       "post": {
         "operationId": "notifications-create",
@@ -2168,6 +2200,13 @@
         "schema": { "type": "string" },
         "required": true,
         "description": "ID of the import.\nThe ID of the import is returned when the import is created."
+      },
+      "broadcast_id": {
+        "in": "path",
+        "name": "broadcast_id",
+        "schema": { "type": "string" },
+        "required": true,
+        "description": "ID of the notification broadcast."
       },
       "notification_id": {
         "in": "path",
