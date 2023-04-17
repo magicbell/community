@@ -113,8 +113,16 @@
                               "id": { "$ref":  "#/components/schemas/Notification/properties/id" },
                               "category": { "$ref":  "#/components/schemas/Notification/properties/category" },
                               "topic": { "$ref":  "#/components/schemas/Notification/properties/topic" },
-                              "sent_at": { "$ref":  "#/components/schemas/Notification/properties/sent_at" },
-                              "user": { "$ref":  "#/components/schemas/User" },
+                              "sent_at": { "type": "string" },
+                              "recipient": {
+                                "type": "object",
+                                "properties": {
+                                  "user": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/User"
+                                  }
+                                }
+                              },
                               "deliveries": {
                                 "type": "array",
                                 "items": { "$ref":  "#/components/schemas/Delivery" }
@@ -2777,12 +2785,18 @@
       "Delivery": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "channel", "scheduled_at", "status"],
+        "required": ["id", "title", "channel", "scheduled_at", "status"],
         "properties": {
-          "id": { "type": "string" },
-          "channel": { "type": "string" },
+          "id": { "type": "string", "nullable": false },
+          "title": { "type":  "string", "nullable": false },
+          "channel": { "type": "string", "nullable": false },
           "scheduled_at": { "type": "string", "format": "date-time" },
-          "status": { "type": "integer", "description": "0: unseen, 5: unread, 10: read, 20: archived" }
+          "status": {
+            "type": "string",
+            "description": "0: unseen, 5: unread, 10: read, 20: archived",
+            "enum": ["processing", "scheduled", "sent", "invalid"],
+            "nullable": false
+          }
         }
       },
       "ChannelOverrides": {
