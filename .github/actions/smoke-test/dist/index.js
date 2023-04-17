@@ -78322,7 +78322,8 @@ function createTests(operations) {
             operationId.startsWith('users-') ||
             operationId === 'subscriptions-delete' ||
             operationId === 'push-subscriptions-delete' ||
-            operationId === 'imports-get';
+            operationId === 'imports-get' ||
+            operationId === 'broadcasts-notifications-list';
         const code = getSuccessStatusCode(operation);
         list.add({
             title: `HTTP ${code}: request with valid api key and payload returns expected response`,
