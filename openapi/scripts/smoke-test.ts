@@ -233,6 +233,8 @@ async function main() {
     throw new Error('Please set the SERVER_URL environment variable to run the smoke tests');
   }
 
+  console.log(`Running smoke tests against ${process.env.SERVER_URL.split('.').join('_')}`);
+
   const newNotificationIds = await Promise.all(
     Array.from({ length: CREATE_NOTIFICATIONS_COUNT }).map(() =>
       request(

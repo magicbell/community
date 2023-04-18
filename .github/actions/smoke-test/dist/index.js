@@ -78359,6 +78359,7 @@ async function smoke_test_main() {
     if (!process.env.SERVER_URL) {
         throw new Error('Please set the SERVER_URL environment variable to run the smoke tests');
     }
+    console.log(`Running smoke tests against ${process.env.SERVER_URL.split('.').join('_')}`);
     const newNotificationIds = await Promise.all(Array.from({ length: CREATE_NOTIFICATIONS_COUNT }).map(() => request(operations.find((x) => x.operationId === 'notifications-create'), 'authenticated').then((x) => x.data)));
     if (newNotificationIds.length === 0) {
         throw new Error('Failed to create new notifications during test setup');
