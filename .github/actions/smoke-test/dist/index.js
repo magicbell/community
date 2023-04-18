@@ -78251,6 +78251,12 @@ async function request(operation, type, params = {}) {
     const error = response.data?.errors?.[0]?.message;
     return Object.assign(response, { duration, config: config, error });
 }
+function getByJsonPointer(obj, path) {
+    return path
+        .split('/')
+        .filter(Boolean)
+        .reduce((acc, part) => acc[part], obj);
+}
 function getBodyContent(body) {
     return body?.content?.['application/json'] || { schema: {} };
 }
@@ -78341,7 +78347,16 @@ function createTests(operations) {
                     x.instancePath !== '/subscriptions/2/categories/0/reason' && // difference between input && output
                     x.params?.additionalProperty !== 'meta_data' && // ignore deprecated fields
                     !(x.params?.additionalProperty === 'user' && operationId === 'notifications-list'));
-                expect(errors.length, JSON.stringify({ errors, data: res.data }, null, 2)).equal(0);
+                if (errors.length === 0)
+                    return;
+                const uniqueErrors = new Map();
+                for (const error of errors) {
+                    uniqueErrors.set(`${error.keyword}:${error.schemaPath}`, {
+                        error,
+                        data: getByJsonPointer(res.data, error.instancePath),
+                    });
+                }
+                expect(errors.length, JSON.stringify(Array.from(uniqueErrors.values()), null, 2)).equal(0);
             },
         });
     }
@@ -78359,6 +78374,7 @@ async function smoke_test_main() {
     if (!process.env.SERVER_URL) {
         throw new Error('Please set the SERVER_URL environment variable to run the smoke tests');
     }
+    console.log(`Running smoke tests against ${process.env.SERVER_URL.split('.').join('_')}`);
     const newNotificationIds = await Promise.all(Array.from({ length: CREATE_NOTIFICATIONS_COUNT }).map(() => request(operations.find((x) => x.operationId === 'notifications-create'), 'authenticated').then((x) => x.data)));
     if (newNotificationIds.length === 0) {
         throw new Error('Failed to create new notifications during test setup');
