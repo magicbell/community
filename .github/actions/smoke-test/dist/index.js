@@ -78271,14 +78271,14 @@ function getAuthHeaders(valid, operation) {
             'X-MAGICBELL-API-SECRET': valid ? process.env.API_SECRET : 'undefined',
         };
 }
-function getUrl(path) {
+function getUrl(path, shift = true) {
     const urlParams = (path.match(/{\w+}/g) || []).map((param) => param.replace(/[{}]/g, ''));
     // if a request depends on urlParams, we'll use earlier created resources
     const params = Object.fromEntries(urlParams.map((param) => {
         const source = URL_PARAM_VALUES[param];
         if (!source)
             throw new Error(`No reserved values for param ${param}`);
-        const value = source.shift();
+        const value = shift ? source.shift() : source[0];
         if (!value)
             throw new Error(`No more values for param ${param}`);
         return [param, value];
@@ -78322,8 +78322,7 @@ function createTests(operations) {
             operationId.startsWith('users-') ||
             operationId === 'subscriptions-delete' ||
             operationId === 'push-subscriptions-delete' ||
-            operationId === 'imports-get' ||
-            operationId === 'broadcasts-notifications-list';
+            operationId === 'imports-get';
         const code = getSuccessStatusCode(operation);
         list.add({
             title: `HTTP ${code}: request with valid api key and payload returns expected response`,
@@ -78367,19 +78366,35 @@ async function smoke_test_main() {
     // As the created notifications are processes via an (async) job runner, we might need to try fetching them a few times.
     for (let attempt = 1; attempt <= MAX_SETUP_ATTEMPTS; attempt++) {
         if (URL_PARAM_VALUES.broadcast_id.length === 0) {
-            URL_PARAM_VALUES.broadcast_id = await request(operations.find((x) => x.operationId === 'broadcasts-list'), 'authenticated', { per_page: 50 }).then((x) => x.data.broadcasts.map((x) => x.id));
+            URL_PARAM_VALUES.broadcast_id = await request(operations.find((x) => x.operationId === 'broadcasts-list'), 'authenticated', { per_page: 50 }).then((x) => x.data.broadcasts.filter((x) => x.status !== 'enqueued').map((x) => x.id));
+        }
+        let broadcastsReady = false;
+        // it takes a while before the notifications are added to the broadcast
+        if (URL_PARAM_VALUES.broadcast_id.length) {
+            const operation = operations.find((x) => x.operationId === 'broadcasts-notifications-list');
+            await request({ ...operation, path: getUrl(operation.path, false) }, 'authenticated').then((x) => {
+                broadcastsReady = x.data.notifications?.length > 0;
+            });
         }
         if (URL_PARAM_VALUES.notification_id.length === 0) {
             URL_PARAM_VALUES.notification_id = await request(operations.find((x) => x.operationId === 'notifications-list'), 'authenticated', { per_page: 50 }).then((x) => x.data.notifications.map((x) => x.id));
         }
         // end the loop when we have enough notifications
-        if ([URL_PARAM_VALUES.broadcast_id, URL_PARAM_VALUES.notification_id].every((x) => x.length >= CREATE_NOTIFICATIONS_COUNT) ||
-            attempt === MAX_SETUP_ATTEMPTS) {
+        if (broadcastsReady &&
+            [URL_PARAM_VALUES.broadcast_id, URL_PARAM_VALUES.notification_id].every((x) => x.length >= CREATE_NOTIFICATIONS_COUNT)) {
             break;
         }
+        // prevent infinite loop
+        if (attempt === MAX_SETUP_ATTEMPTS)
+            break;
         // Exponential backoff, with a max of 2 minutes.
         const delay = Math.min(3 ** attempt, 120);
-        console.log(`Not enough notifications created yet, waiting ${delay} seconds before trying again.`);
+        if (broadcastsReady) {
+            console.log(`Not enough notifications created yet, waiting ${delay} seconds before trying again.`);
+        }
+        else {
+            console.log(`Broadcasts not ready yet, waiting ${delay} seconds before trying again.`);
+        }
         await (0,promises_namespaceObject.setTimeout)(delay * 1000);
     }
     if (URL_PARAM_VALUES.notification_id.length < CREATE_NOTIFICATIONS_COUNT) {
