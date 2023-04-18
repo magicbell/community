@@ -78251,6 +78251,12 @@ async function request(operation, type, params = {}) {
     const error = response.data?.errors?.[0]?.message;
     return Object.assign(response, { duration, config: config, error });
 }
+function getByJsonPointer(obj, path) {
+    return path
+        .split('/')
+        .filter(Boolean)
+        .reduce((acc, part) => acc[part], obj);
+}
 function getBodyContent(body) {
     return body?.content?.['application/json'] || { schema: {} };
 }
@@ -78341,7 +78347,16 @@ function createTests(operations) {
                     x.instancePath !== '/subscriptions/2/categories/0/reason' && // difference between input && output
                     x.params?.additionalProperty !== 'meta_data' && // ignore deprecated fields
                     !(x.params?.additionalProperty === 'user' && operationId === 'notifications-list'));
-                expect(errors.length, JSON.stringify({ errors, data: res.data }, null, 2)).equal(0);
+                if (errors.length === 0)
+                    return;
+                const uniqueErrors = new Map();
+                for (const error of errors) {
+                    uniqueErrors.set(`${error.keyword}:${error.schemaPath}`, {
+                        error,
+                        data: getByJsonPointer(res.data, error.instancePath),
+                    });
+                }
+                expect(errors.length, JSON.stringify(Array.from(uniqueErrors.values()), null, 2)).equal(0);
             },
         });
     }

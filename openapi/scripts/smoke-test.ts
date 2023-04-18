@@ -97,6 +97,13 @@ async function request(operation: Operation, type: 'no-headers' | 'authenticated
   return Object.assign(response, { duration, config: config, error });
 }
 
+function getByJsonPointer(obj: Record<string, unknown>, path: string) {
+  return path
+    .split('/')
+    .filter(Boolean)
+    .reduce((acc, part) => acc[part], obj);
+}
+
 function getBodyContent(body): { example?: unknown; schema: OpenAPIV3.SchemaObject } {
   return body?.content?.['application/json'] || { schema: {} };
 }
@@ -209,7 +216,17 @@ function createTests(operations) {
             !(x.params?.additionalProperty === 'user' && operationId === 'notifications-list'), // only op with additional fields next to the wrapper
         );
 
-        expect(errors.length, JSON.stringify({ errors, data: res.data }, null, 2)).equal(0);
+        if (errors.length === 0) return;
+
+        const uniqueErrors = new Map();
+        for (const error of errors) {
+          uniqueErrors.set(`${error.keyword}:${error.schemaPath}`, {
+            error,
+            data: getByJsonPointer(res.data, error.instancePath),
+          });
+        }
+
+        expect(errors.length, JSON.stringify(Array.from(uniqueErrors.values()), null, 2)).equal(0);
       },
     });
   }
