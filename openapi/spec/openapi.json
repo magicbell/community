@@ -2788,7 +2788,7 @@
         "required": ["id", "title", "channel", "scheduled_at", "status"],
         "properties": {
           "id": { "type": "string", "nullable": false },
-          "title": { "type":  "string", "nullable": false },
+          "title": { "type":  "string", "nullable": true },
           "channel": { "type": "string", "nullable": false },
           "scheduled_at": { "type": "string", "format": "date-time" },
           "status": {
