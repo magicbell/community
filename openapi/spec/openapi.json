@@ -109,23 +109,28 @@
                           "type": "array",
                           "items": {
                             "type": "object",
+                            "required": ["id", "created_at", "updated_at", "status", "recipient", "deliveries"],
                             "properties": {
-                              "id": { "$ref":  "#/components/schemas/Notification/properties/id" },
-                              "category": { "$ref":  "#/components/schemas/Notification/properties/category" },
-                              "topic": { "$ref":  "#/components/schemas/Notification/properties/topic" },
-                              "sent_at": { "type": "string" },
+                              "id": { "$ref": "#/components/schemas/Notification/properties/id" },
+                              "category": { "$ref": "#/components/schemas/Notification/properties/category" },
+                              "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
+                              "created_at": { "type": "string", "format": "date-time","nullable": false },
+                              "updated_at": { "type": "string", "format": "date-time","nullable": false },
+                              "sent_at": { "type": "string", "format": "date-time", "nullable": true },
+                              "read_at": { "type": "string", "format": "date-time", "nullable": true },
+                              "seen_at": { "type": "string", "format": "date-time", "nullable": true },
+                              "status": { "type":  "string", "enum": ["unseen", "unread", "read", "archived"] },
                               "recipient": {
                                 "type": "object",
                                 "properties": {
-                                  "user": {
-                                    "type": "object",
-                                    "$ref": "#/components/schemas/User"
-                                  }
-                                }
+                                  "user": { "$ref": "#/components/schemas/User", "nullable": false }
+                                },
+                                "nullable": false
                               },
                               "deliveries": {
                                 "type": "array",
-                                "items": { "$ref":  "#/components/schemas/Delivery" }
+                                "items": { "$ref":  "#/components/schemas/Delivery" },
+                                "nullable": false
                               }
                             }
                           }
@@ -2793,7 +2798,7 @@
           "scheduled_at": { "type": "string", "format": "date-time" },
           "status": {
             "type": "string",
-            "description": "0: unseen, 5: unread, 10: read, 20: archived",
+            "description": "The status of the notification delivery.",
             "enum": ["processing", "scheduled", "sent", "invalid"],
             "nullable": false
           }
