@@ -37,7 +37,10 @@ const components = {
   PropsTable,
 };
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+  Component,
+  pageProps,
+}: Omit<AppProps, 'Component'> & { Component: any }) {
   // cheap way to redirect that's less anoying than the 404. Vercel doesn't like the redirect
   // from / to /docs via next.config.js#redirects
   if (typeof window !== 'undefined') {
