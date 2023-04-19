@@ -10,20 +10,17 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Setup node.js 16
-        uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: ./.github/actions/setup-node
         with:
-          node-version: 16
+          working-directory: .
 
-      - name: Install dependencies
-        run: yarn
-
-      - name: Create Release Pull Request
+      - name: Create release PR or publish release
         uses: changesets/action@v1
         with:
+          publish: yarn changeset publish
           commit: 'chore: version packages'
           title: 'chore: version packages'
         env:

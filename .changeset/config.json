@@ -4,6 +4,7 @@
     "@changesets/changelog-github",
     { "repo": "magicbell-io/public" }
   ],
+  "privatePackages": { "version": true, "tag": true },
   "commit": false,
   "fixed": [],
   "linked": [],
