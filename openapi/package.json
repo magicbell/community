@@ -1,6 +1,6 @@
 {
   "name": "openapi",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An OpenAPI specification for the MagicBell API",
   "repository": "git@github.com:magicbell-io/public.git",
   "author": "Stephan Meijer <stephan.meijer@gmail.com>",
