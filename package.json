@@ -6,6 +6,10 @@
   "author": "Stephan Meijer <stephan.meijer@gmail.com>",
   "license": "MIT",
   "private": true,
+  "workspaces": [
+    "openapi",
+    "docs"
+  ],
   "type": "module",
   "scripts": {
     "validate": "tsx scripts/validate-openapi.ts",
@@ -24,6 +28,8 @@
     ]
   },
   "dependencies": {
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.1",
     "@vercel/ncc": "^0.36.1",
     "husky": "^8.0.1",
     "tsx": "^3.12.3"
