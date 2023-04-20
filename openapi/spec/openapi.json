@@ -898,9 +898,9 @@
     },
     "/users/{user_id}": {
       "get": {
-        "operationId": "users-fetch",
+        "operationId": "users-get",
         "tags": ["Users APIs"],
-        "summary": "Fetch user by ID",
+        "summary": "Get user by ID",
         "description": "Fetch a user by id, for the project identified by the auth keys.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
