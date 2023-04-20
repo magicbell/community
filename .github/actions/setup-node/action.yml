@@ -8,10 +8,6 @@ inputs:
     required: false
     default: "18.x"
 
-  working-directory:
-    description: "working directory"
-    required: true
-
 runs:
   using: "composite"
   steps:
@@ -24,10 +20,10 @@ runs:
       id: cache
       uses: actions/cache@v2
       with:
-        path: ${{ inputs.working-directory }}/node_modules
+        path: node_modules
         key: ${{ runner.os }}-${{ runner.arch }}-node_modules-${{ hashFiles('yarn.lock') }}
 
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
-      run: yarn --cwd ${{ inputs.working-directory }} --frozen-lockfile
+      run: yarn --frozen-lockfile

@@ -1,10 +1,6 @@
 name: openapi
 on: [push]
 
-defaults:
-  run:
-    working-directory: openapi
-
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -13,8 +9,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: setup node
         uses: ./.github/actions/setup-node
-        with:
-          working-directory: openapi
       - name: validate openapi spec
         run: yarn --cwd ./openapi validate
   smoke-test:
@@ -25,8 +19,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: setup node
         uses: ./.github/actions/setup-node
-        with:
-          working-directory: openapi
       - name: smoke test
         uses: ./.github/actions/smoke-test
         env:

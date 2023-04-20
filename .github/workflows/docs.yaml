@@ -10,7 +10,5 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Node
         uses: ./.github/actions/setup-node
-        with:
-          working-directory: docs
       - name: Run unit tests
-        run: yarn  --cwd ./docs test
+        run: yarn --cwd ./docs test
