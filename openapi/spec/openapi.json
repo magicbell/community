@@ -847,9 +847,9 @@
                     { "$ref":  "#/components/schemas/PaginationProps" },
                     {
                       "type": "object",
-                      "required": ["user"],
+                      "required": ["users"],
                       "properties": {
-                        "user": {
+                        "users": {
                           "type": "array",
                           "items": { "$ref": "#/components/schemas/User" }
                         }
