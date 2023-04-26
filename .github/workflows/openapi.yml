@@ -6,20 +6,27 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     steps:
-      - uses: actions/checkout@v3
-      - name: setup node
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
         uses: ./.github/actions/setup-node
-      - name: validate openapi spec
+
+      - name: Validate OpenAPI spec
         run: yarn --cwd ./openapi validate
+
   smoke-test:
     runs-on: ubuntu-latest
     environment: staging
     needs: validate
     steps:
-      - uses: actions/checkout@v3
-      - name: setup node
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
         uses: ./.github/actions/setup-node
-      - name: smoke test
+
+      - name: Smoke test
         uses: ./.github/actions/smoke-test
         env:
           SERVER_URL: "${{ secrets.MAGICBELL_SERVER_URL }}"
