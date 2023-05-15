@@ -8,13 +8,18 @@ subtitle: How to use Mailgun with MagicBell
 To configure Mailgun for your MagicBell project, follow these steps:
 
 1. Sign up for [Mailgun](https://signup.mailgun.com/new/signup) and [obtain an API key](https://help.mailgun.com/hc/en-us/articles/203380100-Where-can-I-find-my-API-key-and-SMTP-credentials-). Note: We do not support Mailgun's EU region at this time.
-1. From the **Settings > Providers** page in your dashboard, select Mailgun.
+1. From the **Settings &rarr; Channels** page in your dashboard, select **Add Provider &rarr; Mailgun**.
 1. Enable the provider and enter the API key from step 1 and your sender domain. You can find the sender domain under your Mailgun dashboard. Sometimes, it is named "sending domain".
 1. Add the email address and name you want your notification emails to come from. Then click **Save**.
 
 <img
   className="full-mobile"
-  src="/docs/uploads/email_mailgun.png"
+  src="/docs/uploads/email-mailgun-add.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+<img
+  className="full-mobile"
+  src="/docs/uploads/email-mailgun-enable.png"
   style={{ width: '100%', height: 'intrinsic' }}
 />
 
@@ -33,25 +38,28 @@ Provider-specific parameters in `notification.overrides` take precedence over th
 
 ### Example: Tag an email and set a custom header
 
-<Snippets params={{
-  "notification": {
-    "title": "We are processing your order",
-    "content": "<p>Thank you for your order. We will notify you when these items are ready.</p>",
-    "recipients": [
-      {
-        "email": "dan@example.com"
-      }
-    ],
-    "overrides": {
-      "providers": {
-        "mailgun": {
-          "o:tag": "onboarding",
-          "h:X-Original-To": "devs@example.com"
-        }
-      }
-    }
-  }
-}} />
+<Snippets
+  params={{
+    notification: {
+      title: 'We are processing your order',
+      content:
+        '<p>Thank you for your order. We will notify you when these items are ready.</p>',
+      recipients: [
+        {
+          email: 'dan@example.com',
+        },
+      ],
+      overrides: {
+        providers: {
+          mailgun: {
+            'o:tag': 'onboarding',
+            'h:X-Original-To': 'devs@example.com',
+          },
+        },
+      },
+    },
+  }}
+/>
 
 ### Example: Using Mailgun email templates
 
@@ -59,28 +67,31 @@ In addition to our own [email templates](/docs/templates), MagicBell can render 
 
 After creating a template in Mailgun, you can specify its ID in `notification.overrides.providers.mailgun.template` and the values for substitution in `notification.custom_attributes`:
 
-<Snippets params={{
-  "notification": {
-    "title": "We are processing your order",
-    "content": "<p>Thank you for your order. We will notify you when these items are ready.</p>",
-    "recipients": [
-      {
-        "email": "dan@example.com"
-      }
-    ],
-    "custom_attributes": {
-      "name": "Dan",
-      "company_name": "Example Inc"
+<Snippets
+  params={{
+    notification: {
+      title: 'We are processing your order',
+      content:
+        '<p>Thank you for your order. We will notify you when these items are ready.</p>',
+      recipients: [
+        {
+          email: 'dan@example.com',
+        },
+      ],
+      custom_attributes: {
+        name: 'Dan',
+        company_name: 'Example Inc',
+      },
+      overrides: {
+        providers: {
+          mailgun: {
+            template: 'MAILGUN_TEMPLATE_ID',
+          },
+        },
+      },
     },
-    "overrides": {
-      "providers": {
-        "mailgun": {
-          "template": "MAILGUN_TEMPLATE_ID"
-        }
-      }
-    }
-  }
-}} />
+  }}
+/>
 
 Keep in mind that the content of the notification is ignored when you use a
 template. Mailgun will use the template content instead.

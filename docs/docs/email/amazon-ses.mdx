@@ -8,12 +8,17 @@ subtitle: How to use Amazon SES with MagicBell
 To configure Amazon SES for your MagicBell project, follow these steps:
 
 1. Sign in to the [AWS console](https://console.aws.amazon.com/ses) and [obtain an access key ID and secret access key](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys).
-1. From the **Settings > Providers** page in your dashboard, select Amazon SES.
+1. From the **Settings &rarr; Channels** page in your dashboard, select **Add Provider &rarr; Amazon SES**.
 1. Enable the provider and enter the access key ID and secret access key from step 1, and the AWS region (e.g., `eu-west-1`), then click **Save**.
 
 <img
   className="full-mobile"
-  src="/docs/uploads/email_amazon-ses.png"
+  src="/docs/uploads/email-amazon-add.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+<img
+  className="full-mobile"
+  src="/docs/uploads/email-amazon-enable.png"
   style={{ width: '100%', height: 'intrinsic' }}
 />
 
@@ -37,21 +42,24 @@ Provider-specific parameters in `notification.overrides` take precedence over th
 
 ## Example: Set a Source
 
-<Snippets params={{
-  "notification": {
-    "title": "We are processing your order",
-    "content": "<p>Thank you for your order. We will notify you when these items are ready.</p>",
-    "recipients": [
-      {
-        "email": "dan@example.com"
-      }
-    ],
-    "overrides": {
-      "providers": {
-        "ses": {
-          "Source": "Example <example@example.com>"
-        }
-      }
-    }
-  }
-}} />
+<Snippets
+  params={{
+    notification: {
+      title: 'We are processing your order',
+      content:
+        '<p>Thank you for your order. We will notify you when these items are ready.</p>',
+      recipients: [
+        {
+          email: 'dan@example.com',
+        },
+      ],
+      overrides: {
+        providers: {
+          ses: {
+            Source: 'Example <example@example.com>',
+          },
+        },
+      },
+    },
+  }}
+/>

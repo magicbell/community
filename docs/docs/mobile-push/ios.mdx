@@ -21,12 +21,17 @@ Follow these steps to register a new key:
 
 To configure iOS mobile push notifications for your MagicBell project, follow these steps:
 
-1. From the **Settings > Providers** page in your dashboard, select Mobile Push > Safari APNs.
+1. From the **Settings &rarr; Channels** page in your dashboard, select **Add Provider &rarr; Mobile Push &rarr; Safari APNs **.
 1. Enable the provider and complete the required fields, then click **Save**.
 
 <img
   className="full-mobile"
-  src="/docs/uploads/mobile-push_apns.png"
+  src="/docs/uploads/mobile-push-safari-add.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+<img
+  className="full-mobile"
+  src="/docs/uploads/mobile-push-safari-enable.png"
   style={{ width: '100%', height: 'intrinsic' }}
 />
 
@@ -42,21 +47,24 @@ Provider-specific parameters in `notification.overrides` take precedence over th
 
 ### Example: Set the bagde of the app icon
 
-<Snippets params={{
-  "notification": {
-    "title": "We are processing your order",
-    "content": "<p>Thank you for your order. We will notify you when these items are ready.</p>",
-    "recipients": [
-      {
-        "email": "dan@example.com"
-      }
-    ],
-    "overrides": {
-      "providers": {
-        "ios": {
-          "badge": 5
-        }
-      }
-    }
-  }
-}} />
+<Snippets
+  params={{
+    notification: {
+      title: 'We are processing your order',
+      content:
+        '<p>Thank you for your order. We will notify you when these items are ready.</p>',
+      recipients: [
+        {
+          email: 'dan@example.com',
+        },
+      ],
+      overrides: {
+        providers: {
+          ios: {
+            badge: 5,
+          },
+        },
+      },
+    },
+  }}
+/>

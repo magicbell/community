@@ -8,20 +8,30 @@ subtitle: How to use Twilio with MagicBell for a magical SMS experience
 To configure Twilio for your MagicBell project, follow these steps:
 
 1. Sign up for [Twilio](https://www.twilio.com/try-twilio) and obtain your account SID and auth token from the [Twilio Console](https://www.twilio.com/console).
-1. From the **Settings > Providers** page in your dashboard, select Twilio.
+1. From the **Settings &rarr; Channels** page in your dashboard, select **Add Provider &rarr; Twilio **.
 1. Enable the provider and enter the credentials from step 1.
 1. In the **From** field, enter a Twilio phone number in [E.164 format](https://www.twilio.com/docs/glossary/what-e164), then click **Save**.
 
 <img
   className="full-mobile"
-  src="/docs/uploads/sms_twilio.png"
+  src="/docs/uploads/twilio-add.png"
   style={{ width: '100%', height: 'intrinsic' }}
 />
-
-After that, the only thing that remains after that is to ensure you [add phone numbers to your MagicBell users](/docs/rest-api/reference#update-user).
+<img
+  className="full-mobile"
+  src="/docs/uploads/twilio-enable.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
+After that, the only thing that remains after that is to ensure you [add phone numbers to
+your MagicBell users](/docs/rest-api/reference#update-user).
 
 ## Provider Overrides
 
 <Note>
-  At this time, our Twilio integration does not support <a href="/docs/overrides">overrides</a>. If this is something you'd like to use, please <a href="https://roadmap.magicbell.community/b/bug-reports/amazon-ses-integration-does-not-support-overrides/">let us know</a> and we'll be happy to consider adding support for it.
+  At this time, our Twilio integration does not support{' '}
+  <a href="/docs/overrides">overrides</a>. If this is something you'd like to use, please{' '}
+  <a href="https://roadmap.magicbell.community/b/bug-reports/amazon-ses-integration-does-not-support-overrides/">
+    let us know
+  </a>{' '}
+  and we'll be happy to consider adding support for it.
 </Note>
