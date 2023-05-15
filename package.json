@@ -2,7 +2,7 @@
   "name": "public",
   "version": "1.0.0",
   "description": "A monorepo for MagicBell's public assets and discourse",
-  "repository": "git@github.com:magicbell-io/public.git",
+  "repository": "https://github.com/magicbell-io/public",
   "author": "Stephan Meijer <stephan.meijer@gmail.com>",
   "license": "MIT",
   "private": true,
@@ -17,7 +17,8 @@
     "smoke-test": "tsx scripts/smoke-test.ts",
     "build:smoke-test": "ncc build openapi/scripts/smoke-test.ts -o .github/actions/smoke-test/dist",
     "prepare": "husky install",
-    "lint": "eslint --fix ."
+    "lint": "eslint --fix .",
+    "postinstall": "husky install && manypkg check"
   },
   "lint-staged": {
     "*.{md,json,yml,yaml}": [
@@ -27,11 +28,15 @@
       "eslint --fix"
     ]
   },
+  "manypkg": {
+    "defaultBranch": "main"
+  },
   "dependencies": {
     "@changesets/changelog-github": "^0.4.8",
     "@changesets/cli": "^2.26.1",
+    "@manypkg/cli": "^0.20.0",
     "@vercel/ncc": "^0.36.1",
-    "husky": "^8.0.1",
-    "tsx": "^3.12.3"
+    "husky": "^8.0.0",
+    "tsx": "^3.9.0"
   }
 }

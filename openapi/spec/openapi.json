@@ -842,7 +842,21 @@
             "description": "OK",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/PaginatedUsers" },
+                "schema": {
+                  "allOf": [
+                    { "$ref":  "#/components/schemas/PaginationProps" },
+                    {
+                      "type": "object",
+                      "required": ["users"],
+                      "properties": {
+                        "users": {
+                          "type": "array",
+                          "items": { "$ref": "#/components/schemas/User" }
+                        }
+                      }
+                    }
+                  ]
+                },
                 "example": {
                   "current_page": "1",
                   "total_pages": "1",
@@ -898,9 +912,9 @@
     },
     "/users/{user_id}": {
       "get": {
-        "operationId": "users-fetch",
+        "operationId": "users-get",
         "tags": ["Users APIs"],
-        "summary": "Fetch user by ID",
+        "summary": "Get user by ID",
         "description": "Fetch a user by id, for the project identified by the auth keys.",
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -3250,21 +3264,11 @@
       },
       "PaginationProps": {
         "type": "object",
-        "required": ["total", "per_page", "total_pages", "current_page"],
+        "required": ["per_page", "current_page"],
         "properties": {
-          "total": {
-            "type": "integer",
-            "description": "Total number of entities for this query.",
-            "readOnly": true
-          },
           "per_page": {
             "type": "integer",
             "description": "Number of entities per page.",
-            "readOnly": true
-          },
-          "total_pages": {
-            "type": "integer",
-            "description": "Total number of pages.",
             "readOnly": true
           },
           "current_page": {
