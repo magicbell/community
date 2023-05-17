@@ -1,10 +1,13 @@
 name: Update Postman Collection
 
-# TODO: Change to on each PR after development
 on:
   push:
     branches-ignore:
       - main
+
+# TODO: change the postman collection ID after testing
+env:
+  POSTMAN_COLLECTION_ID: 27196362-488c1fbf-138e-475b-8e01-46df1b1a60d8
 
 jobs:
   postman:
@@ -33,10 +36,18 @@ jobs:
       - name: Add Postman Spec to a collection object
         run: "cd openapi/spec && jq '{collection: .}' postman-spec.json > postman-spec-in-collection-obj.json"
 
-        # TODO: Update the `collection ID` after testing workflow
       - name: Update the Postman Collection
         run: |
-          curl --location --request PUT 'https://api.getpostman.com/collections/27196362-0e2da69d-5bcf-4c00-89c1-7daa92e87516' \
+          curl --location --request PUT 'https://api.getpostman.com/collections/${{ env.POSTMAN_COLLECTION_ID }}' \
           --header 'Content-Type: application/json' \
           --header 'X-API-Key: ${{ secrets.POSTMAN_API_KEY }}' \
           --data '@openapi/spec/postman-spec-in-collection-obj.json'
+
+      # Files Generated during the intermediate steps of converting OpenAPI spec to body for Postman API are stored as artifacts
+      # These files can be useful for debugging
+      # - uses: actions/upload-artifact@v3
+      #   if: always()
+      #   with:
+      #     name: Generated Files
+      #     path: openapi/spec
+      #     retention-days: 10
