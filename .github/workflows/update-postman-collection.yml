@@ -2,12 +2,11 @@ name: Update Postman Collection
 
 on:
   push:
-    branches-ignore:
+    branches:
       - main
 
-# TODO: change the postman collection ID after testing
 env:
-  POSTMAN_COLLECTION_ID: 27196362-488c1fbf-138e-475b-8e01-46df1b1a60d8
+  POSTMAN_COLLECTION_ID: 2269098-9f990075-94a8-4ded-b252-a5289b6e3a2f
 
 jobs:
   postman:
