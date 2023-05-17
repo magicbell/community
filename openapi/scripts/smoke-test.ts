@@ -56,20 +56,36 @@ function toCurl({ method, baseURL, url, data, headers }: AxiosRequestConfig) {
   ].join(' ');
 }
 
-async function request(operation: Operation, type: 'no-headers' | 'authenticated' | 'invalid-auth', params = {}) {
+async function request(
+  operation: Operation,
+  type: 'no-headers' | 'authenticated' | 'invalid-auth' | 'preflight',
+  params = {},
+) {
   const start = Date.now();
 
-  const headers = type === 'no-headers' ? {} : getAuthHeaders(type === 'authenticated', operation);
+  const headers = type === 'no-headers' ? {} : getAuthHeaders(['authenticated', 'preflight'].includes(type), operation);
   const data = getBodyContent(operation.requestBody).example;
+  const method = type === 'preflight' ? 'OPTIONS' : operation.method;
 
   // HACK: this ain't really nice, is it?
   if (operation.operationId.startsWith('notification-preferences')) {
     headers['accept-version'] = 'v2';
   }
 
+  if (isPublicApi(operation)) {
+    headers['origin'] = 'https://magicbell-smoke-test.example.com';
+  }
+
+  if (type === 'preflight') {
+    headers['access-control-request-method'] = operation.method;
+    headers['access-control-request-headers'] =
+      'content-type, origin, x-magicbell-api-key, x-magicbell-user-email, x-magicbell-user-hmac';
+    headers['origin'] = 'https://magicbell-smoke-test.example.com';
+  }
+
   const config: AxiosRequestConfig = {
     baseURL: process.env.SERVER_URL,
-    method: operation.method,
+    method,
     url: operation.path,
     validateStatus: () => true,
     data,
@@ -145,7 +161,17 @@ function getUrl(path: string, shift = true) {
   return path.replace(/{([\s\S]+?)}/g, ($0, $1) => encodeURIComponent(params[$1] || ''));
 }
 
-function createTests(operations) {
+function isPublicApi(operation: Operation) {
+  return !operation.parameters?.some((p) => 'name' in p && p.name === 'X-MAGICBELL-API-SECRET');
+}
+
+function expectPathToEqual(obj: Record<string, unknown>, path: string, expected: unknown) {
+  const pointer = path.replaceAll(/[\[.]/g, '/').replace(/['"\]]/g, '');
+  const actual = getByJsonPointer(obj, pointer);
+  expect(actual, path).equal(expected);
+}
+
+function createTests(operations: Operation[]) {
   const suites = new Listr([], { exitOnError: false });
 
   for (const operation of operations) {
@@ -202,6 +228,10 @@ function createTests(operations) {
         expect(res.status, res.error).equal(code);
         expect(res.duration).lessThan(5000);
 
+        if (isPublicApi(operation)) {
+          expectPathToEqual(res, 'headers["access-control-allow-origin"]', '*');
+        }
+
         // We're adjust the schema, as there's a difference between `input type` and `return type`, and
         // the `components.schemas` currently only hold input types.
         const schema = getBodyContent(operation.responses[res.status]).schema;
@@ -229,6 +259,24 @@ function createTests(operations) {
         expect(errors.length, JSON.stringify(Array.from(uniqueErrors.values()), null, 2)).equal(0);
       },
     });
+
+    if (isPublicApi(operation)) {
+      list.add({
+        title: `HTTP 200: options request returns cors headers`,
+        skip: () => shouldSkip,
+        task: async () => {
+          operation.path = getUrl(path);
+          const res = await request(operation, 'preflight');
+          expect(res.status, res.error).equal(200);
+          expect(res.duration).lessThan(5000);
+
+          // check cors headers
+          expectPathToEqual(res, 'headers["access-control-allow-origin"]', '*');
+          expectPathToEqual(res, 'headers["access-control-allow-headers"]', '*');
+          expectPathToEqual(res, 'headers["access-control-allow-methods"]', '*');
+        },
+      });
+    }
   }
 
   return suites;
