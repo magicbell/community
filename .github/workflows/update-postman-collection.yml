@@ -44,9 +44,9 @@ jobs:
 
       # Files Generated during the intermediate steps of converting OpenAPI spec to body for Postman API are stored as artifacts
       # These files can be useful for debugging
-      # - uses: actions/upload-artifact@v3
-      #   if: always()
-      #   with:
-      #     name: Generated Files
-      #     path: openapi/spec
-      #     retention-days: 10
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Generated Files
+          path: openapi/spec
+          retention-days: 10
