@@ -85,5 +85,10 @@
     "source": "/graphql-api/reference",
     "destination": "/graphql-api/overview",
     "permanent": true
+  },
+  {
+    "source": "/changelog",
+    "destination": "https://magicbell.to/changelog",
+    "permanent": true
   }
 ]
