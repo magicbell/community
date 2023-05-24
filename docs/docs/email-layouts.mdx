@@ -10,7 +10,7 @@ all the rendering happens there, and MagicBell ignores the layout and any templa
 
 ## How to compose email layouts
 
-Please visit the Settings tab in the dashboard, then select Email Layout.
+Go to **Settings &rarr; Channels** and select **Edit Layout** under the Email channel.
 Here you can specify your layout according to the following rules.
 
 When the email layout is left empty, email notifications will render either:
@@ -22,6 +22,11 @@ When the email layout is left empty, email notifications will render either:
 If the email layout is specified, you can use HTML and the `{{ template.content }}` merge tag,
 which is replaced by either the notification content or the rendered channel template, as explained above.
 
+<img
+  className="full-mobile"
+  src="/docs/uploads/email-layout-navigation.png"
+  style={{ width: '100%', height: 'intrinsic' }}
+/>
 <img
   className="full-mobile"
   src="/docs/uploads/email-layout.png"

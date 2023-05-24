@@ -110,24 +110,29 @@ img::selection {
 
   pre,
   code {
-    font-size: 1rem;
-    font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !important;
+    @apply text-sm text-lightYellow;
+    @apply font-code !important;
   }
 
   table {
-    @apply min-w-full divide-y divide-outlineDark table-fixed;
+    @apply min-w-full table-fixed;
   }
+
 
   table thead th {
-    @apply px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider;
+    @apply p-3 text-left text-sm font-medium text-muted uppercase tracking-wider bg-app2 border-b border-borderMuted;
   }
 
-  table tbody tr:nth-child(even) {
-    @apply bg-gray-50;
+  table thead th:empty {
+    display:none;
   }
 
   table tbody td {
-    @apply p-4 text-sm;
+    @apply p-3 text-sm;
+  }
+
+  table tbody tr:not(:first-child) td {
+    @apply border-t border-borderMuted;
   }
 }
 
