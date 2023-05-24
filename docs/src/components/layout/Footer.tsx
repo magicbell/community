@@ -1,4 +1,3 @@
-import React from 'react';
 import footerNav from '../../../footer.json';
 import LinkedInLogo from '../../../public/linkedin.svg';
 import MagicBellLogo from '../../../public/magicbell.svg';
