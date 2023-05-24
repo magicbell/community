@@ -307,12 +307,21 @@
     ]
   },
   {
-    "name": "Changelog",
-    "to": "https://magicbell.to/changelog"
+    "name": "Glossary",
+    "to": "/glossary"
   },
   {
-    "name": "GitHub Community",
-    "to": "https://magicbell.to/community",
+    "name": "FAQ",
+    "to": "/faq"
+  },
+  {
+    "name": "Playground",
+    "to": "https://playground.magicbell.com",
+    "staticRoute": true
+  },
+  {
+    "name": "GitHub Discussions",
+    "to": "https://github.com/orgs/magicbell-io/discussions",
     "staticRoute": true
   },
   {
