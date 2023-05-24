@@ -1,15 +1,56 @@
 ---
-title: Choosing a Unique Identifier
+title: Selecting a User Identifier
 ---
 
-MagicBell accepts emails and external IDs (strings) as unique identifiers for users, though the way you [send notifications](/docs/sending-notifications) to a user depends on how you identify users in your app.
+## Background
 
-If your app allows users to update their email addresses, we recommend to use external IDs.
+A unique user identifier is critical for managing notifications effectively in MagicBell. This identifier allows MagicBell to associate each notification with a specific user. MagicBell accepts two types of unique identifiers: **emails** and **external IDs**.
+However, we do not recommend mixing them, and offer our recommendations in the final section - Recommendations for Production.
 
-There are a number of benefits to choosing external ID over email as an identifier:
+### Emails as Identifiers
 
-- External IDs are generally more robust, persistent, and can be linked to your app's DB records.
-- Should a user's email address change in your system, you can update it in the same request to [create notifications](/docs/rest-api/reference#create-notification), removing the need to separately [update the email address](/docs/rest-api/reference#update-user).
-- When sending both `email` and `external_id`, `email` will simply be an attribute for the user that's used to deliver email notifications.
+An email can serve as a unique identifier for a user. However, if your application allows users to update their email addresses, we recommend using external IDs.
 
-<Note>If you use an integer to identify users, remember to cast it to a string.</Note>
+### External IDs as Identifiers
+
+An `external_id` is linked to your app's DB records (typically, the `user_id`), and once set for a user, it cannot be changed or unset. Therefore, they are generally more robust, and our preferred identifier for production usage.
+
+While an `external_id` serves as a unique and permanent identifier for that user, if the user's email address changes in your system, you can update it. You can do this in the request to create notifications, removing the need to separately update the email address. However, you can also use the update users endpoint to update a user at any time.
+
+<Note>
+  External IDs always take precedence over email when you specify both in the `recipients`
+  key, when creating notifications. The same applies when you initialize the Inbox.
+</Note>
+
+## Handling Duplicates
+
+### Upserts
+
+MagicBell supports upsert operations. This means that if a user with the same identifier already exists, the existing user will be updated with the new data. If a user doesn't exist, a new user will be created.
+
+In cases where there are multiple users with the same email, MagicBell treats them as different users if they have unique external IDs.
+
+### Considerations
+
+If you use an integer to identify users, remember to cast it to a string before sending it to MagicBell.
+
+By choosing the right unique identifier, you can ensure the smooth and efficient operation of the MagicBell notification system.
+
+## An Example
+
+Let's walk through the lifecycle of a couple of users
+
+| Action        | email             | external_id | Result                      | Description                                                                                                                                                                 |
+| ------------- | ----------------- | ----------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Upsert User 1 | user1@example.com | -           | Success                     | A new user is created with the provided email as the unique identifier.                                                                                                     |
+| Upsert User 1 | user1@example.com | ext_id_1    | Success                     | User 1 is updated with a new external_id. This external_id now serves as the unique identifier along with the email. Once set, this external_id cannot be changed or unset. |
+| Upsert User 2 | user1@example.com | ext_id_2    | Success                     | A new user is created with the same email as User 1 but a different external_id. MagicBell treats this as a different user.                                                 |
+| Upsert User 3 | user1@example.com | -           | User 1 or User 2 is updated | Since this upsert operation does not provide an external_id, it will update one of the existing users (User 1 or User 2) with the same email.                               |
+
+## Recommendations for Production
+
+When you're implementing MagicBell in a production environment, we highly recommend choosing and sticking to one type of unique identifier for each user. You can use either an email or an external ID as a unique identifier, but we recommend using external IDs due to their robustness and persistence.
+
+Once you choose a type of identifier, you should stick to it for every user (both past and future). Switching or mixing external_id and emails over time will create unpredictable behavior.
+
+Remember, once you've chosen to use external_id, the email should only be used as an address for notifications, not as a unique identifier. By following this recommendation, you can ensure consistent and predictable behavior in your notification system.

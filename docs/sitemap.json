@@ -1,22 +1,26 @@
 [
   {
-    "name": "Getting started",
+    "name": "Introduction",
+    "to": "/"
+  },
+  {
+    "name": "Quick Start",
     "children": [
       {
-        "name": "Adding MagicBell to your product",
-        "to": "/adding-magicbell-to-your-product"
-      },
-      {
-        "name": "Choosing a Unique Identifier",
+        "name": "Select a User Identifier",
         "to": "/choosing-an-identifier"
       },
       {
-        "name": "Sending notifications",
-        "to": "/sending-notifications"
+        "name": "Add the Inbox",
+        "to": "/adding-magicbell-to-your-product"
       },
       {
-        "name": "What's Next",
-        "to": "/whats-next"
+        "name": "Compose a Notification",
+        "to": "/compose"
+      },
+      {
+        "name": "View the Logs",
+        "to": "/log"
       }
     ]
   },
@@ -315,23 +319,6 @@
       {
         "name": "Channel & Provider API overrides",
         "to": "/overrides"
-      }
-    ]
-  },
-  {
-    "name": "MagicBell Dashboard",
-    "children": [
-      {
-        "name": "Segments",
-        "to": "/segments"
-      },
-      {
-        "name": "Log",
-        "to": "/log"
-      },
-      {
-        "name": "Compose",
-        "to": "/compose"
       }
     ]
   },
