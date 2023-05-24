@@ -320,17 +320,5 @@
     "name": "GitHub Discussions",
     "to": "https://github.com/orgs/magicbell-io/discussions",
     "staticRoute": true
-  },
-  {
-    "name": "Hidden Routes",
-    "hiddenRoute": true,
-    "children": [
-      {
-        "name": "Hello. We're MagicBell!",
-        "icon": "home",
-        "to": "/",
-        "staticRoute": true
-      }
-    ]
   }
 ]
