@@ -46,6 +46,7 @@ module.exports = {
       fontFamily: {
         sans: ['Source Sans Pro', 'Helvetica', 'Arial', 'sans-serif'],
         heading: ['Catamaran', 'Helvetica', 'Arial', 'sans-serif'],
+        code: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace']
       },
     },
   },
