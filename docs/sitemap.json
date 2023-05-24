@@ -307,12 +307,9 @@
     ]
   },
   {
-    "name": "Glossary",
-    "to": "/glossary"
-  },
-  {
-    "name": "FAQ",
-    "to": "/faq"
+    "name": "Changelog",
+    "to": "https://magicbell.to/changelog",
+    "staticRoute": true
   },
   {
     "name": "Playground",
