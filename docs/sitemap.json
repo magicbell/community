@@ -21,10 +21,6 @@
       {
         "name": "View the Logs",
         "to": "/log"
-      },
-      {
-        "name": "Next Steps",
-        "to": "/whats-next"
       }
     ]
   },
