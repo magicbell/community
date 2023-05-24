@@ -1,15 +1,22 @@
 ---
-title: Rest API Overview
-subtitle: Learn how to use the MagicBell REST API
+title: API Overview
+subtitle: The API spec, error codes, rate limits, and other must-know information.
 ---
 
-This section describes the resources that make up the official MagicBell REST
-API. Use it to send notifications to your users and retrieve notifications
-previously sent to a user, change their state, delete them, etc.
+## The Basics
 
-The API is hosted at `https://api.magicbell.com`. It utilizes standard HTTP response codes and returns JSON responses.
+|                |                             |
+| -------------- | --------------------------- |
+| Endpoint       | `https://api.magicbell.com` |
+| `Accept`       | `application/json`          |
+| `Content-Type` | `application/json`          |
 
-The MagicBell REST API is described in an OpenAPI 3.0 document. [Download the OpenAPI Spec from our public repository on Github](https://github.com/magicbell-io/public/blob/main/openapi/spec/openapi.json)
+## API Spec
+
+The MagicBell REST API is described in an OpenAPI 3.0 document, and there are a few ways to use it.
+
+- [Download the OpenAPI Spec](https://github.com/magicbell-io/public/blob/main/openapi/spec/openapi.json)
+- [Use the Postman collection](https://www.postman.com/magicbell-api/workspace/magicbell/collection/2269098-9f990075-94a8-4ded-b252-a5289b6e3a2f)
 
 ## Client errors
 
@@ -68,10 +75,6 @@ axios.post('https://api.magicbell.com/notifications', data, headers).catch((erro
   ErrorTracker.notify(response.data, response.status);
 });
 ```
-
-## Timestamps
-
-All timestamps returned by the REST API are in seconds since the Unix epoch.
 
 ## Rate limiting
 

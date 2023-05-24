@@ -80,5 +80,10 @@
     "source": "/rest-api/authentication",
     "destination": "/api-authentication",
     "permanent": true
+  },
+  {
+    "source": "/graphql-api/reference",
+    "destination": "/graphql-api/overview",
+    "permanent": true
   }
 ]
