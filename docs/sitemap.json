@@ -199,16 +199,7 @@
       },
       {
         "name": "Web Push",
-        "children": [
-          {
-            "name": "Overview",
-            "to": "/web-push"
-          },
-          {
-            "name": "Safari",
-            "to": "/web-push/safari"
-          }
-        ]
+        "to": "/web-push"
       },
       {
         "name": "Mobile Push",
