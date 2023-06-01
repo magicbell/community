@@ -85,5 +85,10 @@
     "source": "/graphql-api/reference",
     "destination": "/graphql-api/overview",
     "permanent": true
+  },
+  {
+    "source": "/web-push/safari",
+    "destination": "/web-push",
+    "permanent": true
   }
 ]

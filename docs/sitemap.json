@@ -199,16 +199,7 @@
       },
       {
         "name": "Web Push",
-        "children": [
-          {
-            "name": "Overview",
-            "to": "/web-push"
-          },
-          {
-            "name": "Safari",
-            "to": "/web-push/safari"
-          }
-        ]
+        "to": "/web-push"
       },
       {
         "name": "Mobile Push",
@@ -320,17 +311,5 @@
     "name": "GitHub Discussions",
     "to": "https://github.com/orgs/magicbell-io/discussions",
     "staticRoute": true
-  },
-  {
-    "name": "Hidden Routes",
-    "hiddenRoute": true,
-    "children": [
-      {
-        "name": "Hello. We're MagicBell!",
-        "icon": "home",
-        "to": "/",
-        "staticRoute": true
-      }
-    ]
   }
 ]
