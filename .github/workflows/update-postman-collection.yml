@@ -35,7 +35,7 @@ jobs:
         # The Postman API for updating a collection requires the postman spec to be in a collection object
         # This command uses jq to add the postman spec to a collection object and outputs that to `postman-spec-in-collection-obj.json` file
       - name: Add Postman Spec to a collection object
-        run: "cd openapi/spec && cat postman-spec.json | jq '{collection: {item: .item}}' > postman-spec-in-collection-obj.json"
+        run: "cd openapi/spec && cat postman-spec.json | jq '{collection: {item: .item, info: .info}}' > postman-spec-in-collection-obj.json"
 
       - name: Update the Postman Collection
         run: |
