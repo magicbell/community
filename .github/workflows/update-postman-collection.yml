@@ -38,10 +38,13 @@ jobs:
         run: "cd openapi/spec && cat postman-spec.json | jq '{collection: {item: .item, info: .info}}' > postman-spec-in-collection-obj.json"
 
       - name: Update the Postman Collection
+        env:
+          POSTMAN_COLLECTION_ID: ${{ vars.POSTMAN_COLLECTION_ID }}
+          POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
         run: |
-          curl --location --request PUT 'https://api.getpostman.com/collections/${{ vars.POSTMAN_COLLECTION_ID }}' \
+          curl --location --request PUT 'https://api.getpostman.com/collections/{{ env.POSTMAN_COLLECTION_ID }}' \
           --header 'Content-Type: application/json' \
-          --header 'X-API-Key: ${{ secrets.POSTMAN_API_KEY }}' \
+          --header 'X-API-Key: {{ env.POSTMAN_API_KEY }}' \
           --data '@openapi/spec/postman-spec-in-collection-obj.json' \
           --fail
 
