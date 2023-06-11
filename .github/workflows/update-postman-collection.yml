@@ -42,7 +42,8 @@ jobs:
           curl --location --request PUT 'https://api.getpostman.com/collections/${{ vars.POSTMAN_COLLECTION_ID }}' \
           --header 'Content-Type: application/json' \
           --header 'X-API-Key: ${{ secrets.POSTMAN_API_KEY }}' \
-          --data '@openapi/spec/postman-spec-in-collection-obj.json'
+          --data '@openapi/spec/postman-spec-in-collection-obj.json' \
+          --fail
 
       # Files Generated during the intermediate steps of converting OpenAPI spec to body for Postman API are stored as artifacts
       # These files can be useful for debugging
