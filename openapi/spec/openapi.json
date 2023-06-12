@@ -28,7 +28,7 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref":  "#/components/schemas/PaginationProps" },
+                    { "$ref": "#/components/schemas/PaginationProps" },
                     {
                       "type": "object",
                       "required": ["broadcasts"],
@@ -114,12 +114,12 @@
                               "id": { "$ref": "#/components/schemas/Notification/properties/id" },
                               "category": { "$ref": "#/components/schemas/Notification/properties/category" },
                               "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
-                              "created_at": { "type": "string", "format": "date-time","nullable": false },
-                              "updated_at": { "type": "string", "format": "date-time","nullable": false },
+                              "created_at": { "type": "string", "format": "date-time", "nullable": false },
+                              "updated_at": { "type": "string", "format": "date-time", "nullable": false },
                               "sent_at": { "type": "string", "format": "date-time", "nullable": true },
                               "read_at": { "type": "string", "format": "date-time", "nullable": true },
                               "seen_at": { "type": "string", "format": "date-time", "nullable": true },
-                              "status": { "type":  "string", "enum": ["unseen", "unread", "read", "archived"] },
+                              "status": { "type": "string", "enum": ["unseen", "unread", "read", "archived"] },
                               "recipient": {
                                 "type": "object",
                                 "properties": {
@@ -129,7 +129,7 @@
                               },
                               "deliveries": {
                                 "type": "array",
-                                "items": { "$ref":  "#/components/schemas/Delivery" },
+                                "items": { "$ref": "#/components/schemas/Delivery" },
                                 "nullable": false
                               }
                             }
@@ -844,7 +844,7 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    { "$ref":  "#/components/schemas/PaginationProps" },
+                    { "$ref": "#/components/schemas/PaginationProps" },
                     {
                       "type": "object",
                       "required": ["users"],
@@ -2233,44 +2233,81 @@
       }
     }
   },
+  "security": [
+    { "ApiKeyAuth": [], "ApiSecretAuth": [] },
+    { "ApiKeyAuth": [], "ApiUserEmailAuth": [], "ApiUserHmacAuth": [] },
+    { "ApiKeyAuth": [], "ApiUserExternalIdAuth": [], "ApiUserHmacAuth": [] }
+  ],
   "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-MAGICBELL-API-KEY",
+        "description": "The API key of your MagicBell project."
+      },
+      "ApiSecretAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-MAGICBELL-API-SECRET",
+        "description": "The API Secret of your MagicBell project."
+      },
+      "ApiUserEmailAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-MAGICBELL-USER-EMAIL",
+        "description": "The email of the user to impersonate."
+      },
+      "ApiUserExternalIdAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-MAGICBELL-USER-EXTERNAL-ID",
+        "description": "The external id of the user to impersonate."
+      },
+      "ApiUserHmacAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-MAGICBELL-USER-HMAC",
+        "description": "The HMAC of the user to impersonate."
+      }
+    },
     "parameters": {
       "x_magicbell_api_key_header": {
         "in": "header",
         "name": "X-MAGICBELL-API-KEY",
-        "schema": { "type": "string" },
+        "schema": { "type": "string", "default": "{{apiKey}}" },
         "required": true,
         "description": "The (public) API key of your MagicBell project."
       },
       "x_magicbell_api_secret_header": {
         "in": "header",
         "name": "X-MAGICBELL-API-SECRET",
-        "schema": { "type": "string" },
+        "schema": { "type": "string", "default": "{{apiSecret}}" },
         "required": true,
         "description": "The API secret of your MagicBell project."
       },
       "x_magicbell_user_email_header": {
         "in": "header",
         "name": "X-MAGICBELL-USER-EMAIL",
-        "schema": { "type": "string" },
+        "schema": { "type": "string", "default": "{{userEmail}}" },
         "description": "Email address of the user. Provide the X-MAGICBELL-USER-EXTERNAL-ID header instead if you identify users by ID."
       },
       "x_magicbell_user_external_id_header": {
         "in": "header",
         "name": "X-MAGICBELL-USER-EXTERNAL-ID",
-        "schema": { "type": "string" },
+        "schema": { "type": "string", "default": "{{userExternalId}}" },
         "description": "ID of the user. Provide the X-MAGICBELL-USER-EMAIL header instead if you identify users by email."
       },
       "x_magicbell_user_hmac_header": {
         "in": "header",
         "name": "X-MAGICBELL-USER-HMAC",
-        "schema": { "type": "string" },
+        "schema": { "type": "string", "default": "{{userHmac}}" },
         "description": "HMAC calculated with the API secret and ID, or email, of the user. Required if the project has HMAC enabled."
       },
       "authorization_header": {
         "in": "header",
         "name": "Authorization",
-        "schema": { "type": "string" },
+        "schema": { "type": "string", "default": "Bearer {{authToken}}" },
         "required": true,
         "description": "The Bearer JWT token of your MagicBell user."
       },
@@ -2807,7 +2844,7 @@
         "required": ["id", "title", "channel", "scheduled_at", "status"],
         "properties": {
           "id": { "type": "string", "nullable": false },
-          "title": { "type":  "string", "nullable": true },
+          "title": { "type": "string", "nullable": true },
           "channel": { "type": "string", "nullable": false },
           "scheduled_at": { "type": "string", "format": "date-time" },
           "status": {
