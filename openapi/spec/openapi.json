@@ -1074,6 +1074,74 @@
         }
       }
     },
+    "/users/{user_id}/notifications": {
+      "get": {
+        "tags": ["Users APIs"],
+        "operationId": "users-notifications-list",
+        "summary": "Fetch notifications by user id.",
+        "description": "Fetch the notifications and deliveries for a user.",
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" },
+          { "$ref": "#/components/parameters/user_id_path_param" },
+          { "$ref": "#/components/parameters/page_query_param" },
+          { "$ref": "#/components/parameters/per_page_query_param" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/PaginationProps" },
+                    {
+                      "type": "object",
+                      "required": ["notifications"],
+                      "properties": {
+                        "notifications": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": ["id", "created_at", "updated_at", "status", "recipient", "deliveries"],
+                            "properties": {
+                              "id": { "$ref": "#/components/schemas/Notification/properties/id" },
+                              "id": { "$ref": "#/components/schemas/Notification/properties/title" },
+                              "category": { "$ref": "#/components/schemas/Notification/properties/category" },
+                              "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
+                              "created_at": { "type": "string", "format": "date-time","nullable": false },
+                              "updated_at": { "type": "string", "format": "date-time","nullable": false },
+                              "sent_at": { "type": "string", "format": "date-time", "nullable": true },
+                              "read_at": { "type": "string", "format": "date-time", "nullable": true },
+                              "seen_at": { "type": "string", "format": "date-time", "nullable": true },
+                              "archived_at": { "type": "string", "format": "date-time", "nullable": true },
+                              "discarded_at": { "type": "string", "format": "date-time", "nullable": true },
+                              "status": { "type":  "string", "enum": ["unseen", "unread", "read", "archived"] },
+                              "recipient": {
+                                "type": "object",
+                                "properties": {
+                                  "user": { "$ref": "#/components/schemas/User", "nullable": false }
+                                },
+                                "nullable": false
+                              },
+                              "deliveries": {
+                                "type": "array",
+                                "items": { "$ref":  "#/components/schemas/Delivery" },
+                                "nullable": false
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/email:{user_email}": {
       "put": {
         "operationId": "users-update-by-email",
