@@ -2115,7 +2115,6 @@
     },
     "/imports": {
       "post": {
-        "x-beta": true,
         "operationId": "imports-create",
         "tags": ["Imports API"],
         "summary": "Create a import",
@@ -2216,7 +2215,6 @@
     },
     "/imports/{import_id}": {
       "get": {
-        "x-beta": true,
         "operationId": "imports-get",
         "tags": ["Imports API"],
         "summary": "Get the status of an import",
