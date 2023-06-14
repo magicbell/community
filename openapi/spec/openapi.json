@@ -2299,6 +2299,81 @@
           }
         }
       }
+    },
+    "/metrics": {
+      "get": {
+        "operationId": "metrics-get",
+        "tags": ["Metrics API"],
+        "summary": "Get notification metrics",
+        "description": "Query the metrics of notification broadcasts and their recipients.",
+        "parameters": [
+          { "$ref": "#/components/parameters/import_id" },
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Metrics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/categories": {
+      "get": {
+        "operationId": "metrics-categories-get",
+        "tags": ["Metrics API"],
+        "summary": "Get notification metrics grouped by category",
+        "description": "Query the metrics of notification broadcasts and their recipients, grouped by category.",
+        "parameters": [
+          { "$ref": "#/components/parameters/import_id" },
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Metrics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics/topics": {
+      "get": {
+        "operationId": "metrics-topics-get",
+        "tags": ["Metrics API"],
+        "summary": "Get notification metrics grouped by topic",
+        "description": "Query the metrics of notification broadcasts and their recipients, grouped by topic.",
+        "parameters": [
+          { "$ref": "#/components/parameters/import_id" },
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_api_secret_header" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Metrics"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "security": [
@@ -3417,6 +3492,76 @@
             "type": "string",
             "description": "The identifying external_id of the recipient.",
             "nullable": false
+          }
+        }
+      },
+      "Metrics": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["metrics", "labels", "schema"],
+        "properties": {
+          "metrics": {
+            "type": "array",
+            "nullable": false,
+            "items": {
+              "type": "array",
+                "items": {
+                    "type": "integer"
+                }
+            }
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "schema": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["metric", "label"],
+            "properties": {
+              "metric": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["entity", "operation"],
+                  "properties": {
+                    "entity": {
+                      "type": "string"
+                    },
+                    "operation": {
+                      "type": "string",
+                      "enum": [
+                        "count",
+                        "avg",
+                        "sum",
+                        "min",
+                        "max"
+                      ]
+                    }
+                  }
+                }
+              },
+              "label": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["name", "type"],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "timestamp",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            }
           }
         }
       }
