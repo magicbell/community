@@ -3555,7 +3555,8 @@
                   "type": {
                     "type": "string",
                     "enum": [
-                      "timestamp"
+                      "timestamp",
+                      "string"
                     ]
                   }
                 }
