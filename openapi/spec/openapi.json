@@ -10,7 +10,6 @@
   "paths": {
     "/broadcasts": {
       "get": {
-        "x-beta": true,
         "tags": ["Notification Broadcasts APIs"],
         "operationId": "broadcasts-list",
         "summary": "List notification broadcasts",
@@ -49,7 +48,6 @@
     },
     "/broadcasts/{broadcast_id}": {
       "get": {
-        "x-beta": true,
         "tags": ["Notification Broadcasts APIs"],
         "operationId": "broadcasts-get",
         "summary": "Fetch a notification broadcast by its ID",
@@ -81,7 +79,6 @@
     },
     "/broadcasts/{broadcast_id}/notifications": {
       "get": {
-        "x-beta": true,
         "tags": ["Notification Broadcasts APIs"],
         "operationId": "broadcasts-notifications-list",
         "summary": "Fetch notifications by broadcast id.",
