@@ -14,6 +14,7 @@ import { setTimeout } from 'timers/promises';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 const specFile = argv.spec || process.env.INPUT_SPEC || 'spec/openapi.json';
+const serverUrl = argv.server || process.env.SERVER_URL;
 
 const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
@@ -84,7 +85,7 @@ async function request(
   }
 
   const config: AxiosRequestConfig = {
-    baseURL: process.env.SERVER_URL,
+    baseURL: serverUrl,
     method,
     url: operation.path,
     validateStatus: () => true,
@@ -294,11 +295,11 @@ async function main() {
     throw new Error('Please set the API_KEY, API_SECRET and USER_EMAIL environment variables to run the smoke tests');
   }
 
-  if (!process.env.SERVER_URL) {
+  if (!serverUrl) {
     throw new Error('Please set the SERVER_URL environment variable to run the smoke tests');
   }
 
-  console.log(`Running smoke tests against ${process.env.SERVER_URL.split('.').join('_')}`);
+  console.log(`Running smoke tests against ${serverUrl.split('.').join('_')}`);
 
   const newNotificationIds = await Promise.all(
     Array.from({ length: CREATE_NOTIFICATIONS_COUNT }).map(() =>
