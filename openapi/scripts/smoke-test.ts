@@ -16,6 +16,29 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 const specFile = argv.spec || process.env.INPUT_SPEC || 'spec/openapi.json';
 const serverUrl = argv.server || process.env.SERVER_URL;
 
+if (argv.help) {
+  console.log(
+    `
+    Usage: 
+      tsx scripts/smoke-test.ts [--spec <path>] [--server <url>] [--op <operation>]'
+    
+    Options:
+      --spec <path>     Path to OpenAPI spec file (default: 'spec/openapi.json')
+      --server <url>    URL of server to test (default: process.env.SERVER_URL)
+      --op <operation>  Test only the specified operation (default: test all operations)
+    
+    Examples:
+      tsx scripts/smoke-test.ts --spec spec/openapi.json
+      tsx scripts/smoke-test.ts --op users-list
+      tsx scripts/smoke-test.ts --op users-list --server http://api-review-url.example.com
+  `
+      .replace(/^ {4}/gm, '')
+      .trim() + '\n',
+  );
+
+  process.exit(0);
+}
+
 const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
 
