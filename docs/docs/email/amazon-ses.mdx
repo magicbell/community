@@ -34,13 +34,12 @@ Once your account is set up, MagicBell will automatically deliver email notifica
 
 ## Provider Overrides
 
-Our [create notifications endpoint](/docs/rest-api/reference#create-notification) allows you to customize the payload sent to SES by setting [`notification.overrides`](/docs/overrides).
+The [create notifications endpoint](/docs/rest-api/reference#create-notification) allows you to customize the payload sent to SES by [adding a provider-specific override](/docs/overrides).
 
-The `notification.overrides.amazon_ses` parameter accepts all the body parameters of [SES SendEmail API](https://docs.aws.amazon.com/ses/latest/APIReference/API_SendEmail.html).
+The `notification.overrides.providers.amazon_ses` parameter accepts all the body parameters of [SES SendEmail API](https://docs.aws.amazon.com/ses/latest/APIReference/API_SendEmail.html).
+Please keep in the correct capitalization of the parameters.
 
-Provider-specific parameters in `notification.overrides` take precedence over the ones specified in `notification`.
-
-## Example: Set a Source
+## Example: Set a Source for Amazon SES SendEmail API
 
 <Snippets
   params={{
