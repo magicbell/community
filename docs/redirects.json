@@ -57,6 +57,11 @@
     "permanent": true
   },
   {
+    "source": "/segments",
+    "destination": "/",
+    "permanent": true
+  },
+  {
     "source": "/smart-notifications",
     "destination": "/smart-delivery",
     "permanent": true
