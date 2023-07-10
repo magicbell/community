@@ -1466,6 +1466,63 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": ["Subscription to push notifications APIs"],
+        "summary": "List user's device tokens",
+        "description": "Returns the list of device tokens registered for push notifications.",
+        "operationId": "push-subscriptions-list",
+        "parameters": [
+          { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
+          { "$ref": "#/components/parameters/x_magicbell_user_external_id_header" },
+          { "$ref": "#/components/parameters/x_magicbell_user_email_header" },
+          { "$ref": "#/components/parameters/x_magicbell_user_hmac_header" }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedPushSubscriptions"
+                },
+                "example": {
+                  "current_page": 1,
+                  "per_page": 10,
+                  "total_pages": 1,
+                  "total_count": 1,
+                  "push_subscriptions": [
+                    {
+                      "id": "f80a7574-b309-4395-bb26-c503fe697d52",
+                      "user_id": "7fb3ce9f-a866-4dff-8ce8-2f64f7c5ed4c",
+                      "device_token": "x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV",
+                      "platform": "ios",
+                      "created_at": "2021-03-01T12:00:00.000Z",
+                      "discarded_at": ""
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "example": {
+                    "errors": [
+                        {
+                            "code": "user_not_found",
+                            "message": "User not found",
+                            "suggestion": "Please provide the correct 'X-MAGICBELL-USER-EMAIL' or 'X-MAGICBELL-USER-EXTERNAL-ID' header to identify the user.",
+                            "help_link": "https://magicbell.com/docs/rest-api/authentication"
+                        }
+                    ]
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/push_subscriptions/{device_token}": {
