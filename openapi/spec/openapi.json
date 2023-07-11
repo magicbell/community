@@ -9,6 +9,7 @@
   ],
   "paths": {
     "/broadcasts": {
+      "summary": "Manage notification broadcasts",
       "get": {
         "tags": ["Notification Broadcasts APIs"],
         "operationId": "broadcasts-list",
@@ -143,6 +144,7 @@
       }
     },
     "/notifications": {
+      "summary": "Manage user notifications",
       "post": {
         "operationId": "notifications-create",
         "tags": ["Notification Send API", "real-time"],
@@ -706,6 +708,7 @@
       }
     },
     "/users": {
+      "summary": "Manage users",
       "post": {
         "operationId": "users-create",
         "tags": ["Users APIs"],
@@ -1388,6 +1391,7 @@
       }
     },
     "/push_subscriptions": {
+      "summary": "Manage user push subscriptions",
       "post": {
         "tags": ["Subscription to push notifications APIs"],
         "summary": "Register a device token for a user",
@@ -1619,6 +1623,7 @@
       }
     },
     "/notification_preferences": {
+      "summary": "Manage user notification preferences",
       "get": {
         "parameters": [
           { "$ref": "#/components/parameters/x_magicbell_api_key_header" },
@@ -1789,6 +1794,7 @@
       }
     },
     "/subscriptions": {
+      "summary": "Manage user subscriptions",
       "get": {
         "operationId": "subscriptions-list",
         "tags": ["Subscription API"],
@@ -2171,6 +2177,7 @@
       }
     },
     "/imports": {
+      "summary": "Manage imports",
       "post": {
         "operationId": "imports-create",
         "tags": ["Imports API"],
@@ -2351,6 +2358,7 @@
       }
     },
     "/metrics": {
+      "summary": "Manage metrics",
       "get": {
         "operationId": "metrics-get",
         "tags": ["Metrics API"],
