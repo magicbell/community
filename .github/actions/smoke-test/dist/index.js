@@ -83909,6 +83909,26 @@ const promises_namespaceObject = __WEBPACK_EXTERNAL_createRequire(import.meta.ur
 
 main.config({ path: __nccwpck_require__.ab + ".env" });
 const specFile = argv.spec || process.env.INPUT_SPEC || 'spec/openapi.json';
+const serverUrl = argv.server || process.env.SERVER_URL;
+if (argv.help) {
+    console.log(`
+    Usage: 
+      tsx scripts/smoke-test.ts [--spec <path>] [--server <url>] [--op <operation>]'
+    
+    Options:
+      --spec <path>     Path to OpenAPI spec file (default: 'spec/openapi.json')
+      --server <url>    URL of server to test (default: process.env.SERVER_URL)
+      --op <operation>  Test only the specified operation (default: test all operations)
+    
+    Examples:
+      tsx scripts/smoke-test.ts --spec spec/openapi.json
+      tsx scripts/smoke-test.ts --op users-list
+      tsx scripts/smoke-test.ts --op users-list --server http://api-review-url.example.com
+  `
+        .replace(/^ {4}/gm, '')
+        .trim() + '\n');
+    process.exit(0);
+}
 const smoke_test_ajv = new (ajv_default())({ allErrors: true, strict: false });
 dist_default()(smoke_test_ajv);
 const URL_PARAM_VALUES = {
@@ -83923,6 +83943,8 @@ function getOperations(document) {
     for (const path of Object.keys(document.paths)) {
         for (const method of Object.keys(document.paths[path])) {
             const operation = document.paths[path][method];
+            if (!operation.operationId)
+                continue;
             methods.push(Object.assign(operation, { path, method }));
         }
     }
@@ -83957,7 +83979,7 @@ async function request(operation, type, params = {}) {
         headers['origin'] = 'https://magicbell-smoke-test.example.com';
     }
     const config = {
-        baseURL: process.env.SERVER_URL,
+        baseURL: serverUrl,
         method,
         url: operation.path,
         validateStatus: () => true,
@@ -84129,10 +84151,10 @@ async function smoke_test_main() {
     if (!process.env.API_KEY || !process.env.API_SECRET || !process.env.USER_EMAIL) {
         throw new Error('Please set the API_KEY, API_SECRET and USER_EMAIL environment variables to run the smoke tests');
     }
-    if (!process.env.SERVER_URL) {
+    if (!serverUrl) {
         throw new Error('Please set the SERVER_URL environment variable to run the smoke tests');
     }
-    console.log(`Running smoke tests against ${process.env.SERVER_URL.split('.').join('_')}`);
+    console.log(`Running smoke tests against ${serverUrl.split('.').join('_')}`);
     const newNotificationIds = await Promise.all(Array.from({ length: CREATE_NOTIFICATIONS_COUNT }).map(() => request(operations.find((x) => x.operationId === 'notifications-create'), 'authenticated').then((x) => x.data)));
     if (newNotificationIds.length === 0) {
         throw new Error('Failed to create new notifications during test setup');
@@ -84140,7 +84162,7 @@ async function smoke_test_main() {
     // As the created notifications are processes via an (async) job runner, we might need to try fetching them a few times.
     for (let attempt = 1; attempt <= MAX_SETUP_ATTEMPTS; attempt++) {
         if (URL_PARAM_VALUES.broadcast_id.length === 0) {
-            URL_PARAM_VALUES.broadcast_id = await request(operations.find((x) => x.operationId === 'broadcasts-list'), 'authenticated', { per_page: 50 }).then((x) => x.data.broadcasts.filter((x) => x.status !== 'enqueued').map((x) => x.id));
+            URL_PARAM_VALUES.broadcast_id = await request(operations.find((x) => x.operationId === 'broadcasts-list'), 'authenticated', { per_page: 50 }).then((x) => (x.data.broadcasts || []).filter((x) => x.status !== 'enqueued').map((x) => x.id));
         }
         let broadcastsReady = false;
         // it takes a while before the notifications are added to the broadcast
@@ -84151,7 +84173,7 @@ async function smoke_test_main() {
             });
         }
         if (URL_PARAM_VALUES.notification_id.length === 0) {
-            URL_PARAM_VALUES.notification_id = await request(operations.find((x) => x.operationId === 'notifications-list'), 'authenticated', { per_page: 50 }).then((x) => x.data.notifications.map((x) => x.id));
+            URL_PARAM_VALUES.notification_id = await request(operations.find((x) => x.operationId === 'notifications-list'), 'authenticated', { per_page: 50 }).then((x) => (x.data.notifications || []).map((x) => x.id));
         }
         // end the loop when we have enough notifications
         if (broadcastsReady &&
