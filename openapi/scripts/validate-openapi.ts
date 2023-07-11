@@ -36,9 +36,18 @@ function assertUniqueOperationIds() {
   }
 }
 
+const httpMethods = Object.values(OpenAPIV3.HttpMethods);
+
+function isOperationObject(key: string, value: any): value is OpenAPIV3.OperationObject {
+  return httpMethods.includes(key as OpenAPIV3.HttpMethods);
+}
+
 function assertOperationIdsMatchConvention() {
   for (const [path, pathObj] of Object.entries(api.paths)) {
     for (const [method, operation] of Object.entries<OpenAPIV3.OperationObject>(pathObj)) {
+      // only validate operations
+      if (!isOperationObject(method, operation)) continue;
+
       const operationId = operation.operationId;
       if (!operationId) {
         errors.push(`Operation ID is missing for ${path}/${method}.`);
@@ -55,6 +64,17 @@ function assertOperationIdsMatchConvention() {
       if (!isNamespaced || repeatsEntity) {
         errors.push(`Operation ID "${operationId}" does not follow the convention of {namespace}-{method-name}.`);
       }
+    }
+  }
+}
+
+function assertPathItemHasSummary() {
+  for (const [path, pathObj] of Object.entries(api.paths)) {
+    const depth = path.split('/').filter(Boolean).length;
+
+    // only validate top-level paths, for nested paths summary is optional
+    if (depth === 1 && !pathObj.summary) {
+      errors.push(`Summary is missing for "${path}".`);
     }
   }
 }
@@ -94,6 +114,7 @@ function assertPathsMatchConvention() {
   }
 }
 
+assertPathItemHasSummary();
 assertUniqueOperationIds();
 assertOperationIdsMatchConvention();
 assertExamplesMatchSchema();
