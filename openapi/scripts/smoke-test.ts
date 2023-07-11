@@ -62,6 +62,7 @@ function getOperations(document: OpenAPIV3.Document) {
   for (const path of Object.keys(document.paths)) {
     for (const method of Object.keys(document.paths[path])) {
       const operation = document.paths[path][method] as OpenAPIV3.OperationObject;
+      if (!operation.operationId) continue;
       methods.push(Object.assign(operation, { path, method }));
     }
   }
@@ -344,7 +345,7 @@ async function main() {
         operations.find((x) => x.operationId === 'broadcasts-list'),
         'authenticated',
         { per_page: 50 },
-      ).then((x) => x.data.broadcasts.filter((x) => x.status !== 'enqueued').map((x) => x.id));
+      ).then((x) => (x.data.broadcasts || []).filter((x) => x.status !== 'enqueued').map((x) => x.id));
     }
 
     let broadcastsReady = false;
@@ -361,7 +362,7 @@ async function main() {
         operations.find((x) => x.operationId === 'notifications-list'),
         'authenticated',
         { per_page: 50 },
-      ).then((x) => x.data.notifications.map((x) => x.id));
+      ).then((x) => (x.data.notifications || []).map((x) => x.id));
     }
 
     // end the loop when we have enough notifications

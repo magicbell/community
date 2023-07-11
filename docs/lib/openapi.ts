@@ -40,12 +40,14 @@ export function getApiLinks(spec: OpenAPIV3.Document) {
   return Object.keys(spec.paths).flatMap((pathName) => {
     const path = spec.paths[pathName as keyof typeof spec.paths] || {};
 
-    return Object.keys(path).map((method) => {
-      const { operationId, summary } = path[
-        method as keyof typeof path
-      ] as OpenAPIV3.OperationObject;
+    return Object.keys(path)
+      .map((method) => {
+        const { operationId, summary } = path[
+          method as keyof typeof path
+        ] as OpenAPIV3.OperationObject;
 
-      return { path: pathName, method, operationId, summary };
-    });
+        return { path: pathName, method, operationId, summary };
+      })
+      .filter((x) => x.operationId);
   });
 }
