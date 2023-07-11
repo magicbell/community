@@ -17,4 +17,5 @@ runs:
         node-version: ${{ inputs.node-version }}
 
     - name: Download deps
-      uses: bahmutov/npm-install@v1
+      uses: u0reo/npm-install@fix/restore-failure
+#     uses: bahmutov/npm-install@v1
