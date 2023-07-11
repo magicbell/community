@@ -62,6 +62,7 @@ function getOperations(document: OpenAPIV3.Document) {
   for (const path of Object.keys(document.paths)) {
     for (const method of Object.keys(document.paths[path])) {
       const operation = document.paths[path][method] as OpenAPIV3.OperationObject;
+      if (!operation.operationId) continue;
       methods.push(Object.assign(operation, { path, method }));
     }
   }
