@@ -1390,6 +1390,7 @@
         }
       }
     },
+    "/web_push_subscriptions?access_token={token}&project={project}": {},
     "/push_subscriptions": {
       "summary": "Manage user push subscriptions",
       "post": {
