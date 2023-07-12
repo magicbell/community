@@ -101,13 +101,6 @@ async function request(
     headers['origin'] = 'https://magicbell-smoke-test.example.com';
   }
 
-  if (type === 'preflight') {
-    headers['access-control-request-method'] = operation.method;
-    headers['access-control-request-headers'] =
-      'content-type, origin, x-magicbell-api-key, x-magicbell-user-email, x-magicbell-user-hmac';
-    headers['origin'] = 'https://magicbell-smoke-test.example.com';
-  }
-
   const config: AxiosRequestConfig = {
     baseURL: serverUrl,
     method,
@@ -122,6 +115,14 @@ async function request(
     },
     params,
   };
+
+  if (type === 'preflight') {
+    config.headers['access-control-request-method'] = operation.method;
+    config.headers['access-control-request-headers'] =
+      'content-type, origin, x-magicbell-api-key, x-magicbell-user-email, x-magicbell-user-hmac';
+    config.headers['origin'] = 'https://magicbell-smoke-test.example.com';
+    delete config.data;
+  }
 
   const response = await axios.request(config).catch((e) => {
     console.log(`ERROR: request ${config.method} ${config.url} resulted in a network error:`, {
