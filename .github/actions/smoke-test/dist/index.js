@@ -83950,12 +83950,23 @@ function getOperations(document) {
     }
     return methods;
 }
+const headerMaskMap = {
+    'X-MAGICBELL-API-KEY': '$MAGICBELL_API_KEY',
+    'X-MAGICBELL-API-SECRET': '$MAGICBELL_API_SECRET',
+    'X-MAGICBELL-USER-EMAIL': '$MAGICBELL_USER_EMAIL',
+    'X-MAGICBELL-USER-EXTERNAL-ID': '$MAGICBELL_USER_EXTERNAL_ID',
+    'X-MAGICBELL-USER-HMAC': '$MAGICBELL_USER_HMAC',
+};
 function toCurl({ method, baseURL, url, data, headers }) {
     return [
         `curl -X ${method.toUpperCase()}`,
         `${baseURL}/${url.replace(/^\//, '')}`,
         Object.entries(headers)
-            .map(([key, value]) => `-H '${key}: ${value}'`)
+            .map(([key, value]) => {
+            // only replace the value with an env key if the header has a value, otherwise we can't debug missing headers.
+            value = value ? headerMaskMap[key.toUpperCase()] || value : value;
+            return `-H "${key}: ${value}"`;
+        })
             .join(' '),
         data && `-d '${JSON.stringify(data)}'`,
     ].join(' ');
