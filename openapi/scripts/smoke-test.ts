@@ -70,12 +70,24 @@ function getOperations(document: OpenAPIV3.Document) {
   return methods;
 }
 
+const headerMaskMap = {
+  'X-MAGICBELL-API-KEY': '$MAGICBELL_API_KEY',
+  'X-MAGICBELL-API-SECRET': '$MAGICBELL_API_SECRET',
+  'X-MAGICBELL-USER-EMAIL': '$MAGICBELL_USER_EMAIL',
+  'X-MAGICBELL-USER-EXTERNAL-ID': '$MAGICBELL_USER_EXTERNAL_ID',
+  'X-MAGICBELL-USER-HMAC': '$MAGICBELL_USER_HMAC',
+};
+
 function toCurl({ method, baseURL, url, data, headers }: AxiosRequestConfig) {
   return [
     `curl -X ${method.toUpperCase()}`,
     `${baseURL}/${url.replace(/^\//, '')}`,
     Object.entries(headers)
-      .map(([key, value]) => `-H '${key}: ${value}'`)
+      .map(([key, value]) => {
+        // only replace the value with an env key if the header has a value, otherwise we can't debug missing headers.
+        value = value ? headerMaskMap[key.toUpperCase()] || value : value;
+        return `-H "${key}: ${value}"`;
+      })
       .join(' '),
     data && `-d '${JSON.stringify(data)}'`,
   ].join(' ');
@@ -136,7 +148,7 @@ async function request(
   const duration = Date.now() - start;
   const error = response.data?.errors?.[0]?.message;
 
-  return Object.assign(response, { duration, config: config, error });
+  return Object.assign(response, { duration, config, error });
 }
 
 function getByJsonPointer(obj: Record<string, unknown>, path: string) {
@@ -217,8 +229,10 @@ function createTests(operations: Operation[]) {
 
     list.add({
       title: 'HTTP 401: request without authentication headers return 401 unauthorized',
-      task: async () => {
+      task: async function () {
         const res = await request(operation, 'no-headers');
+        this.requestConfig = res.config;
+
         expect(res.status, res.error).equal(401);
         expect(res.duration).lessThan(5000);
       },
@@ -226,8 +240,10 @@ function createTests(operations: Operation[]) {
 
     list.add({
       title: 'HTTP 401: request with invalid auth headers returns 401 unauthorized',
-      task: async () => {
+      task: async function () {
         const res = await request(operation, 'invalid-auth');
+        this.requestConfig = res.config;
+
         expect(res.status, res.error).equal(401);
         expect(res.duration).lessThan(5000);
       },
@@ -247,10 +263,12 @@ function createTests(operations: Operation[]) {
     list.add({
       title: `HTTP ${code}: request with valid api key and payload returns expected response`,
       skip: () => shouldSkip,
-      task: async () => {
+      task: async function () {
         operation.path = getUrl(path);
 
         const res = await request(operation, 'authenticated');
+        this.requestConfig = res.config;
+
         expect(res.status, res.error).equal(code);
         expect(res.duration).lessThan(5000);
 
@@ -290,9 +308,11 @@ function createTests(operations: Operation[]) {
       list.add({
         title: `HTTP 200: options request returns cors headers`,
         skip: () => shouldSkip,
-        task: async () => {
+        task: async function () {
           operation.path = getUrl(path);
           const res = await request(operation, 'preflight');
+          this.requestConfig = res.config;
+
           expect(res.status, res.error).equal(200);
           expect(res.duration).lessThan(5000);
 
@@ -412,6 +432,9 @@ async function main() {
     console.log(`${chalk.red('✖')} ${err.task.listr.parentTask.title}`);
     console.log(`  ${chalk.red('✖')} ${err.task.title}`);
     console.log(`    error: ${err.message}`);
+    if ('requestConfig' in err.task) {
+      console.log(`    request: ${toCurl(err.task.requestConfig)}`);
+    }
   }
 
   process.exit(1);
