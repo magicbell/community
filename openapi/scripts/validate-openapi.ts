@@ -79,21 +79,63 @@ function assertPathItemHasSummary() {
   }
 }
 
-function assertExamplesMatchSchema() {
+function assertRequestExamplesMatchSchema() {
   for (const [_path, pathObj] of Object.entries(api.paths)) {
     for (const [_method, operation] of Object.entries<OpenAPIV3.OperationObject>(pathObj)) {
       if (!operation.requestBody || !('content' in operation.requestBody)) continue;
 
       const content = operation.requestBody.content?.['application/json'];
-      if (!content.example) continue;
+      if (!content.example) {
+        errors.push(`Request example for ${operation.operationId} is missing.`);
+        continue;
+      }
 
       const valid = ajv.validate(content.schema, content.example);
       if (!valid) {
         errors.push(
-          `Example for ${operation.operationId} does not match schema, ${ajv.errors
+          `Request example for ${operation.operationId} does not match schema, ${ajv.errors
             ?.map((e) => `field '${e.keyword}' ${e.message} (path ${e.instancePath})`)
             .join(', ')}`,
         );
+      }
+    }
+  }
+}
+
+function assertResponseExamplesMatchSchema() {
+  for (const [_path, pathObj] of Object.entries(api.paths)) {
+    for (const [_method, operation] of Object.entries<OpenAPIV3.OperationObject>(pathObj)) {
+      if (!operation.responses) continue;
+
+      for (const [statusCode, response] of Object.entries(operation.responses)) {
+        const content = (response as OpenAPIV3.ResponseObject).content?.['application/json'];
+
+        // some status codes don't have content
+        if (!content && ['204', '404'].includes(statusCode)) continue;
+
+        if (!content) {
+          errors.push(`Response for ${operation.operationId} (${statusCode}) is missing content.`);
+          continue;
+        }
+
+        if (!content.example) {
+          errors.push(`Response for ${operation.operationId} (${statusCode}) is missing example.`);
+          continue;
+        }
+
+        if (!content.schema) {
+          errors.push(`Response for ${operation.operationId} (${statusCode}) is missing schema.`);
+          continue;
+        }
+
+        const valid = ajv.validate(content.schema, content.example);
+        if (!valid) {
+          errors.push(
+            `Response example for ${operation.operationId} (${statusCode}) does not match schema, ${ajv.errors
+              ?.map((e) => `field '${e.keyword}' ${e.message} (path ${e.instancePath})`)
+              .join(', ')}`,
+          );
+        }
       }
     }
   }
@@ -117,11 +159,17 @@ function assertPathsMatchConvention() {
 assertPathItemHasSummary();
 assertUniqueOperationIds();
 assertOperationIdsMatchConvention();
-assertExamplesMatchSchema();
+assertRequestExamplesMatchSchema();
+assertResponseExamplesMatchSchema();
 assertPathsMatchConvention();
 
 for (const error of errors) {
   console.log(chalk.redBright(error));
+}
+
+if (errors.length) {
+  console.log('');
+  console.log(chalk.redBright(`Found ${errors.length} errors.`));
 }
 
 process.exit(errors.length ? 1 : 0);
