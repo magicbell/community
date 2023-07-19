@@ -2153,13 +2153,22 @@
                     }
                   }
                 }
+              },
+              "example":{
+                "categories": [
+                  {
+                    "slug": "comments"
+                  }, {
+                    "slug": "likes"
+                  }
+                ]
               }
             }
           }
         },
         "responses": {
           "204": { "description": "Topic subscription delete successfully" },
-          "404": {
+          "422": {
             "description": "Topic subscription not found",
             "content": {
               "application/json": {
@@ -2169,6 +2178,16 @@
                       "message": "Couldn't find a user's subscription matching the criteria"
                     }
                   ]
+                },
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "description": "List of validation errors"
+                    }
+                  }
                 }
               }
             }
