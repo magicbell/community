@@ -470,7 +470,7 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": { "description": "User notification delete successfully" },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
@@ -493,9 +493,7 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": {
-            "description": "User notification marked as read"
-          },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
@@ -518,9 +516,7 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": {
-            "description": "User notification marked as unread"
-          },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
@@ -543,9 +539,7 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": {
-            "description": "User notification marked as archived"
-          },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
@@ -566,9 +560,7 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": {
-            "description": "User notification marked as unarchived"
-          },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
@@ -595,9 +587,7 @@
           { "$ref": "#/components/parameters/topics_query_param" }
         ],
         "responses": {
-          "204": {
-            "description": "All notifications of the user marked as read"
-          }
+          "204": { "$ref":  "#/components/responses/NoContent" }
         }
       }
     },
@@ -623,9 +613,7 @@
           { "$ref": "#/components/parameters/topics_query_param" }
         ],
         "responses": {
-          "204": {
-            "description": "All notifications of the user marked as seen"
-          }
+          "204": { "$ref":  "#/components/responses/NoContent" }
         }
       }
     },
@@ -952,7 +940,7 @@
           }
         ],
         "responses": {
-          "204": { "description": "OK" },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
@@ -1118,7 +1106,7 @@
           }
         ],
         "responses": {
-          "204": { "description": "OK" },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
@@ -1216,7 +1204,7 @@
           }
         ],
         "responses": {
-          "204": { "description": "OK" },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
@@ -1374,7 +1362,7 @@
           { "$ref": "#/components/parameters/device_token_path_param" }
         ],
         "responses": {
-          "204": { "description": "Subscription delete successfully" },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
@@ -1435,7 +1423,7 @@
         "description": "Delete a user's push subscriptions. Identifies the user by the user's ID and the push subscription by the subscription's ID. ",
         "operationId": "users-push-subscriptions-delete",
         "responses": {
-          "204": { "description": "Subscription delete successfully" },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
@@ -1935,7 +1923,7 @@
           }
         },
         "responses": {
-          "204": { "description": "Topic subscription delete successfully" },
+          "204": { "$ref":  "#/components/responses/NoContent" },
           "422": {
             "description": "Topic subscription not found",
             "content": {
@@ -2428,6 +2416,9 @@
             }
           }
         }
+      },
+      "NoContent": {
+        "description": "The request was successful and the response body is empty"
       }
     },
     "schemas": {
