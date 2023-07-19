@@ -65,7 +65,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["broadcasts"],
+                  "required": ["broadcast"],
                   "properties": {
                     "broadcast": {
                       "$ref": "#/components/schemas/Broadcast"
