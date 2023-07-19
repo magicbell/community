@@ -450,20 +450,7 @@
               }
             }
           },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -484,20 +471,7 @@
         ],
         "responses": {
           "204": { "description": "User notification delete successfully" },
-          "404": {
-            "description": "User notification not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
     },
@@ -522,20 +496,7 @@
           "204": {
             "description": "User notification marked as read"
           },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification_read with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
     },
@@ -560,20 +521,7 @@
           "204": {
             "description": "User notification marked as unread"
           },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification_read with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
     },
@@ -598,20 +546,7 @@
           "204": {
             "description": "User notification marked as archived"
           },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification_archive with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -634,20 +569,7 @@
           "204": {
             "description": "User notification marked as unarchived"
           },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification_archive with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
     },
@@ -944,20 +866,7 @@
               }
             }
           },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist for the project"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
       "put": {
@@ -1023,20 +932,7 @@
               }
             }
           },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -1057,20 +953,7 @@
         ],
         "responses": {
           "204": { "description": "OK" },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
     },
@@ -1216,20 +1099,7 @@
               }
             }
           },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -1249,20 +1119,7 @@
         ],
         "responses": {
           "204": { "description": "OK" },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
     },
@@ -1340,20 +1197,7 @@
               }
             }
           },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -1373,20 +1217,7 @@
         ],
         "responses": {
           "204": { "description": "OK" },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1544,20 +1375,7 @@
         ],
         "responses": {
           "204": { "description": "Subscription delete successfully" },
-          "404": {
-            "description": "The device token was not registered",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "No subscription with the provided device token was found"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1618,7 +1436,7 @@
         "operationId": "users-push-subscriptions-delete",
         "responses": {
           "204": { "description": "Subscription delete successfully" },
-          "404": { "description": "User or subscription not found" }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
     },
@@ -1775,21 +1593,7 @@
               }
             }
           },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "code": "no_user_with_provided_email",
-                      "message": "A user with the email was not found in project with this API key"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
     },
@@ -2019,20 +1823,7 @@
               }
             }
           },
-          "404": {
-            "description": "Topic subscription not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Couldn't find a user's subscription matching the criteria"
-                    }
-                  ]
-                }
-              }
-            }
-          },
+          "404": { "$ref" : "#/components/responses/NotFound" },
           "422": {
             "description": "Invalid data",
             "content": {
@@ -2096,30 +1887,7 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Couldn't find topic: comments"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -2359,20 +2127,7 @@
               }
             }
           },
-          "404": {
-            "description": "The import is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "An import with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref" : "#/components/responses/NotFound" }
         }
       }
     },
@@ -2656,7 +2411,49 @@
         "schema": { "type": "string" }
       }
     },
+    "responses": {
+      "NotFound": {
+        "description": "The specified resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorArray"
+            },
+            "example": {
+              "errors": [
+                {
+                  "message": "A resource with the the given id doesn't exist"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
     "schemas": {
+      "Error": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "message": {
+            "nullable": false,
+            "type": "string",
+            "description": "The error message"
+          }
+        }
+      },
+      "ErrorArray": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
       "CategoryChannels": {
         "type": "object",
         "additionalProperties": false,
