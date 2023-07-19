@@ -347,33 +347,7 @@
               }
             }
           },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'notification.title' is missing"
-                    },
-                    {
-                      "message": "Param 'notification.recipients' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       },
       "get": {
@@ -1015,20 +989,7 @@
               }
             }
           },
-          "422": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'notification_preferences.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          },
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
@@ -1182,20 +1143,7 @@
               }
             }
           },
-          "422": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'notification_preferences.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          },
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
@@ -1280,20 +1228,7 @@
               }
             }
           },
-          "422": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'notification_preferences.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          },
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
           "404": { "$ref" : "#/components/responses/NotFound" }
         }
       },
@@ -1374,29 +1309,7 @@
               }
             }
           },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    { "message": "Param 'push_subscription.device_token' is missing" },
-                    { "message": "Param 'push_subscription.platform' is missing" }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       },
       "get": {
@@ -1838,33 +1751,7 @@
               }
             }
           },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'subscription.topic' is missing"
-                    },
-                    {
-                      "message": "Param 'subscription.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
     },
@@ -1921,30 +1808,7 @@
             }
           },
           "404": { "$ref" : "#/components/responses/NotFound" },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'subscription.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
     },
@@ -2034,30 +1898,7 @@
         },
         "responses": {
           "204": { "$ref":  "#/components/responses/NoContent" },
-          "422": {
-            "description": "Topic subscription not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Couldn't find a user's subscription matching the criteria"
-                    }
-                  ]
-                },
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
     },
@@ -2135,30 +1976,7 @@
               }
             }
           },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'import.users' must be filled"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
     },
