@@ -886,20 +886,7 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'user' must have an external id or an email so MagicBell can uniquely identify the user"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "400": { "$ref" : "#/components/responses/BadRequest" }
         }
       }
     },
