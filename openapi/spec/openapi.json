@@ -885,8 +885,7 @@
                 }
               }
             }
-          },
-          "400": { "$ref" : "#/components/responses/BadRequest" }
+          }
         }
       }
     },
@@ -1337,23 +1336,7 @@
               }
             }
           },
-          "401": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                    "errors": [
-                        {
-                            "code": "user_not_found",
-                            "message": "User not found",
-                            "suggestion": "Please provide the correct 'X-MAGICBELL-USER-EMAIL' or 'X-MAGICBELL-USER-EXTERNAL-ID' header to identify the user.",
-                            "help_link": "https://magicbell.com/docs/rest-api/authentication"
-                        }
-                    ]
-                }
-              }
-            }
-          }
+          "401": { "$ref": "#/components/responses/Unauthorized" }
         }
       }
     },
@@ -2315,6 +2298,23 @@
       }
     },
     "responses": {
+      "Unauthorized": {
+        "description": "Authentication credentials were missing or incorrect.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorArray"
+            },
+            "example": {
+              "errors": [
+                {
+                  "message": "Authentication credentials were missing or incorrect."
+                }
+              ]
+            }
+          }
+        }
+      },
       "NotFound": {
         "description": "The specified resource was not found",
         "content": {
