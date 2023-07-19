@@ -1893,6 +1893,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "type": "object",
                 "properties": {
                   "categories": {
                     "type": "array",
