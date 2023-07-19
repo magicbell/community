@@ -192,6 +192,72 @@
                       }
                     }
                   ]
+                },
+                "example": {
+                  "per_page": 100,
+                  "current_page": 1,
+                  "notifications": [
+                    {
+                      "id": "4e2e236a-4538-4466-a9d6-30489e910b1f",
+                      "title": "Your order is ready for pickup",
+                      "category": null,
+                      "topic": "order:33098",
+                      "created_at": "2023-07-14T07:48:29.356351Z",
+                      "updated_at": "2023-07-14T07:48:29.767895Z",
+                      "sent_at": "2023-07-14T07:48:29.098493Z",
+                      "recipient": {
+                        "user": {
+                          "id": "501db41e-8780-4173-976d-169899f14f93",
+                          "email": "person@example.com",
+                          "external_id": null,
+                          "first_name": "Person",
+                          "last_name": "Doe"
+                        }
+                      },
+                      "read_at": null,
+                      "seen_at": null,
+                      "status": "unseen",
+                      "archived_at": null,
+                      "discarded_at": null,
+                      "deliveries": [
+                        {
+                          "id": "14bf943c-3fb5-4bc3-9dc4-6ed6ab716d58",
+                          "channel": "sms",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        },
+                        {
+                          "id": "802aaa0e-579b-403e-a872-3bb3e114eb5d",
+                          "channel": "email",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        },
+                        {
+                          "id": "57178bac-58d7-474c-9d2d-ca8c441fefad",
+                          "channel": "web_push",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        },
+                        {
+                          "id": "48ecd2dd-afda-438d-921d-3010c74c2b35",
+                          "channel": "mobile_push",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        },
+                        {
+                          "id": "7d4d820f-5e74-4af6-877a-bdf3f725c754",
+                          "channel": "in_app",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        }
+                      ]
+                    }
+                  ]
                 }
               }
             }
