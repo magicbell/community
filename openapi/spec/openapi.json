@@ -794,20 +794,7 @@
               }
             }
           },
-          "422": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'user' must have an external id or an email so MagicBell can uniquely identify the user"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       },
       "get": {
@@ -2542,6 +2529,23 @@
       },
       "NoContent": {
         "description": "The request was successful and the response body is empty"
+      },
+      "UnprocessableEntity": {
+        "description": "The request was unacceptable due to invalid or missing data",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorArray"
+            },
+            "example": {
+              "errors": [
+                {
+                  "message": "The request was unacceptable due to invalid or missing data."
+                }
+              ]
+            }
+          }
+        }
       }
     },
     "schemas": {
