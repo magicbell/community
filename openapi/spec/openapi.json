@@ -40,6 +40,35 @@
                       }
                     }
                   ]
+                },
+                "example": {
+                  "per_page": 15,
+                  "current_page": 1,
+                  "broadcasts": [{
+                    "id": "d5f4f217-9475-4e47-85a3-b395d8134e8f",
+                    "title": "Pickup Instructions – In-Store",
+                    "category": "order_ready",
+                    "topic": "order:33098",
+                    "recipients": [
+                      { "external_id": "customer_1" },
+                      {
+                        "email": "person@example.com",
+                        "last_name": "Doe",
+                        "first_name": "Person",
+                        "phone_numbers": ["+31612345678"]
+                      }
+                    ],
+                    "status": {
+                      "errors": [],
+                      "status": "processed",
+                      "summary": {
+                        "total": 2,
+                        "failures": 0
+                      }
+                    },
+                    "sent_at": "2023-07-14T07:48:29.098493Z",
+                    "created_at": "2023-07-14T07:48:29.098493Z"
+                  }]
                 }
               }
             }
