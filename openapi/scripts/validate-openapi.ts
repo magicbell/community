@@ -15,7 +15,7 @@ if (showHelp) {
   process.exit(0);
 }
 
-const ajv = new Ajv();
+const ajv = new Ajv({ allErrors: true });
 addFormats(ajv);
 
 const spec = await fs.readJSON(path.resolve(specFile));
