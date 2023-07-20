@@ -2,4 +2,6 @@
 "openapi": minor
 ---
 
-add `/users/{user_id}/notifications`
+Add endpoint to list notifications of a specific user
+
+- `GET /users/{user_id}/notifications`
