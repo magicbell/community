@@ -1917,13 +1917,7 @@
                 }
               },
               "example":{
-                "categories": [
-                  {
-                    "slug": "comments"
-                  }, {
-                    "slug": "likes"
-                  }
-                ]
+                "categories": [{ "slug": "comments" }]
               }
             }
           }
