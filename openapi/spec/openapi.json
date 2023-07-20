@@ -2098,6 +2098,29 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Metrics"
+                },
+                "example": {
+                  "metrics": [
+                    [ 0, 0, 0 ],
+                    [ 2, 2, 2 ],
+                    [ 0, 0, 0 ]
+                  ],
+                  "labels": [
+                    "2023-07-18T00:00:00Z",
+                    "2023-07-19T00:00:00Z",
+                    "2023-07-20T00:00:00Z"
+                  ],
+                  "schema": {
+                    "metric": [
+                      { "entity": "broadcast", "operation": "count" },
+                      { "entity": "notification", "operation": "count" },
+                      { "entity": "user", "operation": "count" }
+                    ],
+                    "label": {
+                      "name": "day",
+                      "type": "timestamp"
+                    }
+                  }
                 }
               }
             }
