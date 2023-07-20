@@ -2146,6 +2146,27 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Metrics"
+                },
+                "example": {
+                  "metrics": [
+                    [ 37, 37, 31 ],
+                    [ 243, 298, 49 ]
+                  ],
+                  "labels": [
+                    "member_invited",
+                    "new_message"
+                  ],
+                  "schema": {
+                    "metric": [
+                      { "entity": "broadcast", "operation": "count" },
+                      { "entity": "notification", "operation": "count" },
+                      { "entity": "user", "operation": "count" }
+                    ],
+                    "label": {
+                      "name": "category",
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
