@@ -3245,7 +3245,7 @@
           },
           "status": {
             "type": "string",
-            "enum": ["processing"]
+            "enum": ["enqueued", "processing", "processed"]
           },
           "summary": {
             "type": "object",
@@ -3297,10 +3297,12 @@
                   "additionalProperties": false,
                   "properties": {
                     "email": {
+                      "nullable": true,
                       "type": "string",
                       "description": "The identifying email of the user if supplied in the import request."
                     },
                     "external_id": {
+                      "nullable": true,
                       "type": "string",
                       "description": "The identifying external_id of the user if supplied in the import request."
                     },
