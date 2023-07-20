@@ -1062,6 +1062,72 @@
                       }
                     }
                   ]
+                },
+                "example": {
+                  "per_page": 15,
+                  "current_page": 1,
+                  "notifications": [
+                    {
+                      "id": "d1131e8f-c60b-4fa4-abc7-2ca3f19cddb4",
+                      "title": "You have a new message",
+                      "category": null,
+                      "topic": null,
+                      "created_at": "2022-12-22T10:36:13.792718Z",
+                      "updated_at": "2022-12-22T10:36:13.942176Z",
+                      "sent_at": "2022-12-22T10:36:13.672902Z",
+                      "recipient": {
+                        "user": {
+                          "id": "0d46ed50-ae34-488b-a32f-ad8887e22aa0",
+                          "email": "person@example.com",
+                          "external_id": null,
+                          "first_name": "Person",
+                          "last_name": "Doe"
+                        }
+                      },
+                      "read_at": null,
+                      "seen_at": null,
+                      "status": "unseen",
+                      "archived_at": null,
+                      "discarded_at": null,
+                      "deliveries": [
+                        {
+                          "id": "54980355-f813-43aa-a4e2-8e744adb32e6",
+                          "channel": "sms",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        },
+                        {
+                          "id": "90f9fcd1-21fa-4bd6-a076-33b2787cba1f",
+                          "channel": "email",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        },
+                        {
+                          "id": "f9f28331-4c03-48c8-b2b7-276a2250a4df",
+                          "channel": "web_push",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        },
+                        {
+                          "id": "7d5f136a-1f83-4d41-b8b6-cca1793113a2",
+                          "channel": "mobile_push",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        },
+                        {
+                          "id": "7bd247da-4a2d-47d9-947e-4416b63da63a",
+                          "channel": "in_app",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        }
+                      ]
+                    }
+                  ]
                 }
               }
             }
