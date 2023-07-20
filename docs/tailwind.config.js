@@ -32,7 +32,7 @@ module.exports = {
         app2: '#1E212F',
         bgDefault: '#23283B',
         bgHover: '#21283E',
-        outlineDark: '#3F3566',
+        outlineDark: '#354061',
         darkGradientStart: '#23283d40',
         darkGradientEnd: '#1e212f0d',
         borderMuted: '#354061',

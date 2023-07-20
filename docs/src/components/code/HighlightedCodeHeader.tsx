@@ -10,9 +10,7 @@ export default function HighlightedCodeHeader({ title, code }: Props) {
   return (
     <div
       className="pl-6 px-3 rounded-t-md uppercase text-xs font-bold text-white flex items-center h-10"
-      style={{
-        background: '#140939',
-      }}
+      style={{ background: '#23283B' }}
     >
       <div className="flex-1">{title}</div>
       <div className="border-l border-white/25 py-0.5 pl-2">
