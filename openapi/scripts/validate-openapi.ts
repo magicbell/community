@@ -4,6 +4,7 @@ import 'zx/globals';
 import swagger from '@apidevtools/swagger-parser';
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
+import betterAjvErrors from 'better-ajv-errors';
 import jsonpath from 'jsonpath';
 import { OpenAPIV3 } from 'openapi-types';
 
@@ -92,11 +93,10 @@ function assertRequestExamplesMatchSchema() {
 
       const valid = ajv.validate(content.schema, content.example);
       if (!valid) {
-        errors.push(
-          `Request example for ${operation.operationId} does not match schema, ${ajv.errors
-            ?.map((e) => `field '${e.keyword}' ${e.message} (path ${e.instancePath})`)
-            .join(', ')}`,
-        );
+        const ajvErrors = betterAjvErrors(content.schema, content.example, ajv.errors, { format: 'js' });
+        for (const { error } of ajvErrors) {
+          errors.push(`Request example for ${operation.operationId} does not match schema. ${error.trim()}`);
+        }
       }
     }
   }
@@ -130,11 +130,12 @@ function assertResponseExamplesMatchSchema() {
 
         const valid = ajv.validate(content.schema, content.example);
         if (!valid) {
-          errors.push(
-            `Response example for ${operation.operationId} (${statusCode}) does not match schema, ${ajv.errors
-              ?.map((e) => `field '${e.keyword}' ${e.message} (path ${e.instancePath})`)
-              .join(', ')}`,
-          );
+          const ajvErrors = betterAjvErrors(content.schema, content.example, ajv.errors, { format: 'js' });
+          for (const { error } of ajvErrors) {
+            errors.push(
+              `Response example for ${operation.operationId} (${statusCode}) does not match schema. ${error.trim()}`,
+            );
+          }
         }
       }
     }
@@ -164,7 +165,7 @@ assertResponseExamplesMatchSchema();
 assertPathsMatchConvention();
 
 for (const error of errors) {
-  console.log(chalk.redBright(error));
+  console.log(error);
 }
 
 if (errors.length) {
