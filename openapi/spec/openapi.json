@@ -44,31 +44,33 @@
                 "example": {
                   "per_page": 15,
                   "current_page": 1,
-                  "broadcasts": [{
-                    "id": "d5f4f217-9475-4e47-85a3-b395d8134e8f",
-                    "title": "Pickup Instructions – In-Store",
-                    "category": "order_ready",
-                    "topic": "order:33098",
-                    "recipients": [
-                      { "external_id": "customer_1" },
-                      {
-                        "email": "person@example.com",
-                        "last_name": "Doe",
-                        "first_name": "Person",
-                        "phone_numbers": ["+31612345678"]
-                      }
-                    ],
-                    "status": {
-                      "errors": [],
-                      "status": "processed",
-                      "summary": {
-                        "total": 2,
-                        "failures": 0
-                      }
-                    },
-                    "sent_at": "2023-07-14T07:48:29.098493Z",
-                    "created_at": "2023-07-14T07:48:29.098493Z"
-                  }]
+                  "broadcasts": [
+                    {
+                      "id": "d5f4f217-9475-4e47-85a3-b395d8134e8f",
+                      "title": "Pickup Instructions – In-Store",
+                      "category": "order_ready",
+                      "topic": "order:33098",
+                      "recipients": [
+                        { "external_id": "customer_1" },
+                        {
+                          "email": "person@example.com",
+                          "last_name": "Doe",
+                          "first_name": "Person",
+                          "phone_numbers": ["+31612345678"]
+                        }
+                      ],
+                      "status": {
+                        "errors": [],
+                        "status": "processed",
+                        "summary": {
+                          "total": 2,
+                          "failures": 0
+                        }
+                      },
+                      "sent_at": "2023-07-14T07:48:29.098493Z",
+                      "created_at": "2023-07-14T07:48:29.098493Z"
+                    }
+                  ]
                 }
               }
             }
@@ -546,7 +548,7 @@
               }
             }
           },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -566,8 +568,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -589,8 +591,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -612,8 +614,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -635,8 +637,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -656,8 +658,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -683,7 +685,7 @@
           { "$ref": "#/components/parameters/topics_query_param" }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" }
+          "204": { "$ref": "#/components/responses/NoContent" }
         }
       }
     },
@@ -709,7 +711,7 @@
           { "$ref": "#/components/parameters/topics_query_param" }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" }
+          "204": { "$ref": "#/components/responses/NoContent" }
         }
       }
     },
@@ -923,7 +925,7 @@
               }
             }
           },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "put": {
@@ -976,7 +978,7 @@
             }
           },
           "422": { "$ref": "#/components/responses/UnprocessableEntity" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -996,8 +998,8 @@
           }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1036,14 +1038,14 @@
                               "title": { "$ref": "#/components/schemas/Notification/properties/title" },
                               "category": { "$ref": "#/components/schemas/Notification/properties/category" },
                               "topic": { "$ref": "#/components/schemas/Notification/properties/topic" },
-                              "created_at": { "type": "string", "format": "date-time","nullable": false },
-                              "updated_at": { "type": "string", "format": "date-time","nullable": false },
+                              "created_at": { "type": "string", "format": "date-time", "nullable": false },
+                              "updated_at": { "type": "string", "format": "date-time", "nullable": false },
                               "sent_at": { "type": "string", "format": "date-time", "nullable": true },
                               "read_at": { "type": "string", "format": "date-time", "nullable": true },
                               "seen_at": { "type": "string", "format": "date-time", "nullable": true },
                               "archived_at": { "type": "string", "format": "date-time", "nullable": true },
                               "discarded_at": { "type": "string", "format": "date-time", "nullable": true },
-                              "status": { "type":  "string", "enum": ["unseen", "unread", "read", "archived"] },
+                              "status": { "type": "string", "enum": ["unseen", "unread", "read", "archived"] },
                               "recipient": {
                                 "type": "object",
                                 "properties": {
@@ -1053,7 +1055,7 @@
                               },
                               "deliveries": {
                                 "type": "array",
-                                "items": { "$ref":  "#/components/schemas/Delivery" },
+                                "items": { "$ref": "#/components/schemas/Delivery" },
                                 "nullable": false
                               }
                             }
@@ -1196,7 +1198,7 @@
             }
           },
           "422": { "$ref": "#/components/responses/UnprocessableEntity" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -1215,8 +1217,8 @@
           }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1281,7 +1283,7 @@
             }
           },
           "422": { "$ref": "#/components/responses/UnprocessableEntity" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -1300,7 +1302,7 @@
           }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
+          "204": { "$ref": "#/components/responses/NoContent" },
           "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
@@ -1418,7 +1420,7 @@
           { "$ref": "#/components/parameters/device_token_path_param" }
         ],
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
+          "204": { "$ref": "#/components/responses/NoContent" },
           "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
@@ -1477,8 +1479,8 @@
         "description": "Delete a user's push subscriptions. Identifies the user by the user's ID and the push subscription by the subscription's ID. ",
         "operationId": "users-push-subscriptions-delete",
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1635,7 +1637,7 @@
               }
             }
           },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1839,7 +1841,7 @@
               }
             }
           },
-          "404": { "$ref" : "#/components/responses/NotFound" },
+          "404": { "$ref": "#/components/responses/NotFound" },
           "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
@@ -1880,7 +1882,7 @@
               }
             }
           },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -1916,14 +1918,14 @@
                   }
                 }
               },
-              "example":{
+              "example": {
                 "categories": [{ "slug": "comments" }]
               }
             }
           }
         },
         "responses": {
-          "204": { "$ref":  "#/components/responses/NoContent" },
+          "204": { "$ref": "#/components/responses/NoContent" },
           "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
@@ -2069,7 +2071,7 @@
               }
             }
           },
-          "404": { "$ref" : "#/components/responses/NotFound" }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -2095,15 +2097,11 @@
                 },
                 "example": {
                   "metrics": [
-                    [ 0, 0, 0 ],
-                    [ 2, 2, 2 ],
-                    [ 0, 0, 0 ]
+                    [0, 0, 0],
+                    [2, 2, 2],
+                    [0, 0, 0]
                   ],
-                  "labels": [
-                    "2023-07-18T00:00:00Z",
-                    "2023-07-19T00:00:00Z",
-                    "2023-07-20T00:00:00Z"
-                  ],
+                  "labels": ["2023-07-18T00:00:00Z", "2023-07-19T00:00:00Z", "2023-07-20T00:00:00Z"],
                   "schema": {
                     "metric": [
                       { "entity": "broadcast", "operation": "count" },
@@ -2143,13 +2141,10 @@
                 },
                 "example": {
                   "metrics": [
-                    [ 37, 37, 31 ],
-                    [ 243, 298, 49 ]
+                    [37, 37, 31],
+                    [243, 298, 49]
                   ],
-                  "labels": [
-                    "member_invited",
-                    "new_message"
-                  ],
+                  "labels": ["member_invited", "new_message"],
                   "schema": {
                     "metric": [
                       { "entity": "broadcast", "operation": "count" },
@@ -2189,13 +2184,10 @@
                 },
                 "example": {
                   "metrics": [
-                    [ 84, 123, 53],
-                    [ 7, 12, 12 ]
+                    [84, 123, 53],
+                    [7, 12, 12]
                   ],
-                  "labels": [
-                    "thread.23",
-                    "thread.48"
-                  ],
+                  "labels": ["thread.23", "thread.48"],
                   "schema": {
                     "metric": [
                       { "entity": "broadcast", "operation": "count" },
@@ -2628,6 +2620,7 @@
       },
       "Recipient": {
         "type": "object",
+        "description": "A recipient is a user, a segment (specified by matches), or a topic. For guidance on selecting a primary identifier, see https://www.magicbell.com/docs/choosing-an-identifier",
         "additionalProperties": true,
         "properties": {
           "email": {
@@ -2637,12 +2630,16 @@
           },
           "external_id": {
             "type": "string",
-            "description": "A unique string that MagicBell can utilize to uniquely identify the user. We recommend setting this attribute to the ID of the user in your database. Provide the external id if the user's email is unavailable.",
+            "description": "The unique identifier from your database for the recipient.",
             "nullable": true
           },
           "matches": {
             "type": "string",
             "description": "An SQL-like expression to match users by their stored attributes. Set it to \"*\" to send a notification to all users."
+          },
+          "topic": {
+            "type": "object",
+            "description": "The topic to send the notification to. It can be a user, a segment or a group."
           }
         }
       },
@@ -2653,6 +2650,7 @@
       "Broadcast": {
         "type": "object",
         "additionalProperties": false,
+        "description": "A broadcast is a precursor to a notification. When you specify multiple recipients, MagicBell creates a notification for each recipient and delivers it to them based on their preferences.",
         "properties": {
           "id": {
             "type": "string",
@@ -2687,13 +2685,13 @@
           },
           "topic": {
             "type": "string",
-            "description": "Topic the notification belongs to. This is useful to create threads.",
+            "description": "Topic the notification belongs to. This is useful for creating threads or offering topic level unsubscriptions.",
             "nullable": true,
             "maxLength": 100
           },
           "custom_attributes": {
             "type": "object",
-            "description": "Set of key-value pairs that you can attach to a notification, 6KB at maximum. It accepts objects for the value of a key.\n\nYou can use it to share data between channels or to render a custom UI.",
+            "description": "Nested key-value attributes that can be used for rendering in templates in MagicBell or third-party providers. Limited to 256KB - please see Overrides for another way to send channel specific data.",
             "nullable": true,
             "additionalProperties": true
           },
@@ -2714,6 +2712,7 @@
             "type": "array",
             "items": {
               "anyOf": [
+                { "$ref": "#/components/schemas/TopicRecipient" },
                 { "$ref": "#/components/schemas/MatchesRecipient" },
                 { "$ref": "#/components/schemas/EmailRecipient" },
                 { "$ref": "#/components/schemas/ExternalIdRecipient" }
@@ -3392,6 +3391,27 @@
           }
         }
       },
+      "TopicRecipient": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["topic"],
+        "properties": {
+          "topic": {
+            "type": "object",
+            "description": "The topic to deliver to.",
+            "nullable": false,
+            "required": ["subscribers"],
+            "additionalProperties": false,
+            "properties": {
+              "subscribers": {
+                "type": "boolean",
+                "description": "Setting this property triggers delivery to topic subscribers, respecting their unsubscriptions.",
+                "nullable": false
+              }
+            }
+          }
+        }
+      },
       "MatchesRecipient": {
         "type": "object",
         "additionalProperties": false,
@@ -3439,9 +3459,9 @@
             "nullable": false,
             "items": {
               "type": "array",
-                "items": {
-                    "type": "integer"
-                }
+              "items": {
+                "type": "integer"
+              }
             }
           },
           "labels": {
@@ -3467,13 +3487,7 @@
                     },
                     "operation": {
                       "type": "string",
-                      "enum": [
-                        "count",
-                        "avg",
-                        "sum",
-                        "min",
-                        "max"
-                      ]
+                      "enum": ["count", "avg", "sum", "min", "max"]
                     }
                   }
                 }
@@ -3488,10 +3502,7 @@
                   },
                   "type": {
                     "type": "string",
-                    "enum": [
-                      "timestamp",
-                      "string"
-                    ]
+                    "enum": ["timestamp", "string"]
                   }
                 }
               }
