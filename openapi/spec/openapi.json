@@ -40,6 +40,37 @@
                       }
                     }
                   ]
+                },
+                "example": {
+                  "per_page": 15,
+                  "current_page": 1,
+                  "broadcasts": [
+                    {
+                      "id": "d5f4f217-9475-4e47-85a3-b395d8134e8f",
+                      "title": "Pickup Instructions – In-Store",
+                      "category": "order_ready",
+                      "topic": "order:33098",
+                      "recipients": [
+                        { "external_id": "customer_1" },
+                        {
+                          "email": "person@example.com",
+                          "last_name": "Doe",
+                          "first_name": "Person",
+                          "phone_numbers": ["+31612345678"]
+                        }
+                      ],
+                      "status": {
+                        "errors": [],
+                        "status": "processed",
+                        "summary": {
+                          "total": 2,
+                          "failures": 0
+                        }
+                      },
+                      "sent_at": "2023-07-14T07:48:29.098493Z",
+                      "created_at": "2023-07-14T07:48:29.098493Z"
+                    }
+                  ]
                 }
               }
             }
@@ -65,11 +96,38 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["broadcasts"],
+                  "required": ["broadcast"],
                   "properties": {
                     "broadcast": {
                       "$ref": "#/components/schemas/Broadcast"
                     }
+                  }
+                },
+                "example": {
+                  "broadcast": {
+                    "id": "d5f4f217-9475-4e47-85a3-b395d8134e8f",
+                    "title": "Pickup Instructions – In-Store",
+                    "category": "order_ready",
+                    "topic": "order:33098",
+                    "recipients": [
+                      { "external_id": "customer_1" },
+                      {
+                        "email": "person@example.com",
+                        "last_name": "Doe",
+                        "first_name": "Person",
+                        "phone_numbers": ["+31612345678"]
+                      }
+                    ],
+                    "status": {
+                      "errors": [],
+                      "status": "processed",
+                      "summary": {
+                        "total": 2,
+                        "failures": 0
+                      }
+                    },
+                    "sent_at": "2023-07-14T07:48:29.098493Z",
+                    "created_at": "2023-07-14T07:48:29.098493Z"
                   }
                 }
               }
@@ -134,6 +192,72 @@
                           }
                         }
                       }
+                    }
+                  ]
+                },
+                "example": {
+                  "per_page": 100,
+                  "current_page": 1,
+                  "notifications": [
+                    {
+                      "id": "4e2e236a-4538-4466-a9d6-30489e910b1f",
+                      "title": "Your order is ready for pickup",
+                      "category": null,
+                      "topic": "order:33098",
+                      "created_at": "2023-07-14T07:48:29.356351Z",
+                      "updated_at": "2023-07-14T07:48:29.767895Z",
+                      "sent_at": "2023-07-14T07:48:29.098493Z",
+                      "recipient": {
+                        "user": {
+                          "id": "501db41e-8780-4173-976d-169899f14f93",
+                          "email": "person@example.com",
+                          "external_id": null,
+                          "first_name": "Person",
+                          "last_name": "Doe"
+                        }
+                      },
+                      "read_at": null,
+                      "seen_at": null,
+                      "status": "unseen",
+                      "archived_at": null,
+                      "discarded_at": null,
+                      "deliveries": [
+                        {
+                          "id": "14bf943c-3fb5-4bc3-9dc4-6ed6ab716d58",
+                          "channel": "sms",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        },
+                        {
+                          "id": "802aaa0e-579b-403e-a872-3bb3e114eb5d",
+                          "channel": "email",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        },
+                        {
+                          "id": "57178bac-58d7-474c-9d2d-ca8c441fefad",
+                          "channel": "web_push",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        },
+                        {
+                          "id": "48ecd2dd-afda-438d-921d-3010c74c2b35",
+                          "channel": "mobile_push",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        },
+                        {
+                          "id": "7d4d820f-5e74-4af6-877a-bdf3f725c754",
+                          "channel": "in_app",
+                          "status": "sent",
+                          "scheduled_at": "2023-07-14T07:48:29.560412Z",
+                          "title": "Your order is ready for pickup"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -225,33 +349,7 @@
               }
             }
           },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'notification.title' is missing"
-                    },
-                    {
-                      "message": "Param 'notification.recipients' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       },
       "get": {
@@ -450,20 +548,7 @@
               }
             }
           },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -483,21 +568,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": { "description": "User notification delete successfully" },
-          "404": {
-            "description": "User notification not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -519,23 +591,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": {
-            "description": "User notification marked as read"
-          },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification_read with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -557,23 +614,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": {
-            "description": "User notification marked as unread"
-          },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification_read with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -595,23 +637,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": {
-            "description": "User notification marked as archived"
-          },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification_archive with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -631,23 +658,8 @@
           { "$ref": "#/components/parameters/notification_id" }
         ],
         "responses": {
-          "204": {
-            "description": "User notification marked as unarchived"
-          },
-          "404": {
-            "description": "The notification is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A notification_archive with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -673,9 +685,7 @@
           { "$ref": "#/components/parameters/topics_query_param" }
         ],
         "responses": {
-          "204": {
-            "description": "All notifications of the user marked as read"
-          }
+          "204": { "$ref": "#/components/responses/NoContent" }
         }
       }
     },
@@ -701,9 +711,7 @@
           { "$ref": "#/components/parameters/topics_query_param" }
         ],
         "responses": {
-          "204": {
-            "description": "All notifications of the user marked as seen"
-          }
+          "204": { "$ref": "#/components/responses/NoContent" }
         }
       }
     },
@@ -762,20 +770,7 @@
               }
             }
           },
-          "422": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'user' must have an external id or an email so MagicBell can uniquely identify the user"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       },
       "get": {
@@ -858,10 +853,10 @@
                   ]
                 },
                 "example": {
-                  "current_page": "1",
-                  "total_pages": "1",
-                  "total": "1",
-                  "per_page": "100",
+                  "current_page": 1,
+                  "total_pages": 1,
+                  "total": 1,
+                  "per_page": 100,
                   "users": [
                     {
                       "id": "7fb3ce9f-a866-4dff-8ce8-2f64f7c5ed4c",
@@ -887,20 +882,6 @@
                         "preferred_pronoun": "She"
                       },
                       "phone_numbers": ["+15005550001"]
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'user' must have an external id or an email so MagicBell can uniquely identify the user"
                     }
                   ]
                 }
@@ -944,20 +925,7 @@
               }
             }
           },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist for the project"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "put": {
@@ -1009,34 +977,8 @@
               }
             }
           },
-          "422": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'notification_preferences.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -1056,21 +998,8 @@
           }
         ],
         "responses": {
-          "204": { "description": "OK" },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1133,6 +1062,72 @@
                           }
                         }
                       }
+                    }
+                  ]
+                },
+                "example": {
+                  "per_page": 15,
+                  "current_page": 1,
+                  "notifications": [
+                    {
+                      "id": "d1131e8f-c60b-4fa4-abc7-2ca3f19cddb4",
+                      "title": "You have a new message",
+                      "category": null,
+                      "topic": null,
+                      "created_at": "2022-12-22T10:36:13.792718Z",
+                      "updated_at": "2022-12-22T10:36:13.942176Z",
+                      "sent_at": "2022-12-22T10:36:13.672902Z",
+                      "recipient": {
+                        "user": {
+                          "id": "0d46ed50-ae34-488b-a32f-ad8887e22aa0",
+                          "email": "person@example.com",
+                          "external_id": null,
+                          "first_name": "Person",
+                          "last_name": "Doe"
+                        }
+                      },
+                      "read_at": null,
+                      "seen_at": null,
+                      "status": "unseen",
+                      "archived_at": null,
+                      "discarded_at": null,
+                      "deliveries": [
+                        {
+                          "id": "54980355-f813-43aa-a4e2-8e744adb32e6",
+                          "channel": "sms",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        },
+                        {
+                          "id": "90f9fcd1-21fa-4bd6-a076-33b2787cba1f",
+                          "channel": "email",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        },
+                        {
+                          "id": "f9f28331-4c03-48c8-b2b7-276a2250a4df",
+                          "channel": "web_push",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        },
+                        {
+                          "id": "7d5f136a-1f83-4d41-b8b6-cca1793113a2",
+                          "channel": "mobile_push",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        },
+                        {
+                          "id": "7bd247da-4a2d-47d9-947e-4416b63da63a",
+                          "channel": "in_app",
+                          "status": "sent",
+                          "scheduled_at": "2022-12-22T10:36:13.846195Z",
+                          "title": "You have a new message"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -1202,34 +1197,8 @@
               }
             }
           },
-          "422": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'notification_preferences.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -1248,21 +1217,8 @@
           }
         ],
         "responses": {
-          "204": { "description": "OK" },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1326,34 +1282,8 @@
               }
             }
           },
-          "422": {
-            "description": "Validation error",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'notification_preferences.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -1372,21 +1302,8 @@
           }
         ],
         "responses": {
-          "204": { "description": "OK" },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "A user with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1446,29 +1363,7 @@
               }
             }
           },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    { "message": "Param 'push_subscription.device_token' is missing" },
-                    { "message": "Param 'push_subscription.platform' is missing" }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       },
       "get": {
@@ -1493,8 +1388,6 @@
                 "example": {
                   "current_page": 1,
                   "per_page": 10,
-                  "total_pages": 1,
-                  "total_count": 1,
                   "push_subscriptions": [
                     {
                       "id": "f80a7574-b309-4395-bb26-c503fe697d52",
@@ -1502,30 +1395,14 @@
                       "device_token": "x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV",
                       "platform": "ios",
                       "created_at": "2021-03-01T12:00:00.000Z",
-                      "discarded_at": ""
+                      "discarded_at": null
                     }
                   ]
                 }
               }
             }
           },
-          "401": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "code": "user_not_found",
-                      "message": "User not found",
-                      "suggestion": "Please provide the correct 'X-MAGICBELL-USER-EMAIL' or 'X-MAGICBELL-USER-EXTERNAL-ID' header to identify the user.",
-                      "help_link": "https://magicbell.com/docs/rest-api/authentication"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "401": { "$ref": "#/components/responses/Unauthorized" }
         }
       }
     },
@@ -1543,21 +1420,8 @@
           { "$ref": "#/components/parameters/device_token_path_param" }
         ],
         "responses": {
-          "204": { "description": "Subscription delete successfully" },
-          "404": {
-            "description": "The device token was not registered",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "No subscription with the provided device token was found"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1585,8 +1449,6 @@
                 "example": {
                   "current_page": 1,
                   "per_page": 10,
-                  "total_pages": 1,
-                  "total_count": 1,
                   "push_subscriptions": [
                     {
                       "id": "f80a7574-b309-4395-bb26-c503fe697d52",
@@ -1594,7 +1456,7 @@
                       "device_token": "x4doKe98yEZ21Kum2Qq39M3b8jkhonuIupobyFnL0wJMSWAZ8zoTp2dyHgV",
                       "platform": "ios",
                       "created_at": "2021-03-01T12:00:00.000Z",
-                      "discarded_at": ""
+                      "discarded_at": null
                     }
                   ]
                 }
@@ -1617,8 +1479,8 @@
         "description": "Delete a user's push subscriptions. Identifies the user by the user's ID and the push subscription by the subscription's ID. ",
         "operationId": "users-push-subscriptions-delete",
         "responses": {
-          "204": { "description": "Subscription delete successfully" },
-          "404": { "description": "User or subscription not found" }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1775,21 +1637,7 @@
               }
             }
           },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "code": "no_user_with_provided_email",
-                      "message": "A user with the email was not found in project with this API key"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -1937,33 +1785,7 @@
               }
             }
           },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'subscription.topic' is missing"
-                    },
-                    {
-                      "message": "Param 'subscription.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
     },
@@ -2019,44 +1841,8 @@
               }
             }
           },
-          "404": {
-            "description": "Topic subscription not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Couldn't find a user's subscription matching the criteria"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'subscription.categories' is missing"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref": "#/components/responses/NotFound" },
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
     },
@@ -2096,30 +1882,7 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Couldn't find topic: comments"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       },
       "delete": {
@@ -2137,6 +1900,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "type": "object",
                 "properties": {
                   "categories": {
                     "type": "array",
@@ -2153,26 +1917,16 @@
                     }
                   }
                 }
+              },
+              "example": {
+                "categories": [{ "slug": "comments" }]
               }
             }
           }
         },
         "responses": {
-          "204": { "description": "Topic subscription delete successfully" },
-          "404": {
-            "description": "Topic subscription not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Couldn't find a user's subscription matching the criteria"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "204": { "$ref": "#/components/responses/NoContent" },
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
     },
@@ -2250,30 +2004,7 @@
               }
             }
           },
-          "422": {
-            "description": "Invalid data",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "description": "List of validation errors"
-                    }
-                  }
-                },
-                "example": {
-                  "errors": [
-                    {
-                      "message": "Param 'import.users' must be filled"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "422": { "$ref": "#/components/responses/UnprocessableEntity" }
         }
       }
     },
@@ -2340,20 +2071,7 @@
               }
             }
           },
-          "404": {
-            "description": "The import is not found",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "message": "An import with the the given id doesn't exist"
-                    }
-                  ]
-                }
-              }
-            }
-          }
+          "404": { "$ref": "#/components/responses/NotFound" }
         }
       }
     },
@@ -2376,6 +2094,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Metrics"
+                },
+                "example": {
+                  "metrics": [
+                    [0, 0, 0],
+                    [2, 2, 2],
+                    [0, 0, 0]
+                  ],
+                  "labels": ["2023-07-18T00:00:00Z", "2023-07-19T00:00:00Z", "2023-07-20T00:00:00Z"],
+                  "schema": {
+                    "metric": [
+                      { "entity": "broadcast", "operation": "count" },
+                      { "entity": "notification", "operation": "count" },
+                      { "entity": "user", "operation": "count" }
+                    ],
+                    "label": {
+                      "name": "day",
+                      "type": "timestamp"
+                    }
+                  }
                 }
               }
             }
@@ -2401,6 +2138,24 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Metrics"
+                },
+                "example": {
+                  "metrics": [
+                    [37, 37, 31],
+                    [243, 298, 49]
+                  ],
+                  "labels": ["member_invited", "new_message"],
+                  "schema": {
+                    "metric": [
+                      { "entity": "broadcast", "operation": "count" },
+                      { "entity": "notification", "operation": "count" },
+                      { "entity": "user", "operation": "count" }
+                    ],
+                    "label": {
+                      "name": "category",
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -2426,6 +2181,24 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Metrics"
+                },
+                "example": {
+                  "metrics": [
+                    [84, 123, 53],
+                    [7, 12, 12]
+                  ],
+                  "labels": ["thread.23", "thread.48"],
+                  "schema": {
+                    "metric": [
+                      { "entity": "broadcast", "operation": "count" },
+                      { "entity": "notification", "operation": "count" },
+                      { "entity": "user", "operation": "count" }
+                    ],
+                    "label": {
+                      "name": "topic",
+                      "type": "string"
+                    }
+                  }
                 }
               }
             }
@@ -2637,7 +2410,99 @@
         "schema": { "type": "string" }
       }
     },
+    "responses": {
+      "Unauthorized": {
+        "description": "Authentication credentials were missing or incorrect.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorArray"
+            },
+            "example": {
+              "errors": [
+                {
+                  "message": "Authentication credentials were missing or incorrect."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "The specified resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorArray"
+            },
+            "example": {
+              "errors": [
+                {
+                  "message": "A resource with the the given id doesn't exist"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "NoContent": {
+        "description": "The request was successful and the response body is empty"
+      },
+      "UnprocessableEntity": {
+        "description": "The request was unacceptable due to invalid or missing data",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorArray"
+            },
+            "example": {
+              "errors": [
+                {
+                  "message": "The request was unacceptable due to invalid or missing data."
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
     "schemas": {
+      "Error": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "nullable": false,
+            "type": "string",
+            "description": "The error message"
+          },
+          "code": {
+            "type": "string",
+            "description": "The error code"
+          },
+          "suggestion": {
+            "type": "string",
+            "description": "A suggestion to fix the error"
+          },
+          "help_link": {
+            "type": "string",
+            "description": "A link to the api documentation for the called endpoint"
+          }
+        }
+      },
+      "ErrorArray": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
       "CategoryChannels": {
         "type": "object",
         "additionalProperties": false,
@@ -3322,9 +3187,7 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "total": { "type": "integer" },
           "per_page": { "type": "integer" },
-          "total_pages": { "type": "integer" },
           "current_page": { "type": "integer" },
           "push_subscriptions": {
             "type": "array",
@@ -3440,7 +3303,7 @@
           },
           "status": {
             "type": "string",
-            "enum": ["processing"]
+            "enum": ["enqueued", "processing", "processed"]
           },
           "summary": {
             "type": "object",
@@ -3486,20 +3349,25 @@
             "properties": {
               "users": {
                 "type": "array",
-                "description": "User objects that could not be imported successfully",
-                "additionalProperties": false,
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "description": "The identifying email of the user if supplied in the import request."
-                  },
-                  "external_id": {
-                    "type": "string",
-                    "description": "The identifying external_id of the user if supplied in the import request."
-                  },
-                  "errors": {
-                    "type": "object",
-                    "description": "The errors object reflecting the structure of the user oject"
+                "items": {
+                  "type": "object",
+                  "description": "User objects that could not be imported successfully",
+                  "additionalProperties": false,
+                  "properties": {
+                    "email": {
+                      "nullable": true,
+                      "type": "string",
+                      "description": "The identifying email of the user if supplied in the import request."
+                    },
+                    "external_id": {
+                      "nullable": true,
+                      "type": "string",
+                      "description": "The identifying external_id of the user if supplied in the import request."
+                    },
+                    "errors": {
+                      "type": "object",
+                      "description": "The errors object reflecting the structure of the user oject"
+                    }
                   }
                 }
               }

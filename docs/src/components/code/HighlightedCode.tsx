@@ -70,7 +70,7 @@ export default function HighlightedCode({
         <HighlightedCodeHeader title={title || language} code={code} />
       ) : null}
       <pre
-        style={{ background: '#190b47' }}
+        style={{ background: '#262E45' }}
         className={classNames(
           'hljs font-mono p-6 text-white overflow-x-auto',
           !hideHeader || noTopBorderRadius ? 'rounded-b-md' : 'rounded-md',
