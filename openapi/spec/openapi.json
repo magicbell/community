@@ -2733,6 +2733,7 @@
             "properties": {
               "status": {
                 "type": "string",
+                "enum": ["enqueued", "processing", "processed"],
                 "readOnly": true,
                 "nullable": false
               },
