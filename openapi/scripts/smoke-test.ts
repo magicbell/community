@@ -7,6 +7,7 @@ import addFormats from 'ajv-formats';
 import axios, { AxiosRequestConfig } from 'axios';
 import { expect } from 'chai';
 import * as dotenv from 'dotenv';
+import SimpleTreeRenderer from 'listr-simple-tree-renderer';
 import { Listr } from 'listr2';
 import { OpenAPIV3 } from 'openapi-types';
 import path from 'path';
@@ -15,6 +16,9 @@ import { setTimeout } from 'timers/promises';
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 const specFile = argv.spec || process.env.INPUT_SPEC || 'spec/openapi.json';
 const serverUrl = argv.server || process.env.SERVER_URL;
+const debug = argv.debug || process.env.DEBUG;
+
+const renderer = debug ? SimpleTreeRenderer : undefined;
 
 if (argv.help) {
   console.log(
@@ -26,7 +30,8 @@ if (argv.help) {
       --spec <path>     Path to OpenAPI spec file (default: 'spec/openapi.json')
       --server <url>    URL of server to test (default: process.env.SERVER_URL)
       --op <operation>  Test only the specified operation (default: test all operations)
-    
+      --debug           Print output in tree view (default: false)
+
     Examples:
       tsx scripts/smoke-test.ts --spec spec/openapi.json
       tsx scripts/smoke-test.ts --op users-list
@@ -38,6 +43,8 @@ if (argv.help) {
 
   process.exit(0);
 }
+
+let initializing = true;
 
 const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
@@ -79,18 +86,20 @@ const headerMaskMap = {
 };
 
 function toCurl({ method, baseURL, url, data, headers }: AxiosRequestConfig) {
+  url = [baseURL.replace(/\/$/, ''), url.replace(/^\//, '')].join('/');
+
   return [
-    `curl -X ${method.toUpperCase()}`,
-    `${baseURL}/${url.replace(/^\//, '')}`,
-    Object.entries(headers)
-      .map(([key, value]) => {
-        // only replace the value with an env key if the header has a value, otherwise we can't debug missing headers.
-        value = value ? headerMaskMap[key.toUpperCase()] || value : value;
-        return `-H "${key}: ${value}"`;
-      })
-      .join(' '),
-    data && `-d '${JSON.stringify(data)}'`,
-  ].join(' ');
+    `curl --url ${url}`,
+    `--request ${method.toUpperCase()}`,
+    ...Object.entries(headers).map(([key, value]) => {
+      // only replace the value with an env key if the header has a value, otherwise we can't debug missing headers.
+      value = value ? headerMaskMap[key.toUpperCase()] || value : value;
+      return `--header "${key}: ${value}"`;
+    }),
+    data && `--data '${JSON.stringify(data).replace(/'/g, "\\'")}'`,
+  ]
+    .filter(Boolean)
+    .join(' \\\n  ');
 }
 
 async function request(
@@ -144,6 +153,11 @@ async function request(
     console.log('CURL:', toCurl(config));
     return e.response || {};
   });
+
+  if (debug && !initializing) {
+    console.log(toCurl(config));
+    console.log(`RESPONSE: ${JSON.stringify(response.data, null, 2)}`);
+  }
 
   const duration = Date.now() - start;
   const error = response.data?.errors?.[0]?.message;
@@ -210,7 +224,7 @@ function expectPathToEqual(obj: Record<string, unknown>, path: string, expected:
 }
 
 function createTests(operations: Operation[]) {
-  const suites = new Listr([], { exitOnError: false });
+  const suites = new Listr([], { exitOnError: false, renderer });
 
   for (const operation of operations) {
     const { method, path, operationId } = operation;
@@ -218,6 +232,7 @@ function createTests(operations: Operation[]) {
 
     const list = new Listr([], {
       exitOnError: false,
+      renderer,
     });
 
     suites.add({
@@ -333,7 +348,21 @@ const MAX_SETUP_ATTEMPTS = 4;
 
 async function main() {
   const spec = (await swagger.dereference(specFile)) as OpenAPIV3.Document;
-  const operations = getOperations(spec);
+
+  const operations = getOperations(spec).flatMap((operation) => {
+    // we clone notifications-create, as simple recipients are handled by go, while more complex are forwarded to rails
+    if (operation.operationId === 'notifications-create') {
+      const legacy = JSON.parse(JSON.stringify(operation));
+      legacy.operationId = `${legacy.operationId}-legacy`;
+      legacy.requestBody.content['application/json'].example.notification.recipients = [
+        { email: 'person@example.com' },
+      ];
+
+      return [operation, legacy];
+    }
+
+    return [operation];
+  });
 
   // check if api_key, api_secret and user_email are set otherwise throw an error
   if (!process.env.API_KEY || !process.env.API_SECRET || !process.env.USER_EMAIL) {
@@ -418,6 +447,8 @@ async function main() {
   // We need a combination of new notifications and existing ones, as the existing ones might not be enough - as some
   // tests are destructive, and new notifications take a while to be created.
   URL_PARAM_VALUES.notification_id = Array.from(new Set([...URL_PARAM_VALUES.notification_id, ...newNotificationIds]));
+
+  initializing = false;
 
   const suites = createTests(operations);
   await suites.run().catch(() => {
