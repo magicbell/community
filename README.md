@@ -18,10 +18,11 @@ Welcome to MagicBell!
 
 This repository is where you can join us for:
 
-- Support requests and questions about the API and SDKs
-- Roadmap and Changelog
-- Issues with MagicBell
-- Public assets and PRs (e.g., OpenAPI, docs, example apps)
+- [Support requests] and questions about the API and SDKs
+- [Changelog] and product discussions
+
+[Support requests]: https://github.com/orgs/magicbell-io/discussions
+[Changelog]: https://github.com/orgs/magicbell-io/discussions/categories/product-changelog
 
 ## SDKs
 
@@ -36,20 +37,19 @@ Apart from our [REST](https://www.magicbell.com/docs/rest-api/overview) and [Gra
 
 Read the full documentation and guides on [magicbell.com](https://magicbell.com/).
 
-Contribute in [/docs](./docs).
 
 ## Examples
 
-Check out the example repositories that show how to use MagicBell in [/examples](./examples).
+Check out the example repositories that show how to use MagicBell in [/examples](./examples) and the [MagicBell Playground]
+
+[MagicBell Playground]: https://playground.magicbell.com
 
 ## Community
 
 Discuss and ask questions about MagicBell on [GitHub Discussions](https://github.com/orgs/magicbell-io/discussions).
 
-##  OpenAPI specifications
-
-Check the OpenAPI specifications for the MagicBell REST API in [/openapi](./openapi).
-
 ## Need help?
 
-Shoot us an email at <hello@magicbell.io> or use the support widget for any account specific support requests.
+Check [GitHub Discussions] or shoot us an email at <hello@magicbell.io> for any account specific support requests.
+
+[GitHub Discussions]: https://github.com/orgs/magicbell-io/discussions
