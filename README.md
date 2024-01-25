@@ -26,7 +26,7 @@ This repository is where you can join us for:
 
 ## SDKs
 
-Apart from our [REST](https://www.magicbell.com/docs/rest-api/overview) and [GraphQL](https://www.magicbell.com/docs/graphql-api/overview) API, we offer API wrappers in several programming languages:
+Apart from our [REST](https://www.magicbell.com/docs/rest-api/overview) API, we offer API wrappers in several programming languages:
 
 - [JavaScript/TypeScript](https://github.com/magicbell-io/magicbell-js)
 - [Ruby](https://github.com/magicbell-io/magicbell-ruby)
