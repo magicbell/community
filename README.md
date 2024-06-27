@@ -21,17 +21,17 @@ This repository is where you can join us for:
 - [Support requests] and questions about the API and SDKs
 - [Changelog] and product discussions
 
-[Support requests]: https://github.com/orgs/magicbell-io/discussions
-[Changelog]: https://github.com/orgs/magicbell-io/discussions/categories/product-changelog
+[Support requests]: https://github.com/orgs/magicbell/discussions
+[Changelog]: https://github.com/orgs/magicbell/discussions/categories/product-changelog
 
 ## SDKs
 
 Apart from our [REST](https://www.magicbell.com/docs/rest-api/overview) API, we offer API wrappers in several programming languages:
 
-- [JavaScript/TypeScript](https://github.com/magicbell-io/magicbell-js)
-- [Ruby](https://github.com/magicbell-io/magicbell-ruby)
-- [iOS](https://github.com/magicbell-io/magicbell-swift)
-- [Android](https://github.com/magicbell-io/magicbell-android)
+- [JavaScript/TypeScript](https://github.com/magicbell/magicbell-js)
+- [Ruby](https://github.com/magicbell/magicbell-ruby)
+- [iOS](https://github.com/magicbell/magicbell-swift)
+- [Android](https://github.com/magicbell/magicbell-android)
 
 ## Documentation
 
@@ -46,10 +46,10 @@ Check out the example repositories that show how to use MagicBell in [/examples]
 
 ## Community
 
-Discuss and ask questions about MagicBell on [GitHub Discussions](https://github.com/orgs/magicbell-io/discussions).
+Discuss and ask questions about MagicBell on [GitHub Discussions](https://github.com/orgs/magicbell/discussions).
 
 ## Need help?
 
 Check [GitHub Discussions] or shoot us an email at <hello@magicbell.io> for any account specific support requests.
 
-[GitHub Discussions]: https://github.com/orgs/magicbell-io/discussions
+[GitHub Discussions]: https://github.com/orgs/magicbell/discussions

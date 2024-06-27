@@ -2,7 +2,7 @@
   "name": "public",
   "version": "1.0.0",
   "description": "A monorepo for MagicBell's public assets and discourse",
-  "repository": "https://github.com/magicbell-io/public",
+  "repository": "https://github.com/magicbell/public",
   "author": "Stephan Meijer <stephan.meijer@gmail.com>",
   "license": "MIT",
   "private": true,
